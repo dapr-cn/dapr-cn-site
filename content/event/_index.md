@@ -1,5 +1,5 @@
 ---
-title: Recent & Upcoming Events
+title: 最近的社区活动
 
 # Listing view
 view: compact

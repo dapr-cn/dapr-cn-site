@@ -15,24 +15,29 @@ design:
 
 content:
   slides:
-    - title: 👋 Welcome to the group
-      content: Take a look at what we're working on...
+    - title: 👋 欢迎加入 Dapr 中国社区
+      content: 看看我们在干什么......
       align: center
       background:
         position: right
         color: '#666'
         brightness: 0.7
         media: coders.jpg
-    - title: Lunch & Learn ☕️
-      content: 'Share your knowledge with the group and explore exciting new topics together!'
+    - title: 学习 & 分享 ☕️
+      content: '向社区分享你的知识，交流落地经验，和朋友们一起成长!'
       align: left
       background:
         position: center
         color: '#555'
         brightness: 0.7
         media: contact.jpg
-    - title: World-Class Semiconductor Lab
-      content: 'Just opened last month!'
+      link:
+        icon: book
+        icon_pack: fa
+        text: 阅读博客分享文章
+        url: ../post/
+    - title: 官方文档中文翻译
+      content: '让更多的人更轻松的使用 Dapr!'
       align: right
       background:
         position: center
@@ -40,8 +45,21 @@ content:
         brightness: 0.5
         media: welcome.jpg
       link:
-        icon: graduation-cap
-        icon_pack: fas
-        text: Join Us
-        url: ../contact/
+        icon: fighter-jet
+        icon_pack: fa
+        text: 加入翻译小组
+        url: ../tranlation/
+    - title: Dapr源码学习和解读
+      content: '即将启动!'
+      align: right
+      background:
+        position: center
+        color: '#333'
+        brightness: 0.5
+        media: welcome.jpg
+      link:
+        icon: code
+        icon_pack: fa
+        text: 开始源码学习
+        url: ../source/
 ---
