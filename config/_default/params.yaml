@@ -18,7 +18,7 @@ marketing:
     site_type: Organization
     local_business_type: ''
     org_name: ''
-    description: 'Dapr中文社区.'
+    description: 'Dapr 中国社区.'
     twitter: 'wowchemy'
   analytics:
     google_analytics: ''
@@ -43,7 +43,7 @@ header:
 
 footer:
   copyright:
-    notice: '© {year}. Dapr 中文社区版权所有'
+    notice: '© {year}. Dapr 中国社区版权所有'
     license:
       enable: false
       allow_derivatives: false

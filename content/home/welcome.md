@@ -6,7 +6,7 @@
 widget: hero # See https://wowchemy.com/docs/page-builder/
 headless: true # This file represents a page section.
 weight: 10 # Order that this section will appear.
-title: Dapr 中文社区
+title: Dapr 中国社区
 hero_media: welcome.jpg
 design:
   # Choose how many columns the section has. Valid values: 1 or 2.
@@ -20,4 +20,4 @@ design:
 
 
 
-**Dapr 中文社区** 介绍，TBD。
+**Dapr 中国社区** 介绍，TBD。
