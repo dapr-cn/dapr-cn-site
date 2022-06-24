@@ -3,6 +3,7 @@ title = "[译] Dapr 工作流提案"
 authors = ["aoxiaojian"]
 date =  2022-06-02
 draft = false
+featured = true
 
 tags = ["Dapr", "workflow", "翻译", "提案"]
 summary = "Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎"

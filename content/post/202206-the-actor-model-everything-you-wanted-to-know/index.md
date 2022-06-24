@@ -3,7 +3,7 @@ title = "[译] 你想知道的关于 actor 模型但可能不敢问的所有信�
 authors = ["aoxiaojian"]
 date =  2022-06-13
 lastmod = 2022-06-13
-draft = false
+featured = true
 
 tags = ["Dapr", "actor", "翻译"]
 summary = "希望这篇技术文章能帮助你理解 actor 模型背后的关键思想及其主要前提"

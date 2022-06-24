@@ -4,11 +4,11 @@ widget: pages
 headless: true
 weight: 20
 
-title: 社区活动
+title: 近期活动
 subtitle:
 
 content:
-  count: 5
+  count: 3
   filters:
     author: ''
     category: ''
@@ -17,8 +17,8 @@ content:
     tag: ''
   offset: 0
   order: desc
-  page_type: post
+  page_type: event
 design:
   view: 3
-  columns: '1'
+  columns: '2'
 ---
