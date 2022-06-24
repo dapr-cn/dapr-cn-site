@@ -28,42 +28,15 @@ interests:
 - Rust/Golang
 - Web Assembly
 
-# Education to show in About widget
-education:
-  courses:
-  - course: 软件工程师
-    institution: 微软
-    year: 2022
-  - course: 高级技术专家 / 布道师
-    institution: 蚂蚁集团/阿里云
-    year: 2018-2021
-  - course: 资深架构师 / 布道师
-    institution: 数人云
-    year: 2016-2017
-  - course: 架构师
-    institution: 唯品会
-    year: 2015
-  - course: 架构师
-    institution: 爱立信
-    year: 2008-2014
-  - course: 高级软件开发工程师
-    institution: 亚信科技
-    year: 2004-2007
-
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
 #   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
 #   form "mailto:your-email@example.com" or "/#contact" for contact widget.
 social:
-- icon: envelope
-  icon_pack: fas
-  link: 'mailto:aoxiaojian@hotmail.com'
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/skyaoxiaojian80
-  label: Follow me on Twitter
-  display:
-    header: false
+- icon: paper-plane
+  icon_pack: fa
+  link: https://skyao.io
+  label: 访问我的博客网站
 - icon: github
   icon_pack: fab
   link: https://github.com/skyao

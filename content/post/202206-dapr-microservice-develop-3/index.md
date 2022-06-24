@@ -1,6 +1,6 @@
 +++
 title = "Dapr微服务应用开发系列3：服务调用构件块"
-authors = ["zhangshanyou"]
+authors = ["zhuyongguang"]
 date =  2022-06-18
 draft = false
 

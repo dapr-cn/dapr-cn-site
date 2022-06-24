@@ -1,6 +1,6 @@
 +++
 title = "Dapr微服务应用开发系列2：Hello World与SDK初接触"
-authors = ["zhangshanyou"]
+authors = ["zhuyongguang"]
 date =  2022-06-17
 draft = false
 

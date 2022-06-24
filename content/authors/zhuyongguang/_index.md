@@ -1,6 +1,6 @@
 ---
 # Display name
-title: 杨鼎睿
+title: 朱永光
 
 # Is this the primary user of the site?
 superuser: false
@@ -47,10 +47,10 @@ highlight_name: false
 # Organizational groups that you belong to (for People widget)
 #   Set this to `[]` or comment out if you are not using People widget.
 user_groups:
-  - 社区管理员
+  - 撰稿人
 ---
 
-杨鼎睿，个人介绍待补充
+朱永光，个人介绍待补充
 
 
 

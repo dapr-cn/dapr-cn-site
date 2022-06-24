@@ -43,7 +43,7 @@ content:
         position: center
         color: '#333'
         brightness: 0.5
-        media: welcome.jpg
+        media: books.jpg
       link:
         icon: fighter-jet
         icon_pack: fa
@@ -56,7 +56,7 @@ content:
         position: center
         color: '#333'
         brightness: 0.5
-        media: welcome.jpg
+        media: study.jpg
       link:
         icon: code
         icon_pack: fa

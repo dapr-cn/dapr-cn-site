@@ -20,13 +20,6 @@ bio: 待补充
 interests:
 - 待补充
 
-# Education to show in About widget
-education:
-  courses:
-  - course: 待修改
-    institution: 待修改
-    year: 2022
-
 
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
@@ -57,7 +50,7 @@ user_groups:
   - 文档翻译小组
 ---
 
-杨鼎睿，个人介绍待补充
+俞坤，个人介绍待补充
 
 
 

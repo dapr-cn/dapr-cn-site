@@ -1,6 +1,6 @@
 +++
 title = "Dapr微服务应用开发系列1：环境配置"
-authors = ["zhangshanyou"]
+authors = ["zhuyongguang"]
 date =  2022-06-16
 draft = false
 
