@@ -1,0 +1,29 @@
+---
+title: 会议纪要
+cms_exclude: true
+weight: 20
+
+draft: false  # Is this a draft? true/false
+toc: true  # Show table of contents? true/false
+pager: false # Show previous / next page? true/false
+---
+
+## 2022年6月22日
+
+时间： 2022年6月22日 8.30-9.00 p.m
+
+会议链接:  https://meeting.tencent.com/dm/5RzXNjwYXRB7
+
+会议纲要
+
+1. 翻译工具投票
+2. Dapr 1.18 即将发布
+3. Dapr day 活动 准备开展，欢迎大家关注
+4. 源码阅读活动，想了解深入的同学，联系敖小剑即可，大概一两星期之后启动
+5. 中国区会议升格为社区正式会议，原亚洲市区的会议改为美国时间。
+6. 计划建立 Dapr 的中文网站！人手召集，有兴趣的同学联系我们呀
+
+[视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=9606a5cb-b011-4b95-aac8-b60cb5504188&from=3)
+
+
+

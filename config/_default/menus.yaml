@@ -21,7 +21,7 @@ main:
     url: source
     weight: 40
   - name: 会议
-    url: call
+    url: meeting
     weight: 50
   - name: 出版
     url: publication
