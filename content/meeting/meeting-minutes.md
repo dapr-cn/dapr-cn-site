@@ -8,6 +8,20 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+## 2022年7月6日
+
+### 会议纲要
+
+1. Dapr 中文社区网站建立，等待新域名
+2. Dapr 源码解析活动，联系敖小剑加入
+3. Dapr 源码翻译工作流
+4. Dapr 相关实践问题
+5. Dapr 解决的痛点和引入的收益。
+
+### 会议回放地址
+[视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=97077c24-617d-440c-b57c-29ac5397607b&from=3)
+
+
 ## 2022年6月22日
 
 时间： 2022年6月22日 8.30-9.00 p.m
