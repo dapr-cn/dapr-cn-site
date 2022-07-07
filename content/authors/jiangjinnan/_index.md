@@ -13,7 +13,7 @@ organizations:
 
 
 # Short bio (displayed in user profile at end of posts)
-bio: 我目前研究的方向主要在Microservice、Servicemesh、Serverless等Cloud Native相关的领域，全职从事Dapr开发，欢迎交流和指导
+bio: 目前主要研究方向为 .NET 的开发技术，以及高性能、高可用架构设计。
 
 # Interests to show in About widget
 interests:
@@ -49,7 +49,7 @@ user_groups:
   - 撰稿人
 ---
 
-蒋金楠，网名Artech，知名IT博主, 微软多领域MVP，畅销IT图书作者，著《WCF全面解析》、《ASP.NET MVC 4/5框架揭秘》、《ASP.NET Web API 2框架揭秘》等。
+蒋金楠既是同程旅行架构师，又是知名 IT 博主，过去十多年一直排名博客园No1，拥有个人微信公众号“大内老 A”，2007 年至今连续十多次被评为微软 MVP（最有价值专家）。他作为畅 销 IT 图书作者，先后出版了《WCF 全面解析》、《ASP.NET MVC 4/5 框架揭秘》ASP.NET Web API 2 框架揭秘》《ASP.NET Core 3/6 框架揭秘》等著作。
 
 
 

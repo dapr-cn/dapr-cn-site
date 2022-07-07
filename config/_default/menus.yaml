@@ -23,10 +23,13 @@ main:
   - name: 会议
     url: meeting
     weight: 50
+  - name: 案例
+    url: case
+    weight: 60
   - name: 出版
     url: publication
-    weight: 60
+    weight: 70
   - name: 成员
     url: people
-    weight: 70
+    weight: 80
 
