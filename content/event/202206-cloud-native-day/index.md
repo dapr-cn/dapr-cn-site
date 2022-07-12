@@ -19,7 +19,7 @@ all_day: false
 publishDate: '2022-06-11T10:00:00Z'
 
 authors: []
-tags: []
+tags: ["review"]
 
 # Is this a featured talk? (true/false)
 featured: false
