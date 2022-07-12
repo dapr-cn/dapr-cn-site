@@ -8,7 +8,7 @@ title: 近期活动
 subtitle:
 
 content:
-  count: 3
+  count: 2
   filters:
     author: ''
     category: ''
