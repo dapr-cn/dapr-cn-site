@@ -21,7 +21,7 @@ marketing:
     description: 'Dapr 中国社区.'
     twitter: 'wowchemy'
   analytics:
-    google_analytics: ''
+    google_analytics: 'G-J4DYYVC8KL'
     baidu_tongji: ''
   verification:
     google: ''
@@ -53,8 +53,8 @@ footer:
 # Localization
 
 locale:
-  date_format: 'Jan 2, 2006'
-  time_format: '3:04 PM'
+  date_format: '2006-01-02'
+  time_format: '15:04'
   address_format: en-us
 
 # Site features
@@ -107,5 +107,5 @@ extensions:
 # Citation style
 
 publications:
-  date_format: June 6, 2018
+  date_format: 2006-01-02
   citation_style: apa
