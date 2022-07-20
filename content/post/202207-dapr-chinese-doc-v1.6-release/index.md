@@ -1,5 +1,5 @@
 +++
-title = "Dapr 官方文档中文翻译 v1.6 版本正式发布：革命即将成功，同志仍需努力"
+title = "Dapr 官方文档中文翻译 v1.6 版本正式发布"
 authors = ["aoxiaojian"]
 date =  2022-07-20
 lastmod = 2022-07-20
