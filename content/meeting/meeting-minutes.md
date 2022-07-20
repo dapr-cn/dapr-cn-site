@@ -10,7 +10,7 @@ pager: false # Show previous / next page? true/false
 
 ## 2022年7月6日
 
-### 会议纲要
+会议纪要：
 
 1. Dapr 中文社区网站建立，等待新域名
 2. Dapr 源码解析活动，联系敖小剑加入
@@ -18,7 +18,6 @@ pager: false # Show previous / next page? true/false
 4. Dapr 相关实践问题
 5. Dapr 解决的痛点和引入的收益。
 
-### 会议回放地址
 [视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=97077c24-617d-440c-b57c-29ac5397607b&from=3)
 
 
@@ -28,7 +27,7 @@ pager: false # Show previous / next page? true/false
 
 会议链接:  https://meeting.tencent.com/dm/5RzXNjwYXRB7
 
-会议纲要
+会议纪要：
 
 1. 翻译工具投票
 2. Dapr 1.18 即将发布
