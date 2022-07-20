@@ -16,12 +16,20 @@ Dapr 中国社区每两周举办一次社区会议，会议在周三晚上八点
 
 最近会议的时间和参会链接如下：
 
-- 2022-07-20： https://meeting.tencent.com/dw/MeuPbVEHFL3m 
-- 2022-08-03
-- 2022-08-17
-- 2022-08-31
-- 2022-09-14
-- 2022-09-28
+- 2022-07-20: https://meeting.tencent.com/dw/MeuPbVEHFL3m 
+- 2022-08-03: https://meeting.tencent.com/dm/sYbU59LlEbrF
+- 2022-08-17: https://meeting.tencent.com/dm/HeEM4oKHcmrs
+- 2022-08-31: https://meeting.tencent.com/dm/fXrjuSGLC70a
+- 2022-09-14: https://meeting.tencent.com/dm/rr4gkxymaSWO
+- 2022-09-28: https://meeting.tencent.com/dm/AwFUBZo8hjyD
+- 2022-09-28: https://meeting.tencent.com/dm/AwFUBZo8hjyD
+- 2022-10-12: https://meeting.tencent.com/dm/QHC5KatrPIWY
+- 2022-10-26: https://meeting.tencent.com/dm/JTJshsNxe8Mk
+- 2022-11-02: https://meeting.tencent.com/dm/Dn9CviY9QWUF
+- 2022-11-16: https://meeting.tencent.com/dm/sPfE4Rx8l7SI
+- 2022-11-30: https://meeting.tencent.com/dm/mReEssZDfC2n
+- 2022-12-14: https://meeting.tencent.com/dm/5zuWKSgyHxWf
+- 2022-12-28: https://meeting.tencent.com/dm/YH0KkiiVNxQL
 
 ### 参会方式
 
