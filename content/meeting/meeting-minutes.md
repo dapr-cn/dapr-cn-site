@@ -8,6 +8,17 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+## 2022年7月20日
+
+会议纪要：
+
+- dapr中国社区最近更新
+- 文档翻译发布和源码解读活动开始
+- 最近的演讲等社区活动，dapr day的筹备
+- 近期关注度比较高的内容：spring cloud integration，分布式事务，工作流引擎，configuration 
+
+[视频回放地址](https://meeting.tencent.com/user-center/shared-record-info?id=bd3b3fd3-47bc-4ea5-969f-e7e966ae1e2c&from=7)
+
 ## 2022年7月6日
 
 会议纪要：
