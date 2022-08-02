@@ -49,5 +49,4 @@ https://github.com/dapr/community#community-meetings
 
 由于时差原因会议时间对国内用户也不友好，加上会议语言是英文，会议工具是 zoom（国内用户需要科学上网），因此对很多国内同学来说参会可能并不方便。您可以选择参加上面所述的 Dapr 中国社区的双周会。
 
-
-
+往期视频 bilibili 镜像 <https://space.bilibili.com/272265720/channel/collectiondetail?sid=129335>
