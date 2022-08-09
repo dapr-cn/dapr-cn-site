@@ -8,6 +8,15 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+## 2022年8月3日
+会议纪要：
+
+- flomesh 张晓辉同学的分享：《可编程代理》
+- 最近的演讲等社区活动，dapr developer day 的议题征集中
+
+[视频回放地址](https://meeting.tencent.com/user-center/meeting-record/info?meeting_id=1554805986274000896&id=14311201249202778690&from=0)
+
+
 ## 2022年7月20日
 
 会议纪要：
