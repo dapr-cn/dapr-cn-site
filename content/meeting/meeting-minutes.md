@@ -14,7 +14,7 @@ pager: false # Show previous / next page? true/false
 - flomesh 张晓辉同学的分享：《可编程代理》
 - 最近的演讲等社区活动，dapr developer day 的议题征集中
 
-[视频回放地址](https://meeting.tencent.com/user-center/meeting-record/info?meeting_id=1554805986274000896&id=14311201249202778690&from=0)
+[腾讯会议视频回放地址](https://meeting.tencent.com/user-center/meeting-record/info?meeting_id=1554805986274000896&id=14311201249202778690&from=0) | [可编程代理（flomesh pipy 为例）是什么样的【Dapr China Community Meeting 2022/8/3】\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1nd4y1N73r?spm_id_from=333.999.0.0&vd_source=cd7bcc3fea404f307fadbb696b293c84)
 
 
 ## 2022年7月20日
@@ -26,7 +26,7 @@ pager: false # Show previous / next page? true/false
 - 最近的演讲等社区活动，dapr day的筹备
 - 近期关注度比较高的内容：spring cloud integration，分布式事务，工作流引擎，configuration 
 
-[视频回放地址](https://meeting.tencent.com/user-center/shared-record-info?id=bd3b3fd3-47bc-4ea5-969f-e7e966ae1e2c&from=7)
+[腾讯会议视频回放地址](https://meeting.tencent.com/user-center/shared-record-info?id=bd3b3fd3-47bc-4ea5-969f-e7e966ae1e2c&from=7) | [Dapr 中文网站发布！Dapr 落地实践问题讨论 【Dapr China Community Meeting 2022/7/20】\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1Qg411Z7W4?spm_id_from=333.999.0.0&vd_source=cd7bcc3fea404f307fadbb696b293c84)
 
 ## 2022年7月6日
 
@@ -38,14 +38,12 @@ pager: false # Show previous / next page? true/false
 4. Dapr 相关实践问题
 5. Dapr 解决的痛点和引入的收益。
 
-[视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=97077c24-617d-440c-b57c-29ac5397607b&from=3)
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=97077c24-617d-440c-b57c-29ac5397607b&from=3)
 
 
 ## 2022年6月22日
 
 时间： 2022年6月22日 8.30-9.00 p.m
-
-会议链接:  https://meeting.tencent.com/dm/5RzXNjwYXRB7
 
 会议纪要：
 
@@ -56,7 +54,7 @@ pager: false # Show previous / next page? true/false
 5. 中国区会议升格为社区正式会议，原亚洲市区的会议改为美国时间。
 6. 计划建立 Dapr 的中文网站！人手召集，有兴趣的同学联系我们呀
 
-[视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=9606a5cb-b011-4b95-aac8-b60cb5504188&from=3)
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=9606a5cb-b011-4b95-aac8-b60cb5504188&from=3)
 
 
 
