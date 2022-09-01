@@ -16,10 +16,10 @@ date_end: '2022-10-22T16:00:00+08:00'
 all_day: false
 
 # Schedule page publish date (NOT talk date).
-publishDate: '2022-07-25T10:00:00Z'
+publishDate: '2022-08-20T10:00:00Z'
 
 authors: []
-tags: ["incoming"]
+tags: [""]
 
 # Is this a featured talk? (true/false)
 featured: false

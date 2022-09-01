@@ -7,25 +7,29 @@ draft: false  # Is this a draft? true/false
 toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
+
 ## 2022年8月17日
+
 会议纪要：
 
-- 叶东富分享 Dapr 工作流继承 DTM
-- dapr developer day 分享预告：英特尔、阿里、微软的同学来分享相关的一些话题。包括 Dapr 目前的技术 leader。他也给我们带来一个topic。如果有其他的比较好的内容，需要报名的话也可以联系我们。
+- 叶东富分享 Dapr 工作流集成 DTM
+- dapr developer day 分享预告：英特尔、阿里、微软的同学来分享相关的一些话题。包括 Dapr 目前的技术 leader Artur。他也给我们带来一个topic。如果有其他的比较好的内容，需要报名的话也可以联系我们。
 
 关键词:
-微服务
-服务发现
-服务器
-分布式事务
-数据一致性
-事务管理
-数据库事务
-数据库
+
+- 微服务
+- 服务发现
+- 服务器
+- 分布式事务
+- 数据一致性
+- 事务管理
+- 数据库事务
+- 数据库
 
 [腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=27580fbd-6ec1-4b1b-872b-891a57274fdb&from=3) 
 
 ## 2022年8月3日
+
 会议纪要：
 
 - flomesh 张晓辉同学的分享：《可编程代理》
