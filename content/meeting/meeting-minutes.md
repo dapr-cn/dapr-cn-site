@@ -8,6 +8,14 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+## 2022年8月31日
+
+会议纪要：
+
+- Dapr 与 ServiceMesh 结合探索，OSM。
+
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=11e4bc6e-3e1d-4a77-95ca-4c199ee4cb4f&from=3)
+
 ## 2022年8月17日
 
 会议纪要：
