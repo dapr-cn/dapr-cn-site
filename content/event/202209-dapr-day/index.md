@@ -68,3 +68,25 @@ projects:
 技术的发展总是在来自微软、英特尔、阿里云、腾讯等知名技术企业的13位国内开发者大牛齐聚一堂，分享自己对Dapr开发的心得体会。还有更多海内外神秘大咖，带来全球视野分享。
 
 <img src="images/p1.png"  />
+
+### 联合主办
+
+![](images/azure.jpg)
+
+![](images/intel.jpg)
+
+![](images/daprcn.jpg)
+
+### 协办社区
+
+![](images/alibaba.png)
+
+![](images/reactor.jpg)
+
+![](images/vscode.png)
+
+![](images/dotnet.jpg)
+
+![](images/kubesphere.png)
+
+![](images/ilab.png)
