@@ -19,7 +19,7 @@ all_day: false
 publishDate: '2022-07-25T10:00:00Z'
 
 authors: []
-tags: ["incoming"]
+tags: ["dapr","演讲","视频"]
 
 # Is this a featured talk? (true/false)
 featured: false
@@ -48,12 +48,13 @@ slides:
 projects:
 ---
 
-
+## 活动介绍
 
 结束了炎热的夏日，或许你还没有喝到秋天的第一杯奶茶，秋天的第一场开发者派对就即将到来。微软携手英特尔、Dapr中文社区联合发起首届Dapr分布式运行时开发者日（Dapr Day），2022年9月3日 10:00-17:30，带来一场专注技术与自由的分布式开发者狂欢。
 
-
 三个技术流关键词，点燃开发者的9月！
+
+> 视频回放地址请拉到页面最下方
 
 ### 回归开发本心
 
@@ -90,3 +91,12 @@ projects:
 ![](images/kubesphere.png)
 
 ![](images/ilab.png)
+
+## 视频回放地址
+
+请访问以下地址查看本次活动所有演讲和圆桌讨论的视频：
+
+https://space.bilibili.com/483888821/channel/seriesdetail?sid=2611655
+
+![](images/video-reply-bilibili.png)
+
