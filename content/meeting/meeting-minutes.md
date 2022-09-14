@@ -14,7 +14,7 @@ pager: false # Show previous / next page? true/false
 
 - Dapr 与 ServiceMesh 结合探索，OSM。
 
-[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=11e4bc6e-3e1d-4a77-95ca-4c199ee4cb4f&from=3)
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=11e4bc6e-3e1d-4a77-95ca-4c199ee4cb4f&from=3) | [Dapr 与 ServiceMesh 结合探索（Dapr China Community Meeting 2022/8/31）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1dV4y1T79g/?vd_source=cd7bcc3fea404f307fadbb696b293c84)
 
 ## 2022年8月17日
 
