@@ -8,6 +8,25 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+
+
+## 2022年9月28日
+
+会议纪要：
+
+- Seata 项目介绍
+- Seata 与 Dapr 集成的讨论，分布式事务能力
+
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=19ed703c-e7d2-423d-b018-94f5d7c939b4&from=3) | [Seata 项目介绍和与 Dapr 集成讨论（Dapr China Community Meeting 2022/9/28）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Qd4y1i7V2/?vd_source=cd7bcc3fea404f307fadbb696b293c84)
+
+## 2022年9月14日
+
+会议纪要：
+
+- Spring Cloud 和 Dapr 集成的介绍
+
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=37f24444-3d48-4f1b-8dcd-2621a40170de&from=3) | [Spring Cloud 和 Dapr 集成（Dapr China Community Meeting 2022/9/14）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1nV4y1L7Sv/?vd_source=cd7bcc3fea404f307fadbb696b293c84)
+
 ## 2022年8月31日
 
 会议纪要：
