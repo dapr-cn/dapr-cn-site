@@ -19,7 +19,7 @@ all_day: false
 publishDate: '2022-07-25T10:00:00Z'
 
 authors: []
-tags: ["dapr","演讲","视频","review"]
+tags: ["dapr","演讲","视频"]
 
 # Is this a featured talk? (true/false)
 featured: false

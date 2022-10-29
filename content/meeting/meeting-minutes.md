@@ -8,7 +8,22 @@ toc: true  # Show table of contents? true/false
 pager: false # Show previous / next page? true/false
 ---
 
+## 2022年10月26日
 
+会议纪要：
+
+- Dapr cross cluster proposal 分享和 name resolver 现有实现问题讨论
+
+[腾讯会议视频回放地址](https://meeting.tencent.com/user-center/shared-record-info?id=f11f69f8-f8ed-4239-b91e-542c69d41ce3&from=3) | [Dapr cross cluster 分享和讨论（Dapr China Community Meeting 2022/10/26）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV19W4y1E72F/)
+
+## 2022年9月28日
+
+会议纪要：
+
+- Seata 项目介绍
+- Seata 与 Dapr 集成的讨论，分布式事务能力
+
+[腾讯会议视频回放地址](https://meeting.tencent.com/v2/cloud-record/share?id=19ed703c-e7d2-423d-b018-94f5d7c939b4&from=3) | [Seata 项目介绍和与 Dapr 集成讨论（Dapr China Community Meeting 2022/9/28）_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Qd4y1i7V2/)
 
 ## 2022年9月28日
 

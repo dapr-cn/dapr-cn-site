@@ -1,13 +1,13 @@
 ---
-title: DaprCon 2022 开始征集演讲提案！
+title: DaprCon 2022技术大会
 
 event: DaprCon 2022
 event_url: 
 
 location: 线上直播
 
-summary: '今年 DaprCon 将作为2022年 KubeCon North America（NA/北美）的一部分举行，现在开始征集演讲提案'
-abstract: '今年 DaprCon 将作为2022年 KubeCon North America（NA/北美）的一部分举行，现在开始征集演讲提案'
+summary: '今年 DaprCon 作为2022年 KubeCon North America 的一部分举行'
+abstract: '今年 DaprCon 作为2022年 KubeCon North America 的一部分举行'
 
 # Talk start and end times.
 #   End time can optionally be hidden by prefixing the line with `#`.
@@ -19,7 +19,7 @@ all_day: false
 publishDate: '2022-08-20T10:00:00Z'
 
 authors: []
-tags: [""]
+tags: ["daprcon","演讲","视频","review"]
 
 # Is this a featured talk? (true/false)
 featured: false
@@ -48,25 +48,35 @@ slides:
 projects:
 ---
 
-## 提案征集：DaprCon 2022
 
-我们很高兴地宣布，DaprCon 将在2022年再次回归！🎉。
 
-作为CNCF的一部分，今年 DaprCon 将作为2022年 KubeCon North America（NA/北美）的一部分举行。因此，我们希望社区能够提供帮助--请将您的 Dapr 方案、技术示例和用户故事发送给我们。我们将接受社区中任何有兴趣在 DaprCon 上演讲的人的提案。
 
-如果你有兴趣作为演讲者参加，请填写 [DaprCon 2022 提案提交表](https://forms.gle/5zB9ijtc8yx9vdJ68)。
 
-我们将在8月19日（星期五）之前审查提交的材料，如果您的提案看起来很合适，我们将通过电子邮件与您联系。如果您对提交过程或 DaprCon 有任何疑问，请直接给我们发电子邮件：dapr@dapr.io。
 
-> 英文原文请见： https://github.com/dapr/community/blob/master/DaprCon/2022/proposal-submission-form.md
 
 ## 大会背景
 
 ![](images/daprcon.png)
 
+
+
 由于 Dapr 已经加入 CNCF，因此今年的 DaprCon 2022，将由 CNCF 主办，作为参加2022年10月 KubeCon 北美 的项目之一。
 
-DaprCon 2021年活动的演讲视频可以在这里找到：
 
-- [DaprCon Day 1](https://www.youtube.com/watch?v=7ax-ltJjM58)
-- [DaprCon Day 2 - Workshops](https://www.youtube.com/watch?v=7ax-ltJjM58)
+
+### 大会内容
+
+DaprCon 2022大会的演讲内容，请访问 youtube 上 Dapr 官方频道：
+
+https://www.youtube.com/playlist?list=PLcip_LgkYwztXoiR51DNYOfALMKQbclWN
+
+![youtube](images/youtube.png)
+
+我们也会将内容同步到哔哩哔哩的Dapr中文频道：
+
+https://space.bilibili.com/1898921833/channel/seriesdetail?sid=2730894
+
+![bilibili](images/bilibili.png)
+
+
+
