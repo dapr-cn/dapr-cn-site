@@ -6,19 +6,23 @@ title: 罗广明
 superuser: false
 
 # Role/position/tagline
-role: 待补充
+role: 开源项目爱好者
 
 # Organizations/Affiliations to show in About widget
 organizations:
-- name: 待补充
-  url: https://待补充/
+- name: 字节跳动
+  url: https://www.bytedance.com/
 
 # Short bio (displayed in user profile at end of posts)
-bio: 待补充
+bio: 开源项目爱好者
 
 # Interests to show in About widget
 interests:
-- 待补充
+- 微服务 / Microservices
+- 微服务框架 / CloudWeGo & Spring
+- 服务网格 / Service Mesh
+- 云原生 / Cloud Native
+- Java / Golang
 
 
 # Social/Academic Networking
@@ -28,7 +32,7 @@ interests:
 social:
 - icon: github
   icon_pack: fab
-  link: https://github.com/待补充
+  link: https://github.com/GuangmingLuo
 
 
 # Link to a PDF of your resume/CV.
@@ -50,7 +54,7 @@ user_groups:
   - 撰稿人
 ---
 
-罗广明，个人介绍待补充
+罗广明，微服务技术专家、致力于微服务构架&治理以及云原生相关的研究、开源与商业化落地，开源项目爱好者。曾在爱立信、百度任职，2022 年获中国信通院评选的 OSCAR 尖峰开源人物。
 
 
 
