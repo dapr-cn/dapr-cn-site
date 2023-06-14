@@ -19,10 +19,10 @@ all_day: false
 publishDate: '2022-06-11T10:00:00Z'
 
 authors: []
-tags: []
+tags: [""]
 
 # Is this a featured talk? (true/false)
-featured: true
+featured: false
 
 image:
   caption: ''

@@ -1,0 +1,45 @@
+
++++
+title = "读Bilgin Ibryam 新作 《Dapr 是一种10倍数 平台》"
+authors = ["zhangshanyou"]
+date =  2022-11-20
+draft = false
+featured = true
+
+tags = []
+summary = "Diagrid 经过A轮融资，筹集了2420万美元，在这样的背景下Bilgin Ibryam 加入了Diagrid 公司。能够吸引他从 RedHat 首席架构师的职位离开，加入这么一家创业公司，我们可以从他发布的这篇文章中《[Dapr as a 10x Platform](https://www.diagrid.io/blog/dapr-as-a-10x-platform)》知道他的内心追求。"
+abstract = "Diagrid 经过A轮融资，筹集了2420万美元，在这样的背景下Bilgin Ibryam 加入了Diagrid 公司。能够吸引他从 RedHat 首席架构师的职位离开，加入这么一家创业公司，我们可以从他发布的这篇文章中《[Dapr as a 10x Platform](https://www.diagrid.io/blog/dapr-as-a-10x-platform)》知道他的内心追求。"
+
+[header]
+image = ""
+caption = ""
+
++++
+
+> 文章转载自: https://www.cnblogs.com/shanyou/p/16907891.html
+
+**Bilgin Ibryam** 最近加入了开发者软件初创公司[Diagrid Inc](https://www.diagrid.io/)，他是Apache Software Foundation 的 committer 和成员。他也是一个开源的布道师，并且是书籍 [Kubernetes设计模式](https://k8spatterns.io/) 和 [Camel Design Patterns](https://www.amazon.com/Camel-Design-Patterns-Bilgin-Ibryam-ebook/dp/B01D1RERQG) 的作者。早在2020年初 提出的[Multi-Runtime Microservices Architecture](https://www.infoq.com/articles/multi-runtime-microservice-architecture/)，中译参见敖小剑的博客: [[译\] 多运行时微服务架构](https://skyao.io/post/202003-multi-runtime-microservice-architecture/)。当时他是Red Hat的首席架构师。
+
+Diagrid 由免费的开源分布式运行时系统 Dapr 和 Kubernetes 事件驱动的自动缩放工具 KEDA 的创建者于 2021 年创立，其第一款产品是 Diagrid Conductor，这是一个用于 Kubernetes 的完全托管的 Dapr 平台。Conductor 旨在减轻管理 Dapr 的运营负担，让开发人员深入了解他们的应用程序，并告知他们生产最佳实践，同时提高服务可靠性和安全性。
+
+Diagrid 经过A轮融资，筹集了2420万美元，在这样的背景下Bilgin Ibryam 加入了Diagrid 公司。能够吸引他从 RedHat 首席架构师的职位离开，加入这么一家创业公司，我们可以从他发布的这篇文章中《[Dapr as a 10x Platform](https://www.diagrid.io/blog/dapr-as-a-10x-platform)》知道他的内心追求。
+
+介绍完这些背景知识之后，我们开始学习他的这篇文章，我也写过几篇相关的文章：
+
+- [为什么 Dapr 如此令人兴奋](https://www.cnblogs.com/shanyou/p/15361638.html)
+- [Dapr是如何简化微服务的开发和部署](https://www.cnblogs.com/shanyou/p/dapr-simplifies-developing-and-deploying-microservices.html)
+- [浅析 Dapr 里的云计算设计模式](https://www.cnblogs.com/shanyou/p/dapr-multi-runtime-microservice-architecture.html)
+- [使用 Dapr 缩短软件开发周期，提高工作效率](https://www.cnblogs.com/shanyou/p/15840916.html)
+- [Dapr 助力应用架构的可持续性](https://www.cnblogs.com/shanyou/p/dapr-sustainability.html)
+
+这篇文章给我的感受是他写的有高度。首先他引出了一个10倍理论，为什么[Dapr](http://dapr.io/)是一个在正确的时间出现的 10 倍运行时，它为组织中的不同角色提供了什么好处，以及它的缺点是什么。这个理论是由皮特·蒂尔德在《从0到1》书中提到的，书中提到，**一个创新企业，想要获得快速成长，其提供的解决方案要比现有的方案好10倍以上**。如成本低10倍，效能强10倍，易用性优10倍等。为什么要这么做呢？消费者可能会高估已有方案3倍以上，加上创业者会高估自己的方案3倍以上，两者一乘那就是9倍，如果你不做10倍以上，不就是相当于退步了么？
+
+微服务架构将大多数组织的发布周期从季度（12 周）或更长时间缩短到每周甚至更短。Docker 使得在一个主机上运行数十个服务而不会发生资源冲突成为可能，而不是十个。Kubernetes 使运营人员能够运营 10 倍以上的服务。这些都是 10 倍改进的示例。但是，实施新想法和采用新技术也带来了成本和新的缺点。识别域边界、实现网络弹性、调试、测试和运行微服务是整体架构中不存在的成本。学习 Kubernetes、习惯异步协调行为和调试问题需要全新的技能和工具。然而，这些新架构和工具对组织的整体价值之大，证明了变革的痛苦是合理的。
+
+
+![dapr10x](images/dapr10x-info.png)
+
+Dapr 提供了一种与传统的基于库的集成功能使用方法不同的方法。它是一个工具包，通过 sidecar 为分布式系统提供 API，使其成为云原生应用程序的良好解决方案，无论是新的绿地还是迁移现有棕地应用程序。虽然 Dapr 主要由构建应用程序的开发人员使用，但它也改善了运行这些应用程序的运维人员和试图为组织的应用程序和工具清单带来秩序的架构师的生活。让我们首先看看 Dapr 为企业中的各种角色带来了什么好处，然后看看采用它的成本是多少。最近在网上也出现了一波微服务无用论的声音，这样的声音很正常，说明我们正处于向分布式应用程序的代际转变之中，但软件开发人员很难跟上，微服务架构使分布式应用程序成为可能，但它们需要如此多的管道代码，以至于开发人员为了微服务而微服务。这些挑战是Diagrid联合创始人兼首席执行官Mark Fussell 和其他人在微软公司工作时创建Dapr的原因，目的是将开发人员构建解决方案的时间减少多达50%。
+
+微服务架构和云原生技术如此迅速地成为主流，也是因为硬件创新同时实现了廉价的云计算和快速变化的业务需求。简而言之，伟大的技术在时机成熟时变得有用。Dapr 是多语言的，类似于微服务。它像Docker一样便携。它可以像 Kubernetes 一样组合。Dapr 是 API 驱动的声明式，符合云原生原则和操作实践。这是及时的，并且自然地补充了其他云原生项目。它的好处与云原生生态系统的其他部分成倍增加。
+

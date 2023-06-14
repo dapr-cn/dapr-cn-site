@@ -4,17 +4,17 @@ widget: pages
 headless: true
 weight: 20
 
-title: 近期活动
+title: 即将开始的活动
 subtitle:
 
 content:
-  count: 3
+  count: 10
   filters:
     author: ''
     category: ''
     exclude_featured: false
     publication_type: ''
-    tag: ''
+    tag: 'incoming'
   offset: 0
   order: desc
   page_type: event

@@ -1,11 +1,11 @@
 
 +++
-title = "Dapr v1.8 正式发布"
-authors = ["Dapr项目维护者"]
+title = "[译]Dapr v1.8 正式发布"
+authors = ["zhangshanyou"]
 date =  2022-07-08
 draft = false
 
-tags = ["Dapr", "微服务",]
+tags = ["v1.8", "Release Notes",]
 summary = "Dapr是什么，Dapr1.8 包含什么新功能。"
 abstract = "Dapr是什么，Dapr1.8 包含什么新功能。"
 
@@ -14,7 +14,7 @@ image = ""
 caption = ""
 
 +++
-> 转载自微信公众号文章： [Dapr v1.8 正式发布](https://mp.weixin.qq.com/s/FwbxOUJoq0lkbPnIHXWGWw)
+> 转载自微信公众号文章： [Dapr v1.8 正式发布](https://mp.weixin.qq.com/s/FwbxOUJoq0lkbPnIHXWGWw)，英文原文为 [Dapr v1.8 is now available](https://blog.dapr.io/posts/2022/07/08/dapr-v1.8-is-now-available/)
 
 Dapr是一套开源、可移植的事件驱动型运行时，允许开发人员轻松立足云端与边缘位置运行弹性、微服务、无状态以及有状态等应用程序类型。Dapr能够确保开发人员专注于编写业务逻辑，而不必分神于解决分布式系统难题，由此显著提高生产力并缩短开发时长。Dapr降低了构建微服务架构类现代云原生应用程序的入门门槛，Dapr应用程序已经能够在生产场景中部署自托管基础设施或Kubernetes集群。当使用自托管模式部署在虚拟机环境选用Consul 作为服务发现组件时， 1.8版本解决了一个问题 : Consul 用作名称解析组件时，相同的 appid 无法实现负载平衡[1]。
 
@@ -83,7 +83,6 @@ JavaScript
 - 添加了注释 CLI 命令，用于将 Dapr 注释添加到已部署的 Kubernetes 配置中。
 - dapr init在 k8s 模式下，现在可以使用 GHCR 和私有注册表来拉取Image
 - 给 Dapr version 加上了文档
- 
 
 如果您不熟悉 Dapr，请访问入门页面并熟悉 Dapr。 文档已更新，包含此版本的所有新功能和更改。通过概念和开发应用程序文档开始使用此版本中引入的新功能。要将 Dapr 升级到 1.8.0 版，请跳至本节。
 
