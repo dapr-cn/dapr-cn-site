@@ -4,7 +4,7 @@
   
   "features": {
     "ghcr.io/devcontainers/features/hugo:1": {
-      "version": "latest",
+      "version": "0.97.3",
       "extended": true
     },
     "ghcr.io/devcontainers/features/node:1": {
