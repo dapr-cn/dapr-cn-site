@@ -57,11 +57,11 @@ jobs:
         env:
           HUGO_ENV: production
       
-      - name: Check for broken links
-        run: |
-          # 安装 htmlproofer 或类似工具来检查链接
-          echo "Build completed successfully"
-          ls -la public/
+      # - name: Check for broken links
+      #   run: |
+      #     # 安装 htmlproofer 或类似工具来检查链接
+      #     echo "Build completed successfully"
+      #     ls -la public/
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
