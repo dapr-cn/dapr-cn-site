@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  hugo-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+      # 如果你有本地的 wowchemy-hugo-themes 目录，取消注释下面这行
+      # - ../../wowchemy-hugo-themes:/workspaces/wowchemy-hugo-themes:cached
+    
+    # 保持容器运行
+    command: sleep infinity
+    
+    # 网络设置
+    ports:
+      - "1313:1313"
+    
+    # 环境变量
+    environment:
+      - HUGO_ENV=development

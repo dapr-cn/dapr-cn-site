@@ -3,10 +3,17 @@
 # and commit this file to your remote git repository to share the goodness with others.
 
 tasks:
-  - init: echo init
+  - init: |
+      # 安装指定版本的 Hugo
+      wget https://github.com/gohugoio/hugo/releases/download/v0.97.3/hugo_extended_0.97.3_Linux-64bit.tar.gz
+      tar -xzf hugo_extended_0.97.3_Linux-64bit.tar.gz
+      sudo mv hugo /usr/local/bin/
+      rm hugo_extended_0.97.3_Linux-64bit.tar.gz
+      # 安装依赖
+      go mod download
+      hugo mod get -u
     command: |
-      brew install hugo
-      hugo server
+      hugo server --bind 0.0.0.0 --port 1313
 # Ports to expose on workspace startup
 ports:
   - port: 1313

@@ -1,0 +1,53 @@
+{
+  "name": "Hugo Development Environment",
+  "image": "mcr.microsoft.com/devcontainers/go:1.21-bullseye",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "version": "0.97.3",
+      "extended": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    },
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "budparr.language-hugo-vscode",
+        "golang.go",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode.markdown-preview-enhanced",
+        "davidanson.vscode-markdownlint",
+        "streetsidesoftware.code-spell-checker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "go.toolsManagement.checkForUpdates": "local",
+        "go.useLanguageServer": true,
+        "files.associations": {
+          "*.md": "markdown"
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [1313],
+  "portsAttributes": {
+    "1313": {
+      "label": "Hugo Server",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "postCreateCommand": "go mod download && hugo mod get -u",
+  
+  "remoteUser": "vscode",
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/../wowchemy-hugo-themes,target=/workspaces/wowchemy-hugo-themes,type=bind,consistency=cached"
+  ]
+}

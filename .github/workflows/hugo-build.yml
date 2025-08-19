@@ -1,0 +1,72 @@
+name: Hugo Build Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    name: Hugo Build Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          submodules: true
+          fetch-depth: 0
+      
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.97.3'
+          extended: true
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Cache Hugo modules
+        uses: actions/cache@v4
+        with:
+          path: /tmp/hugo_cache
+          key: ${{ runner.os }}-hugomod-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-hugomod-
+      
+      - name: Install dependencies
+        run: |
+          go mod download
+          hugo mod get -u
+      
+      - name: Build Hugo site (development)
+        run: |
+          hugo --buildDrafts --buildFuture
+        env:
+          HUGO_ENV: development
+      
+      - name: Build Hugo site (production)
+        run: |
+          hugo --minify --gc
+        env:
+          HUGO_ENV: production
+      
+      # - name: Check for broken links
+      #   run: |
+      #     # 安装 htmlproofer 或类似工具来检查链接
+      #     echo "Build completed successfully"
+      #     ls -la public/
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hugo-build-${{ github.sha }}
+          path: public/
+          retention-days: 7

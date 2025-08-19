@@ -1,0 +1,106 @@
+name: Hugo Site CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+jobs:
+  build_and_deploy_job:
+    timeout-minutes: 30
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21"
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.97.3"
+          extended: true
+
+      - name: Install dependencies
+        run: |
+          go mod download
+          hugo mod get -u
+
+      - name: Set production environment
+        if: github.ref == 'refs/heads/main'
+        run: echo "HUGO_ENV=production" >> $GITHUB_ENV
+
+      - name: Build Hugo site
+        run: |
+          hugo --minify --gc
+        env:
+          HUGO_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
+      - name: Calculate public folder size
+        run: |
+          SIZE=$(du -sh public | cut -f1)
+          SIZE_BYTES=$(du -sb public | cut -f1)
+          echo "::notice title=Build Size::Public folder size: $SIZE ($SIZE_BYTES bytes)"
+          echo "PUBLIC_FOLDER_SIZE=$SIZE" >> $GITHUB_ENV
+          echo "PUBLIC_FOLDER_SIZE_BYTES=$SIZE_BYTES" >> $GITHUB_ENV
+
+      - name: Comment build size on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const size = process.env.PUBLIC_FOLDER_SIZE;
+            const sizeBytes = process.env.PUBLIC_FOLDER_SIZE_BYTES;
+            const comment = `## 📦 Hugo Build Size Report
+
+            The built Hugo site size: **${size}** (${parseInt(sizeBytes).toLocaleString()} bytes)
+
+            > Generated for commit ${context.sha.substring(0, 7)}`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Build And Deploy
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          ###### Repository/Build Configurations ######
+          app_location: "/public" # Hugo 构建输出目录
+          api_location: "" # 无 API
+          output_location: "" # 已经是构建输出
+          skip_app_build: true # 跳过 Azure 的构建，使用我们的 Hugo 构建
+          ###### End of Repository/Build Configurations ######
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          action: "close"
