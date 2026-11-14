@@ -138,6 +138,17 @@ const pages = defineCollection({
   }),
 });
 
+const site = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/site', generateId: pageId }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    intro: z.string().optional(),
+    source: z.string().url(),
+    draft: z.boolean().default(false),
+  }),
+});
+
 /**
  * Starlight's collections. The site has no docs or UI-string entries of its own; the collections
  * exist so Starlight's loaders and schemas are satisfied.
@@ -145,4 +156,4 @@ const pages = defineCollection({
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() });
 const i18n = defineCollection({ loader: i18nLoader(), schema: i18nSchema() });
 
-export const collections = { post, event, publication, authors, tag, pages, docs, i18n };
+export const collections = { post, event, publication, authors, tag, pages, site, docs, i18n };
