@@ -1,14 +1,58 @@
 ---
 import { officialHome as content } from '../../data/official-home';
 import SectionHead from './SectionHead.astro';
+
+// The translated Dapr overview. One attribution note at the top covers every claim, case study,
+// logo and third-party offer below it; the sections themselves stay free of repeated disclaimers.
+const caseStudies = content.caseStudies.slice(0, 3);
 ---
 
 <div class="official-overview">
-  <section class="container home-section" aria-labelledby="use-cases-title">
-    <SectionHead id="use-cases-title" title={content.useCases.title} href="/learn/" linkLabel="学习 Dapr" />
-    <p class="section-intro">{content.useCases.intro}</p>
-    <ul class="use-cases">
-      {content.useCases.items.map((item) => (
+  <section class="container home-section" aria-labelledby="official-title">
+    <SectionHead id="official-title" title="了解 Dapr" href="/learn/" linkLabel="学习 Dapr" />
+    <p class="source-note">
+      本部分改编自 <a href="https://github.com/dapr/website/tree/460d369">Dapr 官网（dapr/website，460d369）</a>，由中国社区翻译整理。案例、采用者名单、第三方服务和效率表述均来自官网，并非中国社区的客户、独立测量或背书。商标属于各自权利人，价格与可用性以提供方为准。
+    </p>
+    <p class="section-intro">{content.values.intro}</p>
+    <div class="value-rows">
+      {content.values.items.map((item) => (
+        <div class="value-item">
+          <figure>
+            <img src={item.diagram} alt={item.diagramDesc} width="1200" height="624" loading="lazy" />
+          </figure>
+          <h3>{item.name}</h3>
+          {item.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container home-section" aria-labelledby="apis-title">
+    <SectionHead id="apis-title" title={content.apis.title} href="https://docs.dapr.io/developing-applications/building-blocks/" linkLabel="构建块文档" />
+    <p class="section-intro">{content.apis.intro}</p>
+    <figure class="api-diagram">
+      <img src={content.apis.diagram} alt={content.apis.diagramDesc} width="1200" height="624" loading="lazy" />
+    </figure>
+    <details class="api-more">
+      <summary>查看全部 {content.apis.items.length} 个构建块 API 的说明</summary>
+      <ul class="api-list">
+        {content.apis.items.map((item) => (
+          <li>
+            <img src={item.icon} alt="" width="28" height="28" loading="lazy" />
+            <div>
+              <h3><a href={item.link}>{item.name}</a> {item.alpha && <span class="alpha">alpha</span>}</h3>
+              <p>{item.description}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </details>
+  </section>
+
+  <section class="container home-section" aria-labelledby="concerns-title">
+    <SectionHead id="concerns-title" title={content.concerns.title} />
+    <ul class="concerns">
+      {content.concerns.items.map((item) => (
         <li>
           <img src={item.icon} alt="" width="32" height="32" loading="lazy" />
           <h3><a href={item.link}>{item.name}</a></h3>
@@ -20,9 +64,8 @@ import SectionHead from './SectionHead.astro';
 
   <section class="container home-section" aria-labelledby="case-studies-title">
     <SectionHead id="case-studies-title" title="来自真实场景的实践" href="/testimonials/" linkLabel="全部案例" />
-    <p class="section-intro">以下案例来自 Dapr 官网及 CNCF。了解采用者如何使用 Dapr，而非中国社区的客户或背书。</p>
     <ul class="case-studies">
-      {content.caseStudies.map((item) => (
+      {caseStudies.map((item) => (
         <li>
           <a href={item.link}>
             <img src={item.image} alt="" width="640" height="360" loading="lazy" />
@@ -33,64 +76,7 @@ import SectionHead from './SectionHead.astro';
         </li>
       ))}
     </ul>
-  </section>
-
-  <section class="container home-section" aria-labelledby="values-title">
-    <SectionHead id="values-title" title={content.values.title} href="/platform-engineering/" linkLabel="面向平台团队" />
-    <p class="section-intro">{content.values.intro}</p>
-    <p class="source-note">以上效率表述为官网原文的介绍，并非中国社区的独立测量。</p>
-    <div class="value-rows">
-      {content.values.items.map((item) => (
-        <div class="value-row">
-          <div>
-            <h3>{item.name}</h3>
-            {item.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
-          <figure>
-            <img src={item.diagram} alt={item.diagramDesc} width="1200" height="624" loading="lazy" />
-            <figcaption>{item.diagramDesc}</figcaption>
-          </figure>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="container home-section" aria-labelledby="apis-title">
-    <SectionHead id="apis-title" title={content.apis.title} href="https://docs.dapr.io/developing-applications/building-blocks/" linkLabel="构建块文档" />
-    <p class="section-intro">{content.apis.intro}</p>
-    <figure class="api-diagram">
-      <img src={content.apis.diagram} alt={content.apis.diagramAlt} width="1200" height="624" loading="lazy" />
-      <figcaption>{content.apis.diagramDesc}</figcaption>
-    </figure>
-    <ul class="api-list">
-      {content.apis.items.map((item) => (
-        <li>
-          <img src={item.icon} alt="" width="28" height="28" loading="lazy" />
-          <div>
-            <h3><a href={item.link}>{item.name}</a> {item.alpha && <span class="alpha">alpha</span>}</h3>
-            <p>{item.description}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="container home-section" aria-labelledby="concerns-title">
-    <SectionHead id="concerns-title" title={content.concerns.title} />
-    <ul class="use-cases concerns">
-      {content.concerns.items.map((item) => (
-        <li>
-          <img src={item.icon} alt="" width="32" height="32" loading="lazy" />
-          <h3><a href={item.link}>{item.name}</a></h3>
-          <p>{item.description}</p>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="container home-section" aria-labelledby="adopters-title">
-    <SectionHead id="adopters-title" title="官网列出的 Dapr 采用者" href="/testimonials/" linkLabel="了解他们的故事" />
-    <p class="source-note">名单与标志来自 Dapr 官网。商标属于各自权利人，不表示与中国社区存在合作关系。</p>
+    <h3 class="adopters-title">官网列出的采用者</h3>
     <ul class="adopter-logos">
       {content.adopters.map((adopter) => (
         <li><img src={adopter.image} alt={adopter.name} width="140" height="64" loading="lazy" /></li>
@@ -98,16 +84,8 @@ import SectionHead from './SectionHead.astro';
     </ul>
   </section>
 
-  <section class="container home-section" aria-labelledby="video-title">
-    <SectionHead id="video-title" title="AI 时代的 Dapr" />
-    <p class="section-intro">编排复杂的多代理工作流，并在故障后自动恢复。</p>
-    <p><a href="https://www.youtube.com/embed/9gejXxl5JzE">观看演讲：Dapr in the AI Era</a></p>
-    <p class="source-note">视频在 YouTube 打开，不会在访问本页时加载第三方播放器。</p>
-  </section>
-
   <section class="container home-section" aria-labelledby="ecosystem-title">
     <SectionHead id="ecosystem-title" title="生态工具与学习资源" href="/enterprise/" linkLabel="企业解决方案" />
-    <p class="source-note">以下为官网展示的第三方服务，价格与可用性以提供方为准。</p>
     <ul class="ecosystem">
       {content.banner.map((item) => (
         <li><a href={item.link}>{item.prefix}</a><p>{item.text}</p></li>
@@ -117,7 +95,6 @@ import SectionHead from './SectionHead.astro';
       <img src="/media/official/cncf-color.svg" alt="Cloud Native Computing Foundation" width="240" height="70" loading="lazy" />
       <p>Dapr 是 <a href="https://www.cncf.io/projects">CNCF 毕业项目</a>。</p>
     </div>
-    <p class="source-note"><a href="https://github.com/dapr/website/tree/460d369">官网内容来源：dapr/website，460d369</a>。本页由中国社区翻译整理。</p>
   </section>
 </div>
 
@@ -127,12 +104,13 @@ import SectionHead from './SectionHead.astro';
     margin: 0 0 1.75rem;
     color: var(--color-muted);
   }
-  .source-note,
-  figcaption {
+  .source-note {
+    max-width: 70ch;
+    margin: 0 0 1rem;
     font-size: 0.9rem;
     color: var(--color-muted);
   }
-  .use-cases,
+  .concerns,
   .case-studies,
   .api-list,
   .adopter-logos,
@@ -140,8 +118,6 @@ import SectionHead from './SectionHead.astro';
     list-style: none;
     padding: 0;
     margin: 1.5rem 0 0;
-    display: grid;
-    gap: 1.5rem;
   }
   li {
     margin: 0;
@@ -153,25 +129,105 @@ import SectionHead from './SectionHead.astro';
   p {
     margin: 0.5rem 0 0;
   }
-  .use-cases {
+
+  /* Card and list titles are links, but they read as titles: no underline until hover. */
+  .concerns h3 a,
+  .api-list h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .concerns h3 a:hover,
+  .api-list h3 a:hover {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+
+  .concerns {
+    display: grid;
+    gap: 1.5rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   }
-  .use-cases li {
+  .concerns li {
     border-top: 1px solid var(--color-border);
     padding-top: 1.5rem;
   }
-  .use-cases img,
+  .concerns img,
   .api-list > li > img {
     padding: 4px;
     border-radius: 6px;
     background: var(--official-artwork-bg);
   }
-  .use-cases p,
+  .concerns p,
   .api-list p {
     color: var(--color-muted);
     font-size: 0.95rem;
   }
+
+  .value-rows {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .value-item h3 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+  .value-item p {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+  figure {
+    margin: 0;
+    min-width: 0;
+  }
+  figure img {
+    width: 100%;
+    height: auto;
+    background: var(--official-artwork-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+  }
+  .api-diagram {
+    margin-block: 0 1.5rem;
+  }
+
+  .api-more summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--color-link);
+  }
+  .api-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 0 2rem;
+  }
+  .api-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .api-list > li > img {
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+  .api-list h3 {
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+  .alpha {
+    padding: 0.15em 0.5em;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--color-muted);
+  }
+
   .case-studies {
+    display: grid;
+    gap: 1.5rem;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   }
   .case-studies a {
@@ -212,86 +268,40 @@ import SectionHead from './SectionHead.astro';
     font-size: 0.9rem;
     font-weight: 600;
   }
-  .value-rows {
-    margin-top: 2rem;
-  }
-  .value-row {
-    display: grid;
-    align-items: center;
-    gap: 2rem;
-    border-top: 1px solid var(--color-border);
-    padding-block: 2.5rem;
-  }
-  .value-row h3 {
-    font-size: 1.45rem;
-    margin-top: 0;
-  }
-  .value-row p {
+
+  .adopters-title {
+    margin: 2.5rem 0 0;
+    font-size: 1rem;
     color: var(--color-muted);
   }
-  figure {
-    margin: 0;
-    min-width: 0;
-  }
-  figure img {
-    width: 100%;
-    height: auto;
-    background: var(--official-artwork-bg);
-    border-radius: 10px;
-  }
-  figcaption {
-    margin-top: 0.75rem;
-  }
-  .api-diagram {
-    margin-block: 2rem;
-  }
-  .api-list {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-    gap: 0 2rem;
-  }
-  .api-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding-block: 1.5rem;
-    border-top: 1px solid var(--color-border);
-  }
-  .api-list > li > img {
-    flex-shrink: 0;
-    margin-top: 0.2rem;
-  }
-  .api-list h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-  }
-  .alpha {
-    padding: 0.15em 0.5em;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--color-muted);
-  }
+  /* Tiles wrap and centre, so a short last row reads as intended instead of leaving a hole. */
   .adopter-logos {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--color-border);
-    background: var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
   }
   .adopter-logos li {
+    flex: 1 1 130px;
+    max-width: 170px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
     background: var(--official-artwork-bg);
   }
   .adopter-logos img {
-    width: 140px;
-    height: 64px;
+    width: 120px;
+    height: 56px;
     object-fit: contain;
   }
+
   .ecosystem {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     border-block: 1px solid var(--color-border);
     padding-block: 1.5rem;
   }
@@ -302,24 +312,66 @@ import SectionHead from './SectionHead.astro';
     font-size: 0.95rem;
     color: var(--color-muted);
   }
+  /* One line: the mark and the sentence side by side, not a padded panel. */
   .cncf {
-    margin-top: 2.5rem;
-    padding: 2rem;
-    background: var(--color-surface);
-    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin-top: 1.5rem;
   }
   .cncf img {
+    width: auto;
+    height: 40px;
     background: var(--official-artwork-bg);
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem;
     border-radius: 6px;
   }
-  @media (min-width: 900px) {
-    .value-row {
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-      gap: 3rem;
+  .cncf p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    /* Icon beside the title instead of on a line of its own. */
+    .concerns li {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 0.75rem;
+      align-items: center;
     }
-    .value-row:nth-child(even) > div {
-      order: 1;
+    .concerns h3 {
+      margin: 0;
+    }
+    .concerns p {
+      grid-column: 1 / -1;
+    }
+
+    /* Three case studies as a swipeable row rather than three screens of cards. */
+    .case-studies {
+      grid-auto-flow: column;
+      grid-auto-columns: 80%;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.5rem;
+    }
+    .case-studies li {
+      scroll-snap-align: start;
+    }
+    .case-studies img {
+      padding: 0.75rem;
+    }
+
+    .adopter-logos {
+      gap: 0.5rem;
+    }
+    .adopter-logos li {
+      flex-basis: 76px;
+      padding: 0.5rem;
+    }
+    .adopter-logos img {
+      width: 100%;
+      height: 36px;
     }
   }
 </style>

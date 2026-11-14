@@ -275,17 +275,6 @@
   }
 }
 
-/* Featured card on the home page: the first one is set large and has the room to say more. */
-.featured-grid > li:first-child .summary {
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
-}
-
-.featured-grid > li:first-child :is(h2, h3) {
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
-}
-
 /* Cross-document view transitions, used only for the card <-> page round trip: the card's title
    flies into the page's heading and back (names are set in scripts/card-motion.js and on the page
    heading). Every other navigation is skipped there, so the rest of the site keeps plain page

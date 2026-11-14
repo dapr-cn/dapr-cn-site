@@ -16,7 +16,7 @@ import { tagTerms } from '../lib/tags';
 import { tagDescriptions } from '../lib/tag-links';
 import { urls } from '../lib/urls';
 
-// Official Dapr overview first; the existing Chinese community archives follow it.
+// The community's own content comes first; the translated Dapr overview follows it.
 const [posts, events, publications] = await Promise.all([
   getCollection('post', (entry) => !entry.data.draft),
   getCollection('event'),
@@ -25,11 +25,17 @@ const [posts, events, publications] = await Promise.all([
 const byDate = <T extends { data: { date: Date } }>(a: T, b: T) => b.data.date.getTime() - a.data.date.getTime();
 
 const { upcoming, past } = splitEvents(events, new Date());
-const featured = posts.filter((post) => post.data.featured).sort(byDate).slice(0, 3);
-// The hero shows the newest three; the list further down continues from there.
+// The hero shows the newest three. Nothing below repeats them: the featured cards skip them
+// (featured posts first, then the next newest with a cover) and the list continues after both.
 const sorted = [...posts].sort(byDate);
 const newest = sorted.slice(0, 3);
-const earlier = sorted.slice(3, 9);
+const shown = new Set(newest.map((post) => post.id));
+const featured = [
+  ...sorted.filter((post) => post.data.featured && !shown.has(post.id)),
+  ...sorted.filter((post) => !post.data.featured && !shown.has(post.id) && post.data.header?.image),
+].slice(0, 3);
+featured.forEach((post) => shown.add(post.id));
+const earlier = sorted.filter((post) => !shown.has(post.id)).slice(0, 6);
 // Tags with no entries (description only) stay out of the cloud.
 const terms = tagTerms(
   [...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })),
@@ -48,14 +54,14 @@ const tagsTitle = await titleOf('home/tags', '标签云');
 
 <BaseLayout title={undefined} description={site.description} path={urls.home()}>
   <Hero latestTitle={recentTitle} latest={newest} />
-  <OfficialOverview />
   <div class="home">
-  <Activities />
-  <EventList id="upcoming-title" title={upcomingTitle} events={upcoming} />
-  <EventList id="review-title" title={reviewTitle} events={past.slice(0, 3)} />
-  <PostGrid title={featuredTitle} posts={featured} />
-  <PostList title="往期文章" posts={earlier} />
-  <TagCloud title={tagsTitle} terms={terms} />
+    <Activities />
+    <EventList id="upcoming-title" title={upcomingTitle} events={upcoming} />
+    <PostGrid title={featuredTitle} posts={featured} />
+    <PostList title="往期文章" posts={earlier} />
+    <EventList id="review-title" title={reviewTitle} events={past.slice(0, 3)} />
+    <TagCloud title={tagsTitle} terms={terms} />
   </div>
+  <OfficialOverview />
   <Closing />
 </BaseLayout>

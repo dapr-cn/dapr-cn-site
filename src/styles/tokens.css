@@ -29,7 +29,7 @@
   --chrome-width: 1240px;
   --gutter: 16px;
 
-  /* The home hero, the story band and the closing band are always dark, in both themes, so these
+  /* The home hero and the closing band are always dark, in both themes, so these
      roles do not change with the theme. Only home components read them. */
   --signal-bg: #0a1236;
   --signal-surface: #111b4d;

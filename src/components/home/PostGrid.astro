@@ -4,8 +4,7 @@ import PostCard from '../PostCard.astro';
 import SectionHead from './SectionHead.astro';
 import { urls } from '../../lib/urls';
 
-// Featured posts ("热门文章"): the first is set large beside the others. Renders nothing when
-// there are none.
+// Featured posts ("热门文章"): equal cards in one row. Renders nothing when there are none.
 interface Props {
   title: string;
   posts: CollectionEntry<'post'>[];
@@ -18,7 +17,7 @@ const { title, posts } = Astro.props;
   posts.length > 0 && (
     <section class="home-section container" aria-labelledby="featured-title">
       <SectionHead id="featured-title" title={title} href={urls.postList()} linkLabel="全部文章" />
-      <ul class="card-grid featured-grid">
+      <ul class="card-grid three">
         {posts.map((post) => (
           <PostCard post={post} />
         ))}

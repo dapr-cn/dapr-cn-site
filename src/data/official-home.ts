@@ -13,21 +13,10 @@ export const officialHome = {
   hero: {
     description: "Dapr 提供持久化、可验证的执行能力，让工作流与 AI 代理在崩溃、重启和中断后从原处继续。基于不绑定基础设施的 API，内置生产级安全、弹性与可观测性，让你专注代码。",
   },
-  useCases: {
-    title: "你可以构建什么",
-    intro: "持久化执行会在应用运行时为每一步保存检查点并进行回放。进程崩溃、Pod 重启或网络调用失败时，Dapr 从最后完成的步骤继续，而不是从头开始，或留下只完成一半的工作。",
-    items: [
-      { name: "工作流", icon: icon("flowchart"), description: "编排长时间运行、有状态且始终执行到完成的流程。支持重试、定时器、人工审批和 Saga，无需独立运维工作流引擎。", link: "https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-overview/" },
-      { name: "AI 代理", icon: icon("chat"), description: "构建能够推理、调用工具并从任意故障点恢复的 AI 代理。代理计划的每一步都有检查点，可以继续执行。", link: "https://docs.dapr.io/developing-ai/dapr-agents/dapr-agents-introduction/" },
-      { name: "微服务", icon: icon("arrow-step-in-right"), description: "通过统一 API 实现服务间调用，内置服务发现、mTLS、重试和分布式追踪。", link: "https://docs.dapr.io/developing-applications/building-blocks/service-invocation/service-invocation-overview/" },
-      { name: "事件驱动架构", icon: icon("mail-copy"), description: "通过发布订阅解耦发送方和接收方，在受支持的消息代理之间切换，无需改动应用代码。", link: "https://docs.dapr.io/developing-applications/building-blocks/pubsub/" },
-    ] satisfies OfficialItem[],
-  },
   apis: {
     title: "背后的构建块 API",
     intro: "持久化执行是 Dapr 集成 API 中的一部分。构建块 API 帮助你更快构建分布式应用，内置的弹性、安全和可观测性让你专注业务逻辑。",
     diagram: "/media/official/diagrams/apis.svg",
-    diagramAlt: "Dapr API 架构概览",
     diagramDesc: "Node.js、Python、.NET、Go、Java、PHP、Rust 等任意语言或运行时的应用，通过 HTTP 或 gRPC 调用 Dapr。Dapr 提供工作流、发布订阅、服务调用、状态管理、Actor、作业、外部配置、密钥、绑定和中间件 API，内置可观测性、安全和弹性。二进制存储、搜索、向量、加密、分布式锁和对话六项 API 处于 alpha 阶段。Dapr 可运行并集成于 Microsoft Azure、AWS、Google Cloud、Kubernetes、虚拟机、物理机、数据库、消息代理及其他服务等云端或边缘基础设施。",
     items: [
       { name: "工作流", icon: icon("flowchart"), description: "通过 Dapr 工作流或工作流组件，定义跨多个微服务的长时间运行、持久化流程或数据流，也可以与其他构建块 API 组合。", link: "https://docs.dapr.io/developing-applications/building-blocks/workflow/" },
@@ -48,7 +37,6 @@ export const officialHome = {
     ] satisfies OfficialItem[],
   },
   values: {
-    title: "更快构建持久化应用",
     intro: "Dapr 是一组面向分布式应用的 API，内置安全、弹性和可观测性最佳实践。官网介绍，开箱即用的持久化工作流、代理式 AI、发布订阅、状态管理、密钥存储、外部配置、绑定、Actor、作业、分布式锁和加密等功能，将开发效率提高 30%。内置安全、可靠性和可观测性能力，减少实现生产级应用所需的样板代码。",
     items: [
       {
@@ -57,14 +45,6 @@ export const officialHome = {
         paragraphs: [
           "用代码编写工作流，自动化有状态、持久化、长时间运行的复杂业务流程。每一步都将检查点写入状态存储，崩溃或重启后从最后完成的步骤继续，而不是重新开始。",
           "使用任务链、扇出与扇入、监控、定时器、外部系统交互等模式。结合 Dapr API 发送消息、调用服务、保存键值数据，工作流状态可以存入你选择的数据库。",
-        ],
-      },
-      {
-        name: "默认安全，具备弹性", diagram: "/media/official/diagrams/secure.svg",
-        diagramDesc: "应用安全地调用另一个应用，后者向消息代理发布消息，再分发给两个应用。失败调用由弹性策略重试，直至成功。",
-        paragraphs: [
-          "Dapr 内置默认开启的安全功能。开发与运维可以为 API、服务和组件设置以应用为中心的访问策略，无需深入底层网络细节。传输中的通信自动通过 mTLS 加密。",
-          "弹性策略应对硬件故障、意外吞吐量，以及扩容和重启等生命周期事件。Dapr 可以检测故障，并配置重试、退避、熔断和超时。",
         ],
       },
       {
@@ -88,7 +68,7 @@ export const officialHome = {
       { name: "安全", icon: icon("shield-lock"), description: "服务调用 API 提供端到端安全、应用认证和端点访问策略。发布订阅组件可限制主题类型，以及允许向指定主题发布或订阅的应用。", link: "https://docs.dapr.io/concepts/security-concept/" },
       { name: "可观测性", icon: icon("heart-pulse"), description: "可配置输出 OpenTelemetry 和 Zipkin 协议的追踪数据，方便集成多种可观测性工具。", link: "https://docs.dapr.io/concepts/observability-concept/" },
       { name: "弹性", icon: icon("arrow-clockwise"), description: "定义超时、重试与退避、熔断等容错策略，通过弹性规范应用到组件调用的 Dapr API。", link: "https://docs.dapr.io/concepts/resiliency-concept/" },
-      { name: "可验证执行", icon: icon("shield-lock"), description: "工作流历史可以进行密码学签名，使执行可审计、篡改可发现。每个事件使用 Sidecar 的 mTLS 身份签名，签名链在每次加载状态时验证。", link: "https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-history-signing/" },
+      { name: "可验证执行", icon: icon("lock-closed-key"), description: "工作流历史可以进行密码学签名，使执行可审计、篡改可发现。每个事件使用 Sidecar 的 mTLS 身份签名，签名链在每次加载状态时验证。", link: "https://docs.dapr.io/developing-applications/building-blocks/workflow/workflow-history-signing/" },
     ] satisfies OfficialItem[],
   },
   adopters: [
@@ -111,6 +91,7 @@ export const officialHome = {
     { prefix: "Dapr Support Pro", text: "为团队提供 Dapr 专家指导和邮件支持，每月 99 美元起。", link: "https://www.diagrid.io/dapr-support" },
     { prefix: "Dapr Dev Dashboard", text: "免费实时查看本地 Dapr 应用和工作流。", link: "https://docs.diagrid.io/develop/local-development/dev-dashboard/" },
     { prefix: "Dapr Ops Dashboard", text: "免费自动化 Kubernetes 上的 Dapr 运维。", link: "https://docs.diagrid.io/dapr-open-source/dapr-ops-dashboard/" },
+    { prefix: "Dapr in the AI Era", text: "演讲视频：编排复杂的多代理工作流，并在故障后自动恢复。在 YouTube 打开。", link: "https://www.youtube.com/watch?v=9gejXxl5JzE" },
     { prefix: "Dapr University", text: "通过免费、自主学习的课程学习 Dapr。", link: "https://www.diagrid.io/university" },
   ],
 };

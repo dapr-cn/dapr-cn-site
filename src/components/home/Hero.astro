@@ -234,6 +234,18 @@ const { description } = officialHome.hero;
     color: var(--signal-bg);
   }
 
+  /* Three buttons in one row on a phone instead of two plus an orphan. */
+  @media (max-width: 480px) {
+    .signal-actions {
+      gap: 6px;
+    }
+
+    .signal-button {
+      padding: 0.55em 0.8em;
+      font-size: 0.85rem;
+    }
+  }
+
   @media (min-width: 800px) {
     .signal-latest ul {
       grid-template-columns: repeat(3, minmax(0, 1fr));

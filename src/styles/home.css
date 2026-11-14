@@ -1,6 +1,6 @@
-/* Home page only (imported by pages/index.astro). The hero, story and closing band carry their
-   own styles; this file sets the rhythm of the light sections between them and lifts the shared
-   cards a little on the home page. Colours come from tokens.css. */
+/* Home page only (imported by pages/index.astro). The hero and closing band carry their own
+   styles; this file sets the rhythm of the light sections between them and lifts the shared cards
+   a little on the home page. Colours come from tokens.css. */
 
 /* The bands and sections share the masthead's width so their left edges line up with the brand.
    These selectors carry an extra class: Astro scopes component CSS with :where(), and a plain
@@ -12,16 +12,14 @@
 }
 
 .signal-hero .container,
-.story .container,
 .closing .container {
   max-width: var(--chrome-width);
 }
 
 /* Starlight puts a 1rem margin above every sibling inside its content column. Between the full-bleed
    bands that margin shows the white page as a stripe, so the bands butt against each other. */
-.signal-hero ~ .story,
-.story ~ .home,
-.signal-hero ~ .official-overview {
+.signal-hero ~ .home,
+.home ~ .official-overview {
   margin-top: 0;
 }
 
@@ -36,26 +34,9 @@ body:has(.signal-hero) .site-header {
   margin-top: 0;
 }
 
-.featured-grid {
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 960px) {
-  .featured-grid {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  }
-
-  .featured-grid > li:first-child {
-    grid-row: span 2;
-  }
-
-  .featured-grid > li:first-child h3 {
-    font-size: 1.5rem;
-  }
-
-  .featured-grid > li:first-child .summary {
-    font-size: 1rem;
-  }
+/* Covers are cropped to 16:9; keep the top of tall diagrams, where their labels are. */
+.home .card img.cover {
+  object-position: top;
 }
 
 .tag-cloud a {
@@ -74,7 +55,7 @@ body:has(.home) .site-footer {
   margin-top: 0;
 }
 
-/* Starlight pads and narrows its content panel. The home hero, story and closing bands run edge to
+/* Starlight pads and narrows its content panel. The home hero and closing band run edge to
    edge, so on this page only the panel's padding and width cap are lifted; the light sections
    bring their own gutters through .container. */
 .content-panel:has(.signal-hero) {
