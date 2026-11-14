@@ -12,9 +12,7 @@ function bundleId({ entry }: { entry: string }): string {
 }
 
 /**
- * Static pages keep their path below `src/content/pages`.
- * `tour/index.md` -> `tour`, `translation/docs/index.md` -> `translation/docs`,
- * `meeting/meeting-minutes.md` -> `meeting/meeting-minutes`.
+ * Widget entries keep their path below `src/content/pages`, e.g. `home/welcome.md` -> `home/welcome`.
  */
 function pageId({ entry }: { entry: string }): string {
   return entry.replace(/\/index\.md$/, '').replace(/\.md$/, '');
@@ -108,8 +106,21 @@ const authors = defineCollection({
 });
 
 /**
- * Static pages and home-page widgets. Widgets are `headless: true` and produce no URL:
- * the tour slider, the people list and the home sections are read by the pages that use them.
+ * Tag descriptions. `tag/<name>/index.md` is the text shown above the entries of the tag `<name>`
+ * on `/tag/<name>/`. The folder name is not used for the URL; the title is.
+ * A tag with a description and no entries still gets a page.
+ */
+const tag = defineCollection({
+  loader: glob({ pattern: '*/index.md', base: './src/content/tag', generateId: bundleId }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string().optional(),
+  }),
+});
+
+/**
+ * Home-page widgets (`home/*.md`). Every entry is `headless: true` and produces no URL: the
+ * home page reads them for the hero, the section titles and the community statement.
  */
 const pages = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/pages', generateId: pageId }),
@@ -118,7 +129,6 @@ const pages = defineCollection({
     subtitle: z.string().optional(),
     headless: z.boolean().default(false),
     draft: z.boolean().default(false),
-    toc: z.boolean().default(false),
     weight: z.number().optional(),
     widget: z.string().optional(),
     content: z.any().optional(),
@@ -135,4 +145,4 @@ const pages = defineCollection({
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() });
 const i18n = defineCollection({ loader: i18nLoader(), schema: i18nSchema() });
 
-export const collections = { post, event, publication, authors, pages, docs, i18n };
+export const collections = { post, event, publication, authors, tag, pages, docs, i18n };

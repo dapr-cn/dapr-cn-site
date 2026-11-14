@@ -6,6 +6,7 @@ import starlight from '@astrojs/starlight';
 import { satteri } from '@astrojs/markdown-satteri';
 import { findMissingLocalImages, formatMissing } from './scripts/lib/local-images.mjs';
 import { bodyHeadingsStartAtH2 } from './scripts/lib/body-headings.mjs';
+import { asciiHeadingIds } from './scripts/lib/heading-ids.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
@@ -39,8 +40,9 @@ export default defineConfig({
     format: 'directory',
   },
   markdown: {
-    // The default Sätteri processor, plus the heading rule in scripts/lib/body-headings.mjs.
-    processor: satteri({ hastPlugins: [bodyHeadingsStartAtH2] }),
+    // The default Sätteri processor, plus the heading rules: the levels in scripts/lib/body-headings.mjs
+    // and the ASCII ids in scripts/lib/heading-ids.mjs.
+    processor: satteri({ hastPlugins: [bodyHeadingsStartAtH2, asciiHeadingIds] }),
   },
   integrations: [
     // Starlight supplies the documentation theme and its shared pieces (search, theme switch,
