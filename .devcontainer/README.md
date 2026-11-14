@@ -1,18 +1,16 @@
 # DevContainer 配置说明
 
-这个 devContainer 配置为 Dapr 中国社区网站提供了完整的开发环境。
+这个 devContainer 为 Dapr 中国社区网站提供开发环境：Node.js 24 和 pnpm，用于 Astro 构建。
 
 ## 包含的工具
 
-- **Hugo Extended**: 用于构建静态网站
-- **Go 1.21**: 用于 Hugo 模块管理
-- **Node.js 18**: 用于前端工具链
+- **Node.js 24**: 构建和运行 Astro 站点
+- **pnpm**: 版本由 `package.json` 的 `packageManager` 字段指定，通过 corepack 启用
 - **Git**: 版本控制
 
 ## VS Code 扩展
 
-- Hugo 语言支持
-- Go 语言支持
+- Astro 语言支持
 - Markdown 预览和编辑
 - YAML 支持
 - 拼写检查
@@ -24,18 +22,23 @@
 3. 按 `Ctrl+Shift+P` 打开命令面板
 4. 选择 "Dev Containers: Reopen in Container"
 
+容器创建后会自动执行 `pnpm install --frozen-lockfile`。
+
 ## 开发服务器
 
-容器启动后，你可以运行以下命令启动 Hugo 开发服务器：
-
 ```bash
-hugo server --bind 0.0.0.0 --port 1313
+pnpm run dev
 ```
 
-网站将在 `http://localhost:1313` 可访问。
+网站将在 `http://localhost:4321` 可访问。内容改动会自动刷新。
+
+## 其他命令
+
+```bash
+pnpm run build    # 构建到 dist/，并生成搜索索引
+pnpm run verify   # 构建并检查路由、内容、链接和图片
+```
 
 ## 注意事项
 
-- 如果你有本地的 `wowchemy-hugo-themes` 目录，请确保它位于项目的父目录中
-- 端口 1313 已经配置为自动转发
-- 容器会自动下载 Go 模块依赖
+- 端口 4321 已经配置为自动转发
