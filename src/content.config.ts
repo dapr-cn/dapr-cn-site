@@ -18,6 +18,44 @@ function pageId({ entry }: { entry: string }): string {
   return entry.replace(/\/index\.md$/, '').replace(/\.md$/, '');
 }
 
+/**
+ * Section pages (`case`, `source`) take their URL from their path: `join/pr.md` -> `join/pr`,
+ * `join/index.md` -> `join`. The root `index.md` yields the id `index`, which the route maps to the
+ * section root.
+ */
+function sectionId({ entry }: { entry: string }): string {
+  return entry.replace(/\/index\.md$/, '').replace(/\.md$/, '');
+}
+
+/** A card on a landing page. Without `href` it is plain text; with `href` it is one link. */
+const landingCard = z.object({
+  title: z.string(),
+  description: z.string().optional(),
+  href: z.string().optional(),
+});
+
+/** Shared by `case` and `source`. `lead` and `groups` are only read by landing pages. */
+const sectionPage = z.object({
+  title: z.string(),
+  summary: z.string().optional(),
+  weight: z.number().optional(),
+  lead: z.string().optional(),
+  groups: z
+    .array(z.object({ title: z.string().optional(), cards: z.array(landingCard).default([]) }))
+    .default([]),
+  draft: z.boolean().default(false),
+});
+
+const caseSection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/case', generateId: sectionId }),
+  schema: sectionPage,
+});
+
+const sourceSection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/source', generateId: sectionId }),
+  schema: sectionPage,
+});
+
 /** Tags: trimmed, non-empty, de-duplicated. Hugo's empty tag values are removed here too. */
 const tagList = z
   .array(z.string())
@@ -156,4 +194,4 @@ const site = defineCollection({
 const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() });
 const i18n = defineCollection({ loader: i18nLoader(), schema: i18nSchema() });
 
-export const collections = { post, event, publication, authors, tag, pages, site, docs, i18n };
+export const collections = { post, event, publication, authors, tag, pages, site, case: caseSection, source: sourceSection, docs, i18n };
