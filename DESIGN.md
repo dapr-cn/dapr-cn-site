@@ -172,7 +172,7 @@ The header is sticky, 60px minimum, with the brand left, desktop navigation from
 
 Spacing rhythm is small and practical: 4px (meta row gap), 6px (tag gap), 8px, 10px, 12px, 16px, 24px. It is not a strict scale; follow the nearest existing value.
 
-Breakpoints in use: 480px (search toggle label hides), 640px (gutter and two-column grid), 720px (hero), 960px (desktop nav, three-column grid).
+Breakpoints in use: 640px (gutter and two-column grid), 720px (hero), 960px (desktop nav, three-column grid).
 
 ## Elevation & Depth
 
@@ -197,12 +197,13 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Style:** every page renders through Starlight's `StarlightPage` (`BaseLayout.astro`), which supplies the document, head, and main region. The site overrides what it shows: the masthead (`Header`), the footer (`Footer`), the head (`starlight/Head.astro`), and the page title (`starlight/PageTitle.astro`, empty because pages render their own `h1`). Search and the theme select are Starlight's own components, placed in the masthead.
 - **Frame:** Starlight's own header bar is made transparent and in flow, so the masthead is the only bar. Starlight's content panel rules are removed; the masthead hairline and the hero hairline are the only separators.
 - **Code blocks:** Expressive Code keeps the Code Wash block of this document (no terminal frame, `--color-code-bg`, 10px radius, `--font-mono`); the copy button and syntax colours are kept.
-- **Theme:** the site's own key (`dapr-cn-theme`) decides the theme; Starlight's default theme provider is replaced so Starlight does not force a theme.
+- **Colours:** `src/styles/starlight.css` maps Starlight's colour roles to the tokens in `tokens.css`, so Starlight's search, theme select and contents follow both themes. The theme choice is Starlight's own (`starlight-theme`).
+- **Contents:** article pages show "本页内容" (on this page) in the right column on wide screens, from the article's headings. Other pages have no contents.
 
 ### Site Header (masthead)
 - **Style:** Brand Indigo bar with white text (Pinboard Mist with light text in dark mode), a hairline bottom border, sticky at the top, 60px minimum height. The brand is a 32px logo on a white rounded chip beside the site name in bold.
 - **Nav links:** 0.95rem, 6px 10px padding, 6px radius. Hover adds a 12% white wash; the current page (`aria-current='page'`) gets a 20% white wash and bold weight.
-- **Header tools:** Search and theme toggle are 36px pills with a 1px 50%-white border and transparent fill; hover adds the same 12% wash. The mobile menu is a `<details>` with a bordered "菜单" button and a popover panel of the nav list, up to 260px wide.
+- **Header tools:** Starlight's search and theme select are 36px pills with a 1px 50%-white border and transparent fill; hover adds the same 12% wash. Their text is the masthead text colour. The mobile menu is a `<details>` with a bordered "菜单" button and a popover panel of the nav list, up to 260px wide.
 
 ### Buttons
 - **Shape:** full pill (999px), `0.55em 1.1em` padding, 600 weight.
@@ -225,8 +226,8 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Style:** see Site Header. Desktop is an inline list from 960px; mobile is a disclosure menu. Always keep `aria-current='page'` on the active link and a skip link first in the tab order.
 
 ### Search Dialog
-- **Style:** native `<dialog>`, up to 720px wide, 10px radius, Paper background with a 1px Hairline border and 16px padding. A bordered "close" button (6px radius) sits at the right of the header row. The toggle label hides below 480px, leaving the icon.
-- **Behavior:** Pagefind renders results inside. Its own palette is mapped to these role tokens (links to Link Cobalt, matches to the Highlighter), so the dialog follows both themes. Status text is Ink Slate.
+- **Style:** Starlight's search dialog, coloured from the role tokens through `styles/starlight.css`: Paper background, Hairline borders, Link Cobalt result titles, and Highlighter matches. On narrow screens the masthead button shows only its icon.
+- **Behavior:** Starlight's Pagefind index covers the article bodies only (articles mark them with `data-pagefind-body`), so the dialog searches posts.
 
 ### Recent List
 - **Style:** a plain list with a hairline under each row. The title is a link; the date is Ink Slate at 0.9rem and does not wrap internally.
