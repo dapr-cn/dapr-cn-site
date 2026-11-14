@@ -20,7 +20,7 @@ const { title, terms } = Astro.props;
       <ul class="tag-list tag-cloud">
         {terms.map((term) => (
           <li>
-            <a href={urls.tag(term.slug)} style={`font-size: ${Math.min(1.1, 0.8 + term.count * 0.08)}rem`}>
+            <a href={urls.tag(term.url)} style={`font-size: ${Math.min(1.1, 0.8 + term.count * 0.08)}rem`}>
               {term.name}
             </a>
           </li>

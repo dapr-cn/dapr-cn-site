@@ -9,6 +9,7 @@ tags:
   - "workflow"
   - "翻译"
   - "提案"
+  - "博客翻译"
 summary: "Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎"
 abstract: "Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎"
 header:

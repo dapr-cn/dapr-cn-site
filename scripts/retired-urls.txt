@@ -1,0 +1,30 @@
+# Hugo URLs retired on purpose, with the URL that replaces each one. Public URLs are ASCII only, and
+# the standalone pages became tag archives. Format: <old URL> <new URL>. Use these pairs for redirects
+# on the host; the build does not produce the old URLs.
+/author/俞坤/ /author/yukun/
+/author/张善友/ /author/zhangshanyou/
+/author/戴翔/ /author/daixiang/
+/author/敖小剑/ /author/aoxiaojian/
+/author/朱永光/ /author/zhuyongguang/
+/author/杨鼎睿/ /author/yangdingrui/
+/author/管理员/ /author/admin/
+/author/罗广明/ /author/luoguangming/
+/author/蒋金楠/ /author/jiangjinnan/
+/author/陈东海/ /author/chendonghai/
+/author/高逸儒/ /author/gaoyiru/
+/tag/书籍/ /tag/books/
+/tag/微服务/ /tag/microservices/
+/tag/提案/ /tag/proposal/
+/tag/演讲/ /tag/talks/
+/tag/社区建设/ /tag/community/
+/tag/视频/ /tag/videos/
+/tag/翻译/ /tag/translation/
+/tour/ /
+/people/ /authors/
+/meeting/ /tag/meeting/
+/meeting/meeting-minutes/ /tag/meeting-minutes/
+/meeting/meeting-minutes-archive/ /tag/meeting-minutes/
+/translation/ /tag/translation/
+/translation/blog/ /tag/blog-translation/
+/translation/docs/ /tag/docs-translation/
+/translation/paper/ /tag/paper-translation/

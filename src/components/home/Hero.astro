@@ -1,11 +1,13 @@
 ---
 import { getEntry, render } from 'astro:content';
+import { tagHrefs } from '../../lib/tag-links';
 import { urls } from '../../lib/urls';
 
 // Text comes from the `home/welcome` widget. The title falls back to the site name.
 const welcome = await getEntry('pages', 'home/welcome');
 const rendered = welcome ? await render(welcome) : undefined;
 const title = welcome?.data.title ?? 'Dapr 中国社区';
+const tagHref = await tagHrefs();
 ---
 
 <section class="hero">
@@ -19,7 +21,7 @@ const title = welcome?.data.title ?? 'Dapr 中国社区';
       )}
       <p class="hero-actions">
         <a class="button" href={urls.postList()}>阅读博客</a>
-        <a class="button secondary" href={urls.page('translation')}>加入翻译小组</a>
+        <a class="button secondary" href={tagHref('翻译')}>加入翻译小组</a>
       </p>
     </div>
     <img class="hero-image" src="/media/dapr.png" alt="" width="220" height="220" />

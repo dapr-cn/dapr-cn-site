@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getEntry, type CollectionEntry } from 'astro:content';
 import AuthorBadge from './AuthorBadge.astro';
 import { formatDate } from '../lib/format';
+import { tagHrefs } from '../lib/tag-links';
 import { urls } from '../lib/urls';
 
 interface Props {
@@ -15,6 +16,7 @@ const { post, level = 3 } = Astro.props;
 const Heading = level === 2 ? 'h2' : 'h3';
 const authors = await Promise.all(post.data.authors.map((ref) => getEntry(ref)));
 const cover = post.data.header?.image;
+const tagHref = await tagHrefs();
 ---
 
 <li class="card post-card">
@@ -30,7 +32,7 @@ const cover = post.data.header?.image;
       <ul class="tag-list">
         {post.data.tags.map((tag) => (
           <li>
-            <a href={urls.tag(tag)}>{tag}</a>
+            <a href={tagHref(tag)}>{tag}</a>
           </li>
         ))}
       </ul>

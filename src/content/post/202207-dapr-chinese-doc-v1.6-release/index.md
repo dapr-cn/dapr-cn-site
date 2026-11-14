@@ -52,7 +52,7 @@ Dapr v1.7 版本的翻译工作即将启动，新的征程，期待您的加入�
 
 加入方式：
 
-访问 https://cn.dapr.io/translation/ 了解详情
+访问 https://cn.dapr.io/tag/translation/ 了解详情
 
 ### 问答1: 为什么选择使用 crowdin 作为翻译工具？
 

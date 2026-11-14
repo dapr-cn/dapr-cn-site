@@ -10,6 +10,7 @@ import TagCloud from '../components/home/TagCloud.astro';
 import { site } from '../config/site';
 import { splitEvents } from '../lib/events';
 import { tagTerms } from '../lib/tags';
+import { tagDescriptions } from '../lib/tag-links';
 import { urls } from '../lib/urls';
 
 // Section order follows the Hugo home widgets: hero, activities, upcoming events, event reviews,
@@ -24,7 +25,13 @@ const byDate = <T extends { data: { date: Date } }>(a: T, b: T) => b.data.date.g
 const { upcoming, past } = splitEvents(events, new Date());
 const featured = posts.filter((post) => post.data.featured).sort(byDate).slice(0, 3);
 const recent = [...posts].sort(byDate).slice(0, 6);
-const terms = tagTerms([...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags }))).slice(0, 40);
+// Tags with no entries (description only) stay out of the cloud.
+const terms = tagTerms(
+  [...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })),
+  await tagDescriptions(),
+)
+  .filter((term) => term.count > 0)
+  .slice(0, 40);
 
 const titleOf = async (id: string, fallback: string) => (await getEntry('pages', id))?.data.title ?? fallback;
 const upcomingTitle = await titleOf('home/events-incoming', '即将开始的活动');

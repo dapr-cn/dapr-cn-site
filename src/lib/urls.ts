@@ -1,5 +1,5 @@
 // Public URLs. Every path ends with a slash, as in the Hugo site (`trailingSlash: 'always'`).
-// Segments are percent-encoded, so `/tag/翻译/` is written `/tag/%E7%BF%BB%E8%AF%91/`, as Hugo wrote it.
+// Segments are percent-encoded, so `/tag/translation/` is written `/tag/translation/`, as Hugo wrote it.
 
 const path = (...segments: string[]): string => encodeURI(`/${segments.join('/')}/`);
 
@@ -19,5 +19,4 @@ export const urls = {
   tag: (slug: string) => path('tag', slug),
   tagList: () => path('tags'),
   categoryList: () => path('categories'),
-  page: (id: string) => path(id),
 };

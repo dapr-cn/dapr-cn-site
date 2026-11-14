@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { tagTerms } from '../../lib/tags';
+import { tagDescriptions } from '../../lib/tag-links';
 import { urls } from '../../lib/urls';
 
 const [posts, events, publications] = await Promise.all([
@@ -9,7 +10,10 @@ const [posts, events, publications] = await Promise.all([
   getCollection('event'),
   getCollection('publication'),
 ]);
-const terms = tagTerms([...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })));
+const terms = tagTerms(
+  [...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })),
+  await tagDescriptions(),
+);
 ---
 
 <BaseLayout title="标签" description="Dapr 中国社区的所有标签" path={urls.tagList()}>
@@ -19,7 +23,7 @@ const terms = tagTerms([...posts, ...events, ...publications].map((entry) => ({ 
       {
         terms.map((term) => (
           <li>
-            <a href={urls.tag(term.slug)}>
+            <a href={urls.tag(term.url)}>
               {term.name} <span class="muted">({term.count})</span>
             </a>
           </li>

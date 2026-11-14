@@ -9,6 +9,7 @@ tags:
   - "Dapr"
   - "actor"
   - "翻译"
+  - "博客翻译"
 summary: "希望这篇技术文章能帮助你理解 actor 模型背后的关键思想及其主要前提"
 abstract: "希望这篇技术文章能帮助你理解 actor 模型背后的关键思想及其主要前提"
 header:

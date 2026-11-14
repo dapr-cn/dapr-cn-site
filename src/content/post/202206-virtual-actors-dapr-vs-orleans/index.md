@@ -9,6 +9,7 @@ tags:
   - "Dapr"
   - "actor"
   - "翻译"
+  - "博客翻译"
 summary: "如果你想了解更多关于分布式应用程序或 virtual actor 的想法，我建议你从 Dapr 开始。 Orleans 是最初的先驱，而 Dapr 是一次重新开始，它将提升到一个新的水平。"
 abstract: "如果你想了解更多关于分布式应用程序或 virtual actor 的想法，我建议你从 Dapr 开始。 Orleans 是最初的先驱，而 Dapr 是一次重新开始，它将提升到一个新的水平。"
 header:

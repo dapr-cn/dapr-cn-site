@@ -1,12 +1,7 @@
 ---
 title: "社区会议"
-cms_exclude: true
-draft: false
-toc: true
-cascade:
-  - type: "book"
+summary: "Dapr 中国社区双周会的时间与参会方式"
 ---
-
 
 ## Dapr 中国社区双周会（中文）
 
@@ -36,7 +31,7 @@ Dapr 中国社区双周会采用 "腾讯会议" 的网络研讨会方式接入�
 
 ### 会议纪要和视频回放
 
-如果您错过了近期的双周会，那么可以通过 [会议纪要](./meeting-minutes/) 和视频回放来了解近期会议的情况。
+如果您错过了近期的双周会，那么可以通过 [会议纪要](/tag/meeting-minutes/) 和视频回放来了解近期会议的情况。
 
 ## Dapr 社区双周会（英文）
 

@@ -304,7 +304,7 @@ replace (
 
 ## 配置svcreg
 
-我们之间已经说过，Dapr默认使用的是基于mDNS的NameResolution组件（对于的注册名为为“mdns”）。若要使我们自定义的组件“svcreg”生效，需要修改Dapr的配置文件（%userprofile%.dapr\config.yaml）。如下面的代码片段所示，我们不仅将使用的组件名称设置为“svcreg”（在dapr/cmd/daprd/main.go中注册NameResolution组件时提供的名称），还将服务注册API的URL（http://127.0.0.1:3721）放在了配置中（Resolver的Init方法提取的URL就来源于这里）。
+我们之间已经说过，Dapr默认使用的是基于mDNS的NameResolution组件（对于的注册名为为“mdns”）。若要使我们自定义的组件“svcreg”生效，需要修改Dapr的配置文件（%userprofile%.dapr\config.yaml）。如下面的代码片段所示，我们不仅将使用的组件名称设置为“svcreg”（在dapr/cmd/daprd/main.go中注册NameResolution组件时提供的名称），还将服务注册API的URL（[http://127.0.0.1:3721](http://127.0.0.1:3721)）放在了配置中（Resolver的Init方法提取的URL就来源于这里）。
 
 ```
 apiVersion: dapr.io/v1alpha1

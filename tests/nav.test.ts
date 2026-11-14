@@ -12,7 +12,7 @@ test('navigation has the nine Hugo menu entries in order', () => {
 test('navigation links match the Hugo menu URLs', () => {
   assert.deepEqual(
     nav.map((item) => item.href),
-    ['/tour/', '/event/', '/post/', '/translation/', '/source/', '/meeting/', '/case/', '/publication/', '/people/'],
+    ['/', '/event/', '/post/', '/tag/translation/', '/source/', '/tag/meeting/', '/case/', '/publication/', '/authors/'],
   );
 });
 
@@ -25,6 +25,10 @@ test('a post page is highlighted as 博客', () => {
   assert.equal(currentNavItem('/post/202306-dapr-release-111/')?.name, '博客');
 });
 
-test('the home page highlights no entry', () => {
-  assert.equal(currentNavItem('/'), undefined);
+test('the home page highlights 介绍, and no other page does', () => {
+  assert.equal(currentNavItem('/')?.name, '介绍');
+  assert.equal(currentNavItem('/post/'), nav.find((item) => item.name === '博客'));
+  assert.equal(currentNavItem('/tag/translation/')?.name, '翻译');
+  assert.equal(currentNavItem('/author/yukun/')?.name, '成员');
+  assert.equal(currentNavItem('/tags/')?.name, undefined);
 });

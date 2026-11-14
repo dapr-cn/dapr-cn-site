@@ -5,7 +5,8 @@ authors:
 date: "2022-12-26"
 draft: false
 featured: true
-tags: []
+tags:
+  - "博客翻译"
 summary: "在SDLC(Software Development Lifecycle软件开发生命周期中)，绝大多数CNCF项目都是专注于软件开发的中后期阶段，特别是运维和可观测性方面。而很少有CNCF项目专注于早期阶段。而Dapr就是在软件开发的早期阶段，帮助开发者提高生产力。"
 abstract: "在SDLC(Software Development Lifecycle软件开发生命周期中)，绝大多数CNCF项目都是专注于软件开发的中后期阶段，特别是运维和可观测性方面。而很少有CNCF项目专注于早期阶段。而Dapr就是在软件开发的早期阶段，帮助开发者提高生产力。"
 header:

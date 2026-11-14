@@ -7,6 +7,7 @@ draft: false
 tags:
   - "v1.8"
   - "Release Notes"
+  - "博客翻译"
 summary: "Dapr是什么，Dapr1.8 包含什么新功能。"
 abstract: "Dapr是什么，Dapr1.8 包含什么新功能。"
 ---

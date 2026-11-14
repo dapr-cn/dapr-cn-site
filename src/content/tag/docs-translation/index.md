@@ -1,10 +1,6 @@
 ---
 title: "文档翻译"
-cms_exclude: true
-weight: 10
-draft: false
-toc: true
-pager: false
+summary: "Dapr 官方文档的中文翻译小组、流程与参与方式"
 ---
 
 ## 概述

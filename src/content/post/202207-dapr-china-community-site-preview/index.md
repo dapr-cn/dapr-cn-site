@@ -86,9 +86,7 @@ https://docs.dapr.io/zh-hans/
 
 ![](images/source-code-study.avif)
 
-稍后源码解析小组将陆续将产出的内容以文章和视频会议的形式进行分享，欢迎关注，更欢迎一起参加！更多详细请访问如下地址：
-
-https://cn.dapr.io/source/join/
+稍后源码解析小组将陆续将产出的内容以文章和视频会议的形式进行分享，欢迎关注，更欢迎一起参加！
 
 ### 社区双周会
 
@@ -102,7 +100,7 @@ https://cn.dapr.io/source/join/
 
 Dapr 中国社区会议更多详细，包括历次会议的纪要和视频回放地址，请访问如下地址：
 
-https://cn.dapr.io/meeting/
+https://cn.dapr.io/tag/meeting/
 
 ### 用户案例
 
@@ -112,9 +110,7 @@ https://cn.dapr.io/meeting/
 
 随着 Dapr 在中国影响力的增加，Dapr 的用户也在增加，而社区对 Dapr 用户案例的分享需求更是持续增加。因此，应社区强烈要求，Dapr 中国社区网站开设了用户案例专栏，准备收集并整理 Dapr 的用户案例，并进行深度分享。
 
-欢迎 Dapr 的实际用户提交并分享你们的落地实践，请访问如下地址：
-
-https://cn.dapr.io/case/join/
+欢迎 Dapr 的实际用户提交并分享你们的落地实践。
 
 ### 出版物
 

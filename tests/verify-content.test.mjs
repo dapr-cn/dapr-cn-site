@@ -10,7 +10,7 @@ import {
   externalImages,
 } from '../scripts/verify-content.mjs';
 import { findMissingLocalImages } from '../scripts/lib/local-images.mjs';
-import { compareRoutes, parseUrlList } from '../scripts/verify-url-parity.mjs';
+import { compareRoutes, nonAsciiAttributes, nonAsciiRoutes, parseUrlList } from '../scripts/verify-url-parity.mjs';
 
 const post = (id, front, body = '') => ({
   collection: 'post',
@@ -48,16 +48,16 @@ test('a known author passes the author reference check', () => {
 });
 
 test('a broken internal link fails and names the link', () => {
-  const site = { routes: new Set(['/translation/', '/tag/翻译/']), publicFiles: new Set() };
-  const entry = post('links', 'title: "x"\ndate: "2023-01-01"', 'See [译](../../translation/), [missing](../../nope/) and [source](/source/).\n');
+  const site = { routes: new Set(['/tag/translation/']), publicFiles: new Set() };
+  const entry = post('links', 'title: "x"\ndate: "2023-01-01"', 'See [译](../../tag/translation/), [missing](../../nope/) and [source](/source/).\n');
   const findings = checkInternalLinks([entry], site);
   assert.equal(findings.length, 1);
   assert.match(findings[0].message, /nope/);
 });
 
 test('a relative link that resolves to a built tag page passes', () => {
-  const site = { routes: new Set(['/tag/翻译/']), publicFiles: new Set() };
-  const entry = post('tag-link', 'title: "x"\ndate: "2023-01-01"', 'See [tag](../../tag/%E7%BF%BB%E8%AF%91/).\n');
+  const site = { routes: new Set(['/tag/translation/']), publicFiles: new Set() };
+  const entry = post('tag-link', 'title: "x"\ndate: "2023-01-01"', 'See [tag](../../tag/translation/).\n');
   assert.deepEqual(checkInternalLinks([entry], site), []);
 });
 
@@ -82,12 +82,22 @@ test('a missing local image is found in a temporary content tree', async () => {
 });
 
 test('removing one route is reported as a missing URL', () => {
-  const hugo = parseUrlList('# comment\n/tag/翻译/\n/tour/\n');
+  const hugo = parseUrlList('# comment\n/tag/translation/\n/tour/\n');
   const { missing } = compareRoutes(hugo, ['/tour/']);
-  assert.deepEqual(missing, ['/tag/翻译/']);
+  assert.deepEqual(missing, ['/tag/translation/']);
 });
 
 test('a percent-encoded Hugo URL matches the decoded built route', () => {
-  const hugo = parseUrlList('/tag/%E7%BF%BB%E8%AF%91/\n');
-  assert.deepEqual(compareRoutes(hugo, ['/tag/翻译/']).missing, []);
+  const hugo = parseUrlList('/tag/translation/\n');
+  assert.deepEqual(compareRoutes(hugo, ['/tag/translation/']).missing, []);
 });
+
+test('a route with a non-ASCII character is reported, an ASCII route is not', () => {
+  assert.deepEqual(nonAsciiRoutes(['/tag/translation/', '/author/yukun/', '/tag/翻译/', '/author/%E4%BF%9E/']), ['/author/%E4%BF%9E/', '/tag/翻译/']);
+});
+
+test('an href or id with a non-ASCII character, raw or percent-encoded, is reported', () => {
+  const html = '<a href="/tag/translation/">a</a><a href="#s-1ca93277">b</a><a href="#概述">c</a><a href="/tag/%E7%BF%BB%E8%AF%91/">d</a><h2 id="概述-1">e</h2>';
+  assert.deepEqual(nonAsciiAttributes(html), ['#概述', '/tag/%E7%BF%BB%E8%AF%91/', '概述-1']);
+});
+

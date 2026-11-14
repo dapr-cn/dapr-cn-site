@@ -17,7 +17,7 @@ abstract: "上篇Dapr系列文章简要介绍了Dapr，这篇来谈一下开发�
 
 ### 安装Docker
 
-为了方便进行Dapr开发，最好（其实不一定必须）首先在本机（开发机器）上安装Docker。安装方式可以参考Docker的官方文档：https://docs.docker.com/install/。
+为了方便进行Dapr开发，最好（其实不一定必须）首先在本机（开发机器）上安装Docker。安装方式可以参考Docker的官方文档：[https://docs.docker.com/install/](https://docs.docker.com/install/)。
 
 如果你是Windows平台，那么需要选择Linux容器模式。对于我这样的Windows 10用户而言，个人建议最好的方式就是把Windows 10升级到2004，并启用WSL2，然后启用Docker Desktop WSL 2 backend[1]。这种方式可以获得很好的用户体验和性能。
 

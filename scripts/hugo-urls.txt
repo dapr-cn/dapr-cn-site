@@ -5,17 +5,6 @@
 # Lines starting with # are comments.
 
 /
-/author/俞坤/
-/author/张善友/
-/author/戴翔/
-/author/敖小剑/
-/author/朱永光/
-/author/杨鼎睿/
-/author/管理员/
-/author/罗广明/
-/author/蒋金楠/
-/author/陈东海/
-/author/高逸儒/
 /authors/
 /categories/
 /event/
@@ -24,10 +13,6 @@
 /event/202207-xds2022/
 /event/202209-dapr-con-2022/
 /event/202209-dapr-day/
-/meeting/
-/meeting/meeting-minutes-archive/
-/meeting/meeting-minutes/
-/people/
 /post/
 /post/202206-dapr-microservice-develop-0/
 /post/202206-dapr-microservice-develop-1/
@@ -60,16 +45,4 @@
 /tag/review/
 /tag/v1.8/
 /tag/workflow/
-/tag/书籍/
-/tag/微服务/
-/tag/提案/
-/tag/演讲/
-/tag/社区建设/
-/tag/视频/
-/tag/翻译/
 /tags/
-/tour/
-/translation/
-/translation/blog/
-/translation/docs/
-/translation/paper/

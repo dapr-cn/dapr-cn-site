@@ -98,12 +98,12 @@ internal static async Task InvokeDepositServiceOperationAsync(DaprClient client)
 
 要了解服务调用构件块具体如何使用的，照着官方文档做就是了。
 
-对于不想看英文文档的同学，可以关注我们 [Dapr 中国社区的文档翻译](../../translation/)（也欢迎加入）
+对于不想看英文文档的同学，可以关注我们 [Dapr 中国社区的文档翻译](/tag/translation/)（也欢迎加入）
 
 另外我在单独写一个Dapr的Quickstarts（正在逐步完善中），大家可以参考：https://github.com/heavenwing/dapr-dotnet-quickstarts/tree/main/ServiceInvocation
 
 ## 彩蛋——如何暴露gRPC端点
 
-最后，官方文档里面其实没有把如何暴露gRPC端点这个话题讲清楚，不过在SDK中其实已经把dapr的Protobuf 封装好了（其实是自动生成好了），你引用了SDK中的Dapr.Client包就可以直接使用。我之前根据dapr的protobuf协议实现了一个例子，其实就是实现 `AppCallback.AppCallbackBase` 的 `Task<InvokeResponse> OnInvoke(InvokeRequest request, ServerCallContext context)` 方法，并通过ASP.NET Core来托管。代码已经合并到SDK中的samples部分，见：https://github.com/dapr/dotnet-sdk/blob/master/samples/AspNetCore/GrpcServiceSample/Readme.md。调用代码见：https://github.com/dapr/dotnet-sdk/blob/master/samples/Client/DaprClient/Program.cs#L298
+最后，官方文档里面其实没有把如何暴露gRPC端点这个话题讲清楚，不过在SDK中其实已经把dapr的Protobuf 封装好了（其实是自动生成好了），你引用了SDK中的Dapr.Client包就可以直接使用。我之前根据dapr的protobuf协议实现了一个例子，其实就是实现 `AppCallback.AppCallbackBase` 的 `Task<InvokeResponse> OnInvoke(InvokeRequest request, ServerCallContext context)` 方法，并通过ASP.NET Core来托管。代码已经合并到SDK中的samples部分，见：[https://github.com/dapr/dotnet-sdk/blob/master/samples/AspNetCore/GrpcServiceSample/Readme.md](https://github.com/dapr/dotnet-sdk/blob/master/samples/AspNetCore/GrpcServiceSample/Readme.md)。调用代码见：[https://github.com/dapr/dotnet-sdk/blob/master/samples/Client/DaprClient/Program.cs#L298](https://github.com/dapr/dotnet-sdk/blob/master/samples/Client/DaprClient/Program.cs#L298)
 
 后来我觉得这个示例更加类似quickstarts，而不是SDK的示例，后面我会把这个示例添加到我的quickstarts中，并在SDK中去实现一个真正进行gRPC端点暴露开发的辅助能力，敬请期待。

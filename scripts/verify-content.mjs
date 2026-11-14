@@ -22,9 +22,6 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /** Sections another deployment serves. Links to them are not checked against this build. */
 export const EXTERNAL_SECTIONS = ['/source/', '/case/'];
 
-/** Pages that are widgets of another page. Their links are relative to the page that shows them. */
-const EMBEDDED_IN = { 'tour/slider': '/tour/', 'people/people': '/people/' };
-
 const DATED = new Set(['post', 'event', 'publication']);
 const LINK = /(?<!!)\[[^\]]*\]\(\s*<?([^)\s>]+)[^)]*\)/g;
 const IMAGE_SRC = /!\[[^\]]*\]\(\s*<?(https?:\/\/[^)\s>]+)[^)]*\)|<img\b[^>]*?\ssrc\s*=\s*["'](https?:\/\/[^"']+)["']/gi;
@@ -90,11 +87,10 @@ export function checkAuthorReferences(entries, authorIds) {
 /** Route a body's relative links resolve from. Entries embedded in another page use that page. */
 export function baseRouteOf(entry) {
   if (entry.collection === 'pages') {
-    if (EMBEDDED_IN[entry.id]) return EMBEDDED_IN[entry.id];
     if (entry.id.startsWith('home/')) return '/';
     return normalisePath(`/${entry.id}`);
   }
-  if (entry.collection === 'authors') return normalisePath(`/author/${entry.title ?? entry.id}`);
+  if (entry.collection === 'authors') return normalisePath(`/author/${entry.id}`);
   return normalisePath(`/${entry.collection}/${entry.id}`);
 }
 
@@ -151,7 +147,7 @@ function walkFiles(dir) {
 /** Loads every entry from src/content with its collection, id and base route. */
 export function loadEntries(contentDir) {
   const entries = [];
-  for (const collection of ['post', 'event', 'publication', 'authors']) {
+  for (const collection of ['post', 'event', 'publication', 'authors', 'tag']) {
     for (const file of walkFiles(path.join(contentDir, collection)).filter((f) => f.endsWith('.md'))) {
       const id = path.basename(path.dirname(file));
       entries.push({ collection, id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
@@ -163,15 +159,6 @@ export function loadEntries(contentDir) {
     entries.push({ collection: 'pages', id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
   }
   return entries;
-}
-
-/** Adds the author title, which is the author's route segment, to each author entry. */
-export function withAuthorTitles(entries) {
-  return entries.map((entry) => {
-    if (entry.collection !== 'authors') return entry;
-    const { data } = parseEntry(entry.text);
-    return { ...entry, title: data.title };
-  });
 }
 
 /** Public files as URL paths, e.g. `/media/dapr.png`. */
@@ -194,7 +181,7 @@ function main() {
     return 1;
   }
 
-  const entries = withAuthorTitles(loadEntries(contentDir));
+  const entries = loadEntries(contentDir);
   const authorIds = new Set(entries.filter((e) => e.collection === 'authors').map((e) => e.id));
   const site = {
     routes: new Set(routesFromDist(distDir).map(normalisePath)),

@@ -6,12 +6,12 @@ import { publicationTypes } from '../lib/publication-types';
 
 // Sitemap at /sitemap.xml (the Hugo path). Lists every public page with its absolute URL.
 export async function GET() {
-  const [posts, events, publications, authors, pages] = await Promise.all([
+  const [posts, events, publications, authors, descriptions] = await Promise.all([
     getCollection('post', (entry) => !entry.data.draft),
     getCollection('event'),
     getCollection('publication'),
     getCollection('authors'),
-    getCollection('pages', (entry) => !entry.data.headless && !entry.data.draft),
+    getCollection('tag'),
   ]);
 
   const paths = new Set<string>([
@@ -26,12 +26,12 @@ export async function GET() {
     ...posts.map((post) => urls.post(post.id)),
     ...events.map((event) => urls.event(event.id)),
     ...publications.map((publication) => urls.publication(publication.id)),
-    ...authors.map((author) => urls.author(author.data.title)),
-    ...tagTerms([...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags }))).map((term) =>
-      urls.tag(term.slug),
-    ),
+    ...authors.map((author) => urls.author(author.id)),
+    ...tagTerms(
+      [...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })),
+      descriptions.map((entry) => ({ id: entry.id, title: entry.data.title })),
+    ).map((term) => urls.tag(term.url)),
     ...publicationTypes(publications).map((type) => urls.publicationType(type)),
-    ...pages.map((page) => urls.page(page.id)),
   ]);
 
   const body = [...paths]

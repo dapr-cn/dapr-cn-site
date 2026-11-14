@@ -5,14 +5,14 @@ import AuthorBadge from '../../components/AuthorBadge.astro';
 import PostCard from '../../components/PostCard.astro';
 import { urls } from '../../lib/urls';
 
-// The author archive is keyed by display name, as in Hugo: /author/俞坤/.
+// The author archive is keyed by the author's folder name, which is ASCII: /author/yukun/.
 export async function getStaticPaths() {
   const [authors, posts] = await Promise.all([
     getCollection('authors'),
     getCollection('post', (entry) => !entry.data.draft),
   ]);
   return authors.map((author) => ({
-    params: { id: author.data.title },
+    params: { id: author.id },
     props: {
       author,
       posts: posts
@@ -26,7 +26,7 @@ const { author, posts } = Astro.props;
 const name = author.data.title;
 ---
 
-<BaseLayout title={name} description={author.data.bio ?? `${name} 的文章`} path={urls.author(name)}>
+<BaseLayout title={name} description={author.data.bio ?? `${name} 的文章`} path={urls.author(author.id)}>
   <section class="container section">
     <header class="author-head">
       <AuthorBadge author={author} size="lg" nameAs="h1" />

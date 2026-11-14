@@ -16,7 +16,7 @@ const px = size === 'lg' ? 160 : size === 'md' ? 56 : 28;
 const NameTag = nameAs;
 ---
 
-<a class:list={['author-badge', size]} href={urls.author(name)}>
+<a class:list={['author-badge', size]} href={urls.author(author.id)}>
   {
     author.data.avatar ? (
       <Image src={author.data.avatar} alt="" width={px} height={px} class="avatar" />

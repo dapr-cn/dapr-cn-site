@@ -2,7 +2,7 @@
 import { getEntry, type CollectionEntry } from 'astro:content';
 import AuthorBadge from '../components/AuthorBadge.astro';
 import { formatDate } from '../lib/format';
-import { urls } from '../lib/urls';
+import { tagHrefs } from '../lib/tag-links';
 
 interface Props {
   title: string;
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const { title, date, tags, authors = [] } = Astro.props;
+const tagHref = await tagHrefs();
 const resolved = await Promise.all(
   authors.map(async (ref) => {
     const author = await getEntry(ref);
@@ -40,7 +41,7 @@ const resolved = await Promise.all(
         <ul class="tag-list">
           {tags.map((tag) => (
             <li>
-              <a href={urls.tag(tag)}>{tag}</a>
+              <a href={tagHref(tag)}>{tag}</a>
             </li>
           ))}
         </ul>

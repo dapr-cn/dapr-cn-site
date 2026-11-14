@@ -59,7 +59,7 @@ links:
 
 后来，Mark 提议我们将 Reaktive 改名为 Actions，即 Actor 和 Functions 的组合。该名称反映了新产品的核心价值主张：一个非侵入式编程模型，并且将无状态服务、有状态服务、函数和 actor 统一在一起。我们都喜欢这个名字，所以保留了它。
 
-一年过去了，Actions 经过了数月的开发、大量的讨论以及来自很多早期尝试者的验证。终，它准备好以新的名字 Dapr（https://dapr.io）—— 分布式应用运行时的缩写，在佛罗里达州奥兰多市的 Microsoft Ignite 主讲台上被公布于众。这是微软有史以来成功的开源项目之一。在初的24 小时内，该项目收集了 1000 多个 GitHub star，并且在短短几天内增速就超越了一些受欢迎的开源项目（见图1）。Star 的热度持续了几个星期，团队成员终于厌倦并停止了每隔几个小时就去检查一下的行为。
+一年过去了，Actions 经过了数月的开发、大量的讨论以及来自很多早期尝试者的验证。终，它准备好以新的名字 Dapr（[https://dapr.io](https://dapr.io)）—— 分布式应用运行时的缩写，在佛罗里达州奥兰多市的 Microsoft Ignite 主讲台上被公布于众。这是微软有史以来成功的开源项目之一。在初的24 小时内，该项目收集了 1000 多个 GitHub star，并且在短短几天内增速就超越了一些受欢迎的开源项目（见图1）。Star 的热度持续了几个星期，团队成员终于厌倦并停止了每隔几个小时就去检查一下的行为。
 
 很快我们就疲于奔命，社区贡献从四面八方涌来：合作伙伴的、竞争对手的、知名企业的，以及一些小公司的，每个人都在努力使 Dapr 变得更有用。这确实是开源好的地方。
 
@@ -69,11 +69,11 @@ links:
 
 资源：
 
-- Dapr 主页 (https://dapr.io)。
-- Dapr 运行时仓库 (https://oreil.ly/SRqme)。
-- Dapr 文档仓库 (https://oreil.ly/MlQfS)。
-- Dapr 示例仓库 (https://oreil.ly/7JBHH)。
-- Dapr 组件贡献仓库 (https://oreil.ly/lVk5V)。
+- Dapr 主页 ([https://dapr.io](https://dapr.io))。
+- Dapr 运行时仓库 ([https://oreil.ly/SRqme](https://oreil.ly/SRqme))。
+- Dapr 文档仓库 ([https://oreil.ly/MlQfS](https://oreil.ly/MlQfS))。
+- Dapr 示例仓库 ([https://oreil.ly/7JBHH](https://oreil.ly/7JBHH))。
+- Dapr 组件贡献仓库 ([https://oreil.ly/lVk5V](https://oreil.ly/lVk5V))。
 
 ![](images/info-1.avif)
 
