@@ -1,0 +1,282 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T03:53:37Z",
+  "title": "Design System: Dapr 中国社区",
+  "extensions": {
+    "colorMeta": {
+      "brand-indigo": {
+        "role": "primary",
+        "displayName": "Brand Indigo",
+        "canonical": "oklch(33% 0.182 266)",
+        "tonalRamp": [
+          "#030250",
+          "#0f257f",
+          "#2646b0",
+          "#456cd8",
+          "#6c93f6",
+          "#8fb4ff",
+          "#b9c8f5",
+          "#dce5fb"
+        ]
+      },
+      "link-cobalt": {
+        "role": "primary",
+        "displayName": "Link Cobalt",
+        "canonical": "oklch(45% 0.210 265)",
+        "tonalRamp": [
+          "#020059",
+          "#041f8a",
+          "#1842bd",
+          "#3869e6",
+          "#6192ff",
+          "#85b4ff",
+          "#b9c8f5",
+          "#dce5fb"
+        ]
+      },
+      "focus-azure": {
+        "role": "primary",
+        "displayName": "Focus Azure",
+        "canonical": "oklch(58% 0.229 264)",
+        "tonalRamp": [
+          "#02005f",
+          "#001992",
+          "#0c3ec7",
+          "#2e66f1",
+          "#5991ff",
+          "#7eb3ff",
+          "#bcd0ff",
+          "#dde8ff"
+        ]
+      },
+      "pinboard-mist": {
+        "role": "neutral",
+        "displayName": "Pinboard Mist",
+        "canonical": "oklch(98% 0.006 265)",
+        "tonalRamp": [
+          "#151619",
+          "#313336",
+          "#515256",
+          "#737478",
+          "#96989c",
+          "#b5b7bb",
+          "#d5d7db",
+          "#eceef2"
+        ]
+      },
+      "ink-navy": {
+        "role": "neutral",
+        "displayName": "Ink Navy",
+        "canonical": "oklch(25% 0.037 272)",
+        "tonalRamp": [
+          "#121522",
+          "#2d3243",
+          "#4c5266",
+          "#6d748a",
+          "#9198ac",
+          "#b1b7ca",
+          "#d2d7e8",
+          "#e9eefe"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(91% 0.016 263)",
+        "tonalRamp": [
+          "#12161e",
+          "#2e333b",
+          "#4e535c",
+          "#6f757e",
+          "#9398a3",
+          "#b2b8c2",
+          "#d2d8e3",
+          "#e9effa"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home hero title only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page and article titles (h1), prose section headings (h2)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section titles, subheadings and card titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running text at 1.75 line-height."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Dates, meta, tags, nav links."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Inline code and code blocks."
+      }
+    },
+    "shadows": [
+      {
+        "name": "menu-popover",
+        "value": "0 8px 24px rgba(0,0,0,0.25)",
+        "purpose": "Mobile navigation panel only."
+      },
+      {
+        "name": "dialog-backdrop",
+        "value": "rgba(5,8,20,0.55)",
+        "purpose": "Scrim behind the search dialog (a fill, not a shadow)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-hover",
+        "value": "filter: brightness(1.08)",
+        "purpose": "Primary button hover. No other motion exists; prefers-reduced-motion disables all transitions and animations."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "xs",
+        "value": "480px"
+      },
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "720px"
+      },
+      {
+        "name": "lg",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pill call to action; one per hero or section.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">阅读博客</a>",
+      "css": ".ds-btn-primary{display:inline-block;padding:0.55em 1.1em;border-radius:999px;background:#0d2192;color:#fff;text-decoration:none;font-weight:600;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}.ds-btn-primary:hover{filter:brightness(1.08)}.ds-btn-primary:focus-visible{outline:3px solid #2f6bff;outline-offset:2px}"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Outlined pill paired after the primary action.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">加入翻译小组</a>",
+      "css": ".ds-btn-secondary{display:inline-block;padding:0.55em 1.1em;border-radius:999px;background:transparent;color:#0d2192;border:2px solid #0d2192;text-decoration:none;font-weight:600;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}.ds-btn-secondary:focus-visible{outline:3px solid #2f6bff;outline-offset:2px}"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "site-header",
+      "description": "Sticky indigo masthead with brand, nav links and header tools.",
+      "html": "<header class=\"ds-header\"><span class=\"ds-brand\"><span class=\"ds-logo\"></span>Dapr 中国社区</span><nav class=\"ds-nav\"><a href=\"#\" aria-current=\"page\">首页</a><a href=\"#\">博客</a><a href=\"#\">活动</a></nav><span class=\"ds-tool\">◐</span></header>",
+      "css": ".ds-header{display:flex;align-items:center;gap:12px;min-height:60px;padding:0 16px;background:#0d2192;color:#fff;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}.ds-brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;white-space:nowrap}.ds-logo{width:32px;height:32px;background:#fff;border-radius:6px}.ds-nav{display:flex;gap:2px;flex:1}.ds-nav a{padding:6px 10px;border-radius:6px;color:#fff;text-decoration:none;font-size:0.95rem}.ds-nav a:hover{background:rgba(255,255,255,0.12)}.ds-nav a[aria-current=page]{background:rgba(255,255,255,0.2);font-weight:700}.ds-tool{width:36px;height:36px;border:1px solid rgba(255,255,255,0.5);border-radius:999px;display:inline-flex;align-items:center;justify-content:center}"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Bordered mist card for a post, event or publication.",
+      "html": "<article class=\"ds-card\"><h3><a href=\"#\">在 Kubernetes 上运行 Dapr</a></h3><p class=\"ds-meta\">2026年11月13日 · 上海</p><p class=\"ds-summary\">一篇关于边车模式与服务调用的入门文章。</p></article>",
+      "css": ".ds-card{background:#f5f7fb;border:1px solid #dde3ee;border-radius:10px;padding:1rem 1.1rem;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif;color:#1b2033;line-height:1.75}.ds-card h3{font-size:1.05rem;margin:0 0 0.4em;line-height:1.35}.ds-card h3 a{color:#1b2033;text-decoration:none}.ds-card h3 a:hover{color:#1743c7;text-decoration:underline}.ds-card h3 a:focus-visible{outline:3px solid #2f6bff;outline-offset:2px;border-radius:4px}.ds-meta{margin:0;font-size:0.9rem;color:#545c70}.ds-summary{margin:0.5em 0 0;font-size:0.95rem;color:#545c70}"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Pill link used for topic tags and the tag cloud.",
+      "html": "<a class=\"ds-tag\" href=\"#\">Dapr</a>",
+      "css": ".ds-tag{display:inline-block;font-size:0.85rem;padding:2px 10px;border:1px solid #dde3ee;border-radius:999px;text-decoration:none;color:#1b2033;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}.ds-tag:hover{border-color:#1743c7;color:#1743c7}.ds-tag:focus-visible{outline:3px solid #2f6bff;outline-offset:2px}"
+    },
+    {
+      "name": "Search Toggle",
+      "kind": "input",
+      "refersTo": null,
+      "description": "Pill button in the masthead that opens the Pagefind search dialog.",
+      "html": "<button class=\"ds-search\" type=\"button\">搜索</button>",
+      "css": ".ds-search{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.5);background:#0d2192;color:#fff;font-size:0.95rem;cursor:pointer;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}.ds-search:hover{background:#2a3ba3}.ds-search:focus-visible{outline:3px solid #2f6bff;outline-offset:2px}"
+    },
+    {
+      "name": "Section Title",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Home section heading with a 2px indigo underline rule.",
+      "html": "<h2 class=\"ds-section-title\">最新文章</h2>",
+      "css": ".ds-section-title{display:inline-block;font-size:1.35rem;line-height:1.35;margin:0;padding-bottom:0.4rem;border-bottom:2px solid #0d2192;color:#1b2033;font-family:'PingFang SC','Noto Sans SC','Microsoft YaHei',system-ui,sans-serif}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Cloud-Native Bulletin Board",
+    "overview": "The site is a community notice board for Chinese-speaking Dapr users. Posts, events, publications and tags are pinned up as quiet, bordered cards on a pale surface, under an indigo masthead that never changes. Nothing shouts. The personality lives in the content and in the way it is sorted: card grids for browsing, a plain dated list for \"latest\", a tag cloud for finding your way around, and a single narrow column for reading.\n\nThe system is flat and restrained. Depth comes from tonal layering (white page, mist-blue cards, a 1px hairline) and never from shadow. Components are plain: pill buttons, pill tags, 10px cards. Density is relaxed. Body text sits at 1.75 line-height because the primary job is reading long Chinese technical writing, so the typography is one system-font stack with no webfonts to load.\n\nThe palette is blue on white with a single indigo voice. Light is the default; dark follows the system preference unless the visitor picks a theme, and both themes are first-class.",
+    "keyCharacteristics": [
+      "Flat, tonal, bordered surfaces; one shadow in the whole system (the mobile menu popover).",
+      "One typeface stack (CJK system fonts first), hierarchy by size and weight only.",
+      "Indigo masthead + indigo accent rule under section titles as the only brand marks.",
+      "Pill geometry for anything clickable that is small (buttons, tags, search toggle, theme toggle).",
+      "Light and dark themes defined from the same role names, kept in step by hand.",
+      "Reading comfort over density: 1.75 line-height, 780px article column, 1080px page."
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Indigo is the only brand color. It appears as the masthead, the primary button and the section-title rule, and nowhere decorative. Do not introduce a second accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Same Roles, Two Themes Rule",
+        "body": "Every color is consumed through a role variable (`--color-bg`, `--color-surface`, `--color-text`, `--color-muted`, `--color-border`, `--color-link`, `--color-brand`, `--color-focus`). The light block, the `prefers-color-scheme` block and the `data-theme='dark'` block in `tokens.css` must change together.",
+        "section": "colors"
+      },
+      {
+        "name": "The Hairline Is the Divider Rule",
+        "body": "Separation between regions is a 1px Hairline or a step from Paper to Pinboard Mist. Never a shadow, never a heavier line (the 2px section-title rule is the single exception and it is Brand Indigo).",
+        "section": "colors"
+      },
+      {
+        "name": "The Native Stack Rule",
+        "body": "No webfonts. Do not add a font file or a font CDN; extend the existing CJK stack if a glyph needs a fallback.",
+        "section": "typography"
+      },
+      {
+        "name": "The Size-and-Weight Rule",
+        "body": "Hierarchy is carried by size and bold-versus-regular alone. Do not add italics, uppercase transforms or tracked-out labels, which read poorly in Chinese.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "A surface that sits in the page flow has no shadow. Shadow is reserved for things that float over the page.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** consume color only through the role variables in `src/styles/tokens.css`, and edit the light, `prefers-color-scheme` and `data-theme='dark'` blocks together.",
+      "**Do** keep Brand Indigo to the masthead, the primary button, the secondary-button outline and the section-title rule.",
+      "**Do** separate regions with a 1px Hairline or a Paper-to-Pinboard-Mist step.",
+      "**Do** keep the 3px Focus Azure outline (2px offset) visible on every interactive element, and keep `aria-current='page'` on the active nav link.",
+      "**Do** use pill geometry for small standalone controls and 10px for containers.",
+      "**Do** keep body text at 1.75 line-height and article text inside the 780px column.",
+      "**Do** honor `prefers-reduced-motion`: the global stylesheet already disables transitions and animations; do not override it.",
+      "**Do** render sections that have no data as nothing at all, as the home widgets already do."
+    ],
+    "donts": [
+      "**Don't** add a shadow to anything that sits in the page flow. The mobile menu popover is the only exception.",
+      "**Don't** introduce a second accent color or a decorative gradient.",
+      "**Don't** add webfonts, italics, uppercase transforms or letter-spacing to labels.",
+      "**Don't** hard-code hex values in components. The two existing literals (the white chip behind the brand logo and the white-alpha washes in the masthead) are masthead-only; do not spread them.",
+      "**Don't** make cards lift, scale or animate on hover.",
+      "**Don't** let content break the page width: keep `overflow-wrap: anywhere` on body, scroll wide tables in place, and constrain images with `max-width: 100%`."
+    ]
+  }
+}
