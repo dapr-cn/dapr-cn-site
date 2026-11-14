@@ -284,11 +284,10 @@ One structure and one set of states for posts, events and publications, on every
 
 ## Home Page Exception: The Signal Field
 
-The home page is the one surface that leaves the flat bulletin board. It opens with a dark hero, a pinned "what is Dapr" story and a dark closing band; the light sections between them keep the board's tokens. Every other page keeps the rules above.
+The home page is the one surface that leaves the flat bulletin board. It opens with a dark hero and ends with a dark closing band; the light sections between them keep the board's tokens. Every other page keeps the rules above.
 
-- **Always-dark bands.** The hero (`components/home/Hero.astro`), the story (`Story.astro`) and the closing band (`Closing.astro`) read `--signal-*` roles from `tokens.css`. These do not change with the theme. Their only accent is the existing periwinkle (`#8fb3ff`); there is still no second accent.
+- **Always-dark bands.** The hero (`components/home/Hero.astro`) and the closing band (`Closing.astro`) read `--signal-*` roles from `tokens.css`. These do not change with the theme. Their only accent is the existing periwinkle (`#8fb3ff`); there is still no second accent.
 - **Signal field.** A seeded node network (`lib/signal-field.ts`) is drawn twice from the same layout: as a static SVG poster on the server, and as a WebGL canvas in the browser. Nodes drift, short signals hop along the links, and the pointer pulls nearby nodes and links to them. The canvas loop runs only while the hero is visible, the tab is visible and motion is allowed; without WebGL, JavaScript or with reduced motion the poster (or one still frame) stays.
-- **Story.** On screens at least 900px wide and 560px tall, with motion allowed, the story pins and scroll progress lights the application, the sidecar, then the building blocks. Otherwise the three steps stack beside a fully lit diagram. The one gradient in the system is the moving pulse on the diagram's links; it carries meaning and is not decoration.
 - **Light sections on the home page** use the same cards as every other page, with a large first featured card and plain ruled lists.
 - **Still true here:** no webfonts, no invented numbers or logos, URLs unchanged, Dapr logo as supplied.
 
@@ -331,7 +330,7 @@ Source: `dapr/website` at commit `460d369` (2026-11-06), Apache-2.0. The site is
 
 ### Implemented content integration
 
-The official overview replaces the old pinned Story on the homepage. Its order follows the reference: hero, four use cases, six case studies, four illustrated value rows, fifteen API entries, four cross-cutting concerns, twenty-two adopter logos, video link, ecosystem resources and CNCF status. Existing Chinese community purpose, events, articles, tags and closing band follow. The commercial banner's four messages are a static resource list, not an autoplay carousel. Videos link out instead of loading third-party players automatically.
+The homepage puts the community first. After the hero come the community purpose, upcoming events, featured and earlier posts, event reviews and the tag cloud; the translated Dapr overview follows, then the closing band. The hero's newest posts are not repeated in the cards or list below it. The overview opens with one attribution note that covers its claims, case studies, adopter marks and third-party offers, then shows three illustrated value cards, the building-block diagram with the fifteen API entries folded away, four cross-cutting concerns, three case studies with the twenty-two adopter logos, and ecosystem resources (including the talk video, linked to its YouTube watch page) with CNCF status. The commercial banner's messages are a static resource list, not an autoplay carousel. Videos link out instead of loading third-party players automatically.
 
 The Signal Field remains the hero's visual world, with the translated Dapr promise and three source-backed actions. Its background has a pause control; static diagrams need none. The new overview keeps the existing single-accent palette, native CJK typography and flat borders. Imported artwork stays on a white ground in both themes (`--official-artwork-bg`) so logos and diagram labels retain their original appearance.
 
