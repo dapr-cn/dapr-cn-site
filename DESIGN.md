@@ -112,7 +112,7 @@ The palette is blue on white with a single indigo voice. Light is the default; d
 **Key Characteristics:**
 - Flat, tonal, bordered surfaces; one shadow in the whole system (the mobile menu popover).
 - One typeface stack (CJK system fonts first), hierarchy by size and weight only.
-- Indigo masthead + indigo accent rule under section titles as the only brand marks.
+- Indigo masthead + indigo accent rule under section titles as the only brand marks. The masthead condenses on scroll and draws reading progress on articles; that is the one authored motion in the chrome.
 - Pill geometry for anything clickable that is small (buttons, tags, search toggle, theme toggle).
 - Light and dark themes defined from the same role names, kept in step by hand.
 - Reading comfort over density: 1.75 line-height, 780px article column, 1080px page.
@@ -164,7 +164,7 @@ A blue-on-white palette with one deep indigo for brand and a lighter cobalt for 
 
 ## Layout
 
-A single centered column system. `.container` is 1080px max with a 16px gutter, which widens to 24px from 640px. Articles narrow to a 780px column. Pages are a vertical stack of sections separated by 2.2rem; the footer sits 3rem below the last section.
+A single centered column system. Starlight's own content padding and width cap are lifted, so bands can run edge to edge and every page frames itself with `.container`. `.container` is 1080px max with a 16px gutter, which widens to 24px from 640px. Articles narrow to a 780px column. Pages are a vertical stack of sections separated by 2.2rem; the footer sits 3rem below the last section.
 
 Card lists use a gap of 16px: one column on mobile, two from 640px, and three (`.card-grid.three`) from 960px. The home hero is a two-column grid (text, then a 220px logo image) from 720px and stacks below it. Recent posts are a plain flex list with a hairline under each row; the date wraps under the title when space runs out.
 
@@ -176,7 +176,7 @@ Breakpoints in use: 640px (gutter and two-column grid), 720px (hero), 960px (des
 
 ## Elevation & Depth
 
-Flat by design. Surfaces are separated by tone (Paper to Pinboard Mist) and 1px Hairline borders. Cards do not lift on hover; they change nothing except the title link color.
+Flat by design. Surfaces are separated by tone (Paper to Pinboard Mist) and 1px Hairline borders. Cards never lift, scale or cast a shadow. Hover, press, focus and return change only the border, the tone, the cue at the foot and the cover (see Cards / Containers).
 
 ### Shadow Vocabulary
 - **Menu popover** (`box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)`): the mobile navigation panel only. It floats over content, so it is the one surface allowed a shadow.
@@ -201,9 +201,18 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Contents:** article pages show "本页内容" (on this page) in the right column on wide screens, from the article's headings. Other pages have no contents.
 
 ### Site Header (masthead)
-- **Style:** Brand Indigo bar with white text (Pinboard Mist with light text in dark mode), a hairline bottom border, sticky at the top, 60px minimum height. The brand is a 32px logo on a white rounded chip beside the site name in bold.
-- **Nav links:** 0.95rem, 6px 10px padding, 6px radius. Hover adds a 12% white wash; the current page (`aria-current='page'`) gets a 20% white wash and bold weight.
-- **Header tools:** Starlight's search and theme select are 36px pills with a 1px 50%-white border and transparent fill; hover adds the same 12% wash. Their text is the masthead text colour. The mobile menu is a `<details>` with a bordered "菜单" button and a popover panel of the nav list, up to 260px wide.
+- **Style:** Brand Indigo bar with white text (Pinboard Mist with light text in dark mode), a hairline bottom border, 60px at the top of the page. The brand is a 32px logo on a white rounded chip beside the site name in bold. Starlight's fixed header frame is a transparent, padding-free carrier of the same 60px (`styles/starlight.css`), so the masthead is the only bar and fills the width.
+- **Condensing:** over the first 96px of scroll the masthead eases from 60px to 48px (logo 32px to 26px), driven by `animation-timeline: scroll(root block)` on the registered properties `--header-h` and `--brand-mark`. Without scroll-driven animations, or with reduced motion, it stays 60px.
+- **Reading progress:** on article pages (`.article`) a 2px line in the masthead text colour sits on the lower edge and fills with the page scroll. Other pages and unsupported browsers show no line.
+- **Nav links:** 0.95rem, 6px 10px padding, 6px radius, with the current page (`aria-current='page'`) in bold. With scripting, a single indicator carries both washes (12% for the link under the pointer or focus, 20% for the current page): it glides to the hovered or focused link and returns to the current page on leave. Without scripting each link keeps its own wash. The washes are mixed from `--color-header-text`, not literals.
+- **Header tools:** Starlight's search and theme select are 36px pills with a 1px 50%-text-colour border and transparent fill; hover adds the 12% wash. Below 800px search is icon-only, and below 640px the theme select is icon-only too.
+- **Mobile menu:** a `<details>` with a 36px pill button ("菜单" plus a two-bar icon that turns into a cross when open). The panel hangs from the masthead's lower edge across the full width, with 44px rows and the current page washed. It fades and rises in with `@starting-style`, closes on Escape, outside click, and when the viewport reaches 960px.
+
+### Site Footer
+- **Style:** a band the full width of the page: Pinboard Mist fill and a 1px Hairline above, no shadow, no radius. Its contents sit in the chrome width (1240px), the same as the masthead. On the home page it meets the closing band without a gap.
+- **Content:** the community name and its one-line description; the navigation split into "阅读" (博客, 翻译, 出版) and "社区" (everything else in the nav); and "资源" with GitHub, the RSS feed, the official Dapr docs (Chinese) and the official Dapr site. External links carry a small drawn arrow and a screen-reader "(外部链接)".
+- **Base row:** a second band under a hairline with the copyright line, the statement that the site is volunteer-run and not the official Dapr site, and a pill "回到顶部" link (same geometry as a tag). It stacks on narrow screens.
+- **Layout:** two columns on mobile with the brand block above; four columns (1.7fr 1fr 1fr 1.2fr) from 960px.
 
 ### Buttons
 - **Shape:** full pill (999px), `0.55em 1.1em` padding, 600 weight.
@@ -212,11 +221,22 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Pairing:** the home hero places primary ("阅读博客") then secondary ("加入翻译小组") side by side with a 10px gap, wrapping on narrow screens.
 
 ### Cards / Containers
-- **Corner style:** 10px.
+One structure and one set of states for posts, events and publications, on every page (`styles/cards.css`; the home page no longer has its own card rules).
+- **Corner style:** 12px, with the cover flush to the edge (the card clips it).
 - **Background:** Pinboard Mist, with a 1px Hairline border, `1rem 1.1rem` padding, full height of its grid cell.
 - **Shadow:** none.
-- **Content order:** optional 16:9 cover (6px radius), title (`h3`, 1.05rem, text-colored link), a meta row of dates and locations, optional summary in Ink Slate at 0.95rem.
-- **Used for:** posts, events, publications and the home "社区宗旨" feature cards (title plus short lines).
+- **Structure:** optional 16:9 cover; title (`h2`/`h3`, 1.05rem, three lines at most, balanced); meta row of date and authors or location; summary (0.95rem Ink Slate, three lines at most); then the foot pinned to the bottom: tags on the left, the cue on the right. Every card in a row ends on the same line, with or without a cover or tags. The first home featured card is larger and may show more lines.
+- **Click target:** the whole card, through the title link's stretched `::after`. Author and tag links sit above it.
+- **Cue:** "阅读全文" (posts), "查看活动", "查看出版物", with a drawn arrow; Ink Slate at rest, so touch screens see it too. The three labels share one cell, so it never changes width.
+- **States:**
+  - Hover (pointer only), on the title link or the overlay, not on author or tag links: border to Link Cobalt, a 6% cobalt tone, title underlined and cobalt, the arrow 3px right, the cover eases to 1.03.
+  - Keyboard focus: the 3px Focus Azure ring is on the card (the title link draws none), with the hover cues.
+  - Press: an instant 12% cobalt tone and a darker border.
+  - Seen (`data-seen`): the cue reads "已读". Kept in `localStorage`; a page also counts as seen when opened directly.
+  - Opening (`data-opening`): after a plain click, "打开中…", a cobalt border and a 2px line filling along the lower edge, until the next page shows.
+  - Returned (`data-returned`): coming back to a list, the card the reader left from is scrolled into view if needed, takes the keyboard focus, and flashes the hover tone once (1.8s).
+- **Round trip:** with cross-document view transitions, the card's title flies into the page's `h1` and back (`card-title`); the rest of the page cross-fades in 180ms. Only the card to page round trip animates; every other navigation is a plain load. Browsers without support and reduced motion get a plain load (the Returned mark still shows, without motion).
+- **Used for:** posts, events, publications. The home "社区宗旨" rows are not cards.
 
 ### Tags
 - **Style:** 0.85rem pill, 1px Hairline border, Ink Navy text, 2px 10px padding, no underline.
@@ -235,8 +255,12 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 ### Author Badge
 - **Style:** inline avatar plus name, in three sizes (28px, 56px, 160px). With no avatar, it falls back to a Brand Indigo circle holding the first character of the name in white. The name underlines on hover.
 
+### Article page
+- **Narrow (below 72rem):** one 780px column. The title comes first, then the date, authors and tags under a hairline. Starlight's collapsible "本页内容" bar hangs from the masthead's current height on the page surface.
+- **Wide (72rem and up):** a three-column shell in the chrome width. Left, a sticky facts rail (date, authors, tags, with a hairline above the tags); centre, the title and a 740px reading column at 1.0625rem; right, a sticky 220px "本页内容" list of the h2 and h3 headings, with the current section in Link Cobalt and bold and a 1px Link Cobalt rule on its left, set by scroll position. Both rails stick below the masthead's current height. Without enough headings (fewer than two) the right column is dropped. Starlight's own fixed contents column is hidden from this width.
+
 ### Prose
-- **Style:** article bodies sit in a 780px column. Images are centered with a 6px radius and an Ink Slate caption; code blocks use Code Wash with a 10px radius; tables get 1px Hairline cells.
+- **Style:** article bodies sit in a 780px column (740px in the wide shell). Images are centered with a 6px radius and an Ink Slate caption; code blocks use Code Wash with a 10px radius; tables get 1px Hairline cells.
 
 ## Do's and Don'ts
 
@@ -246,7 +270,7 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Do** separate regions with a 1px Hairline or a Paper-to-Pinboard-Mist step.
 - **Do** keep the 3px focus ring (2px offset) visible on every interactive element: Focus Azure everywhere, except the masthead ring, which uses the masthead text colour. Keep `aria-current='page'` on the active nav link.
 - **Do** use pill geometry for small standalone controls and 10px for containers.
-- **Do** keep body text at 1.75 line-height and article text inside the 780px column.
+- **Do** keep body text at 1.75 line-height and article text inside the 780px column (740px in the wide shell).
 - **Do** honor `prefers-reduced-motion`: the global stylesheet already disables transitions and animations; do not override it.
 - **Do** render sections that have no data as nothing at all, as the home widgets already do.
 
@@ -255,5 +279,15 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Don't** introduce a second accent color or a decorative gradient.
 - **Don't** add webfonts, italics, uppercase transforms or letter-spacing to labels.
 - **Don't** hard-code hex values in components. The two existing literals (the white chip behind the brand logo and the white-alpha washes in the masthead) are masthead-only; do not spread them.
-- **Don't** make cards lift, scale or animate on hover.
+- **Don't** make cards lift, scale or cast a shadow. Feedback goes to the border, tone, cue and cover only.
 - **Don't** let content break the page width: keep `overflow-wrap: anywhere` on body, scroll wide tables in place, and constrain images with `max-width: 100%`.
+
+## Home Page Exception: The Signal Field
+
+The home page is the one surface that leaves the flat bulletin board. It opens with a dark hero, a pinned "what is Dapr" story and a dark closing band; the light sections between them keep the board's tokens. Every other page keeps the rules above.
+
+- **Always-dark bands.** The hero (`components/home/Hero.astro`), the story (`Story.astro`) and the closing band (`Closing.astro`) read `--signal-*` roles from `tokens.css`. These do not change with the theme. Their only accent is the existing periwinkle (`#8fb3ff`); there is still no second accent.
+- **Signal field.** A seeded node network (`lib/signal-field.ts`) is drawn twice from the same layout: as a static SVG poster on the server, and as a WebGL canvas in the browser. Nodes drift, short signals hop along the links, and the pointer pulls nearby nodes and links to them. The canvas loop runs only while the hero is visible, the tab is visible and motion is allowed; without WebGL, JavaScript or with reduced motion the poster (or one still frame) stays.
+- **Story.** On screens at least 900px wide and 560px tall, with motion allowed, the story pins and scroll progress lights the application, the sidecar, then the building blocks. Otherwise the three steps stack beside a fully lit diagram. The one gradient in the system is the moving pulse on the diagram's links; it carries meaning and is not decoration.
+- **Light sections on the home page** use the same cards as every other page, with a large first featured card and plain ruled lists.
+- **Still true here:** no webfonts, no invented numbers or logos, URLs unchanged, Dapr logo as supplied.

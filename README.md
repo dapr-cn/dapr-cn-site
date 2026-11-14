@@ -91,7 +91,7 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 
 ## Known limits
 
-- `/source/` and `/case/` are linked from the navigation. They are served by other sites and this build does not produce them.
+- `/source/` and `/case/` are not linked from the navigation. They are served by other sites and this build does not produce them.
 - Seven images are hotlinked from `wework.qpic.cn`. `verify` lists them but does not check them.
 - `scripts/convert-front-matter.mjs` was the one-off migration from the Hugo sources. Those sources have been removed, so the script is kept only as a record.
 

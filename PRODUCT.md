@@ -36,7 +36,7 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 - Site language is Simplified Chinese (`zh-Hans`). Public origin is `https://cn.dapr.io`.
 - Every URL listed in `scripts/hugo-urls.txt` must keep resolving; `pnpm run verify` enforces route parity. Two groups are deliberate exceptions, recorded in `scripts/retired-urls.txt` with their replacements: the standalone pages that became tag archives (/tour/, /people/, /meeting/, /translation/ and sub-pages), and the non-ASCII tag and author URLs.
 - Public URLs are ASCII only, including `#anchor` fragments. `pnpm run verify` fails on a non-ASCII route, `href` or `id`; tags and authors take their URL from an ASCII slug, and headings get ASCII ids.
-- Navigation: 介绍, 活动, 博客, 翻译, 源码, 会议, 案例, 出版, 成员. `/source/` and `/case/` are served by other deployments on the same origin; this build does not produce them.
+- Navigation: 介绍, 活动, 博客, 翻译, 会议, 出版, 成员. The navigation does not link to `/source/` or `/case/`.
 - A post must name authors that have a profile, or the build fails. Events are "upcoming" until their start time passes, evaluated at build time.
 - Seven images are hotlinked from `wework.qpic.cn` and are not checked by the build.
 - Undecided: whether contributors or evaluating companies should become co-primary audiences; no accessibility standard has been set.
