@@ -61,6 +61,8 @@ Content lives in `src/content/`.
 | `tag/<slug>/index.md` | Tag description, shown above the tag's entries | `/tag/<slug>/` |
 | `pages/home/*.md` | Home-page widgets | none (headless) |
 | `site/**/*.md` | Chinese adaptations of official Dapr pages | `/<id>/` (including nested paths) |
+| `case/**/*.md` | User-case section (former `dapr-cn-site-case`) | `/case/<path>/` |
+| `source/**/*.md` | Source-study section (former `dapr-cn-site-source`) | `/source/<path>/` |
 
 A post looks like this:
 
@@ -83,6 +85,22 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 - **Tags:** each tag gets an archive at `/tag/<slug>/`. Upper-case letters become lower-case and spaces become `-`, as before. Public URLs are ASCII only, so a tag whose name is not ASCII (such as `翻译`) needs a tag description whose folder is its ASCII slug (`tag/translation/`); the build fails without one. `pnpm run verify` fails on any non-ASCII route, `href` or `id`. Heading anchors are ASCII too: a heading with non-ASCII text gets its ASCII words plus a short hash (`scripts/lib/heading-ids.mjs`), so `dapr是什么` becomes `#dapr-<hash>`; ASCII headings keep their id.
 - **Tag descriptions:** a folder `tag/<slug>/` with an `index.md` (`title` is the tag name, the folder name is the URL) adds a text above that tag's entries. A tag with a description and no entries still gets its page. Use it instead of a separate page.
 - **Authors:** an author the entry names must have a profile, or the build fails.
+
+### Section pages (`case` and `source`)
+
+The user-case and source-study sections are Markdown pages whose URL is their path inside the folder:
+
+| File | URL |
+| --- | --- |
+| `case/index.md` | `/case/` (the section landing) |
+| `case/join/pr.md` | `/case/join/pr/` |
+| `case/join/index.md` | `/case/join/` (a folder's `index.md` is its page) |
+
+- **Front matter:** `title` (required), `summary` (optional, used as the description), `weight` (optional number; lower comes first in the section list and in the previous and next links, pages without a weight come last, ties sort by title), and `draft: true` to leave a page out of the build.
+- **Landing pages:** `lead` is a paragraph, and `groups` holds cards. Each group has an optional `title` and a `cards` list. A card with `href` is one link; a card without `href` is plain text.
+- **Section list and navigation:** every page shows a breadcrumb, the list of pages in its folder with the current one marked, and previous and next links. Nothing needs to be added to the navigation for a new page.
+- **Body text:** the Markdown body is what search indexes. Do not put the page title in the body; the layout shows it.
+- **Images:** keep them in an `images/` folder beside the Markdown and refer to them relatively. The build fails on a missing one. `.xmind` downloads go in `public/source/<path>/` so the old URL stays the same.
 
 ## Official Dapr content
 
@@ -119,13 +137,13 @@ Dapr project and are explicitly not this site's policies.
 
 ## Search, feeds and analytics
 
-- Search is Pagefind. It indexes the body of posts, events, publications and adapted official pages, and needs a build (`pnpm run build`) to exist.
+- Search is Pagefind. It indexes the body of posts, events, publications, adapted official pages and the `/case/` and `/source/` section pages, and needs a build (`pnpm run build`) to exist.
 - RSS is at `/index.xml`, the sitemap at `/sitemap.xml`, and `robots.txt` points to the sitemap.
 - Google Analytics (`G-J4DYYVC8KL`) loads on production builds only.
 
 ## Known limits
 
-- `/source/` and `/case/` are not linked from the navigation. They are served by other sites and this build does not produce them.
+- The `/source/` and `/case/` sections are built from `src/content/source/` and `src/content/case/`. The Hugo search pages `/source/search/` and `/case/search/` are retired (see `scripts/retired-urls.txt`); the header search covers the section pages.
 - Seven images are hotlinked from `wework.qpic.cn`. `verify` lists them but does not check them.
 - `scripts/convert-front-matter.mjs` was the one-off migration from the Hugo sources. Those sources have been removed, so the script is kept only as a record.
 
