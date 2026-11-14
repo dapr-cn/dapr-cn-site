@@ -15,6 +15,10 @@ export const site = {
   copyright: '© {year}. Dapr 中国社区版权所有',
   /** Community GitHub organisation, linked from the footer. */
   githubUrl: 'https://github.com/dapr-cn',
+  /** Official Dapr docs, with the Chinese translation this community maintains. Linked from the footer. */
+  docsUrl: 'https://docs.dapr.io/zh-hans/',
+  /** Official Dapr site. Linked from the footer. */
+  officialUrl: 'https://dapr.io/',
 } as const;
 
 /** Returns the copyright line for a given year. */

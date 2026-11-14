@@ -8,25 +8,18 @@ export interface NavItem {
   href: string;
   /** Route prefix that marks this entry as the current section. */
   section: string;
-  /**
-   * False for routes that another deployment serves (/source/ and /case/).
-   * This site never produces those pages; the link points at the same origin.
-   */
-  producedHere: boolean;
 }
 
 // The pages that were standalone are now tag archives (see src/content/tag). 介绍 is the home page,
 // and 成员 is the author list.
 export const nav: readonly NavItem[] = [
-  { name: '介绍', href: '/', section: '/', producedHere: true },
-  { name: '活动', href: '/event/', section: '/event/', producedHere: true },
-  { name: '博客', href: '/post/', section: '/post/', producedHere: true },
-  { name: '翻译', href: '/tag/translation/', section: '/tag/translation/', producedHere: true },
-  { name: '源码', href: '/source/', section: '/source/', producedHere: false },
-  { name: '会议', href: '/tag/meeting/', section: '/tag/meeting/', producedHere: true },
-  { name: '案例', href: '/case/', section: '/case/', producedHere: false },
-  { name: '出版', href: '/publication/', section: '/publication/', producedHere: true },
-  { name: '成员', href: '/authors/', section: '/author', producedHere: true },
+  { name: '介绍', href: '/', section: '/' },
+  { name: '活动', href: '/event/', section: '/event/' },
+  { name: '博客', href: '/post/', section: '/post/' },
+  { name: '翻译', href: '/tag/translation/', section: '/tag/translation/' },
+  { name: '会议', href: '/tag/meeting/', section: '/tag/meeting/' },
+  { name: '出版', href: '/publication/', section: '/publication/' },
+  { name: '成员', href: '/authors/', section: '/author' },
 ];
 
 /**

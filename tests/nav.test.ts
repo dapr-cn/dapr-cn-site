@@ -2,23 +2,22 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { nav, currentNavItem } from '../src/config/nav.ts';
 
-test('navigation has the nine Hugo menu entries in order', () => {
+test('navigation has the seven remaining menu entries in order', () => {
   assert.deepEqual(
     nav.map((item) => item.name),
-    ['介绍', '活动', '博客', '翻译', '源码', '会议', '案例', '出版', '成员'],
+    ['介绍', '活动', '博客', '翻译', '会议', '出版', '成员'],
   );
 });
 
-test('navigation links match the Hugo menu URLs', () => {
+test('navigation links point at pages this build produces', () => {
   assert.deepEqual(
     nav.map((item) => item.href),
-    ['/', '/event/', '/post/', '/tag/translation/', '/source/', '/tag/meeting/', '/case/', '/publication/', '/authors/'],
+    ['/', '/event/', '/post/', '/tag/translation/', '/tag/meeting/', '/publication/', '/authors/'],
   );
 });
 
-test('/source/ and /case/ are marked as served elsewhere', () => {
-  const external = nav.filter((item) => !item.producedHere).map((item) => item.href);
-  assert.deepEqual(external, ['/source/', '/case/']);
+test('navigation does not link to /source/ or /case/', () => {
+  assert.equal(nav.some((item) => item.href === '/source/' || item.href === '/case/'), false);
 });
 
 test('a post page is highlighted as 博客', () => {
