@@ -17,7 +17,10 @@
     "convert:front-matter": "node scripts/convert-front-matter.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.8",
+    "@astrojs/markdown-satteri": "^0.4.10",
     "@astrojs/rss": "^4.0.19",
+    "@astrojs/starlight": "^0.42.11",
     "astro": "^7.4.12",
     "sharp": "^0.35.5"
   },
