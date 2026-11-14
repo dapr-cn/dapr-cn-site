@@ -1,0 +1,33 @@
+{
+  "name": "dapr-cn-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dapr 中国社区网站，基于 Astro 构建",
+  "scripts": {
+    "dev": "astro dev --host 0.0.0.0 --port 4321",
+    "build": "astro build",
+    "postbuild": "pagefind --site dist",
+    "preview": "astro preview --host 0.0.0.0 --port 4321",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs tests/*.test.ts",
+    "verify:parity": "node scripts/verify-url-parity.mjs",
+    "verify:content": "node scripts/verify-content.mjs",
+    "verify": "pnpm run build && pnpm run verify:parity && pnpm run verify:content",
+    "convert:front-matter": "node scripts/convert-front-matter.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "astro": "^7.4.12",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^24.19.2",
+    "pagefind": "^1.6.0",
+    "smol-toml": "^1.9.1",
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
+  },
+  "packageManager": "pnpm@12.16.1"
+}

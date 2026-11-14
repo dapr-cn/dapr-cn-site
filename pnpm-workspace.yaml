@@ -1,0 +1,11 @@
+# pnpm settings (pnpm 12 reads these here, not from package.json).
+# Dependency lifecycle scripts run only for approved packages:
+#   esbuild - selects and verifies its platform binary.
+#   sharp   - fetches and verifies the native libvips binding used for image optimisation.
+allowBuilds:
+  esbuild: true
+  sharp: true
+minimumReleaseAgeExclude:
+  - '@astrojs/markdown-satteri@0.4.10'
+  - '@astrojs/vite-plugin-astro@0.1.3'
+  - astro@7.4.12

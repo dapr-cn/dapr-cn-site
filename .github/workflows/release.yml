@@ -1,4 +1,4 @@
-name: Hugo Site CI/CD
+name: Site CI/CD
 
 on:
   push:
@@ -21,54 +21,42 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v5
-        with:
-          submodules: true
-          fetch-depth: 0
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          go-version: "1.21"
+          node-version: '24'
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: "0.97.3"
-          extended: true
+      - name: Enable pnpm (version from packageManager)
+        run: corepack enable
 
       - name: Install dependencies
-        run: |
-          go mod download
-          hugo mod get -u
+        run: pnpm install --frozen-lockfile
 
-      - name: Set production environment
-        if: github.ref == 'refs/heads/main'
-        run: echo "HUGO_ENV=production" >> $GITHUB_ENV
+      - name: Build site
+        run: pnpm run build
 
-      - name: Build Hugo site
-        run: |
-          hugo --minify --gc
-        env:
-          HUGO_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+      - name: Run checks
+        run: pnpm run verify
 
-      - name: Calculate public folder size
+      - name: Calculate dist folder size
         run: |
-          SIZE=$(du -sh public | cut -f1)
-          SIZE_BYTES=$(du -sb public | cut -f1)
-          echo "::notice title=Build Size::Public folder size: $SIZE ($SIZE_BYTES bytes)"
-          echo "PUBLIC_FOLDER_SIZE=$SIZE" >> $GITHUB_ENV
-          echo "PUBLIC_FOLDER_SIZE_BYTES=$SIZE_BYTES" >> $GITHUB_ENV
+          SIZE=$(du -sh dist | cut -f1)
+          SIZE_BYTES=$(du -sb dist | cut -f1)
+          echo "::notice title=Build Size::Dist folder size: $SIZE ($SIZE_BYTES bytes)"
+          echo "DIST_FOLDER_SIZE=$SIZE" >> $GITHUB_ENV
+          echo "DIST_FOLDER_SIZE_BYTES=$SIZE_BYTES" >> $GITHUB_ENV
 
       - name: Comment build size on PR
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
-            const size = process.env.PUBLIC_FOLDER_SIZE;
-            const sizeBytes = process.env.PUBLIC_FOLDER_SIZE_BYTES;
-            const comment = `## 📦 Hugo Build Size Report
+            const size = process.env.DIST_FOLDER_SIZE;
+            const sizeBytes = process.env.DIST_FOLDER_SIZE_BYTES;
+            const comment = `## 📦 Site Build Size Report
 
-            The built Hugo site size: **${size}** (${parseInt(sizeBytes).toLocaleString()} bytes)
+            The built site size: **${size}** (${parseInt(sizeBytes).toLocaleString()} bytes)
 
             > Generated for commit ${context.sha.substring(0, 7)}`;
 
@@ -87,10 +75,10 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           ###### Repository/Build Configurations ######
-          app_location: "/public" # Hugo 构建输出目录
+          app_location: "/dist" # Astro 构建输出目录
           api_location: "" # 无 API
           output_location: "" # 已经是构建输出
-          skip_app_build: true # 跳过 Azure 的构建，使用我们的 Hugo 构建
+          skip_app_build: true # 跳过 Azure 的构建，使用上一步的 Astro 构建
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:

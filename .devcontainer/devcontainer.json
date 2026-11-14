@@ -1,23 +1,18 @@
 {
-  "name": "Hugo Development Environment",
-  "image": "mcr.microsoft.com/devcontainers/go:1.21-bullseye",
-  
+  "name": "Dapr 中国社区 (Node 24, pnpm, Astro)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+
   "features": {
-    "ghcr.io/devcontainers/features/hugo:1": {
-      "version": "0.97.3",
-      "extended": true
-    },
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "18"
-    },
     "ghcr.io/devcontainers/features/git:1": {}
   },
 
   "customizations": {
     "vscode": {
       "extensions": [
-        "budparr.language-hugo-vscode",
-        "golang.go",
+        "astro-build.astro-vscode",
         "ms-vscode.vscode-json",
         "redhat.vscode-yaml",
         "ms-vscode.markdown-preview-enhanced",
@@ -26,8 +21,7 @@
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
-        "go.toolsManagement.checkForUpdates": "local",
-        "go.useLanguageServer": true,
+        "npm.packageManager": "pnpm",
         "files.associations": {
           "*.md": "markdown"
         }
@@ -35,19 +29,15 @@
     }
   },
 
-  "forwardPorts": [1313],
+  "forwardPorts": [4321],
   "portsAttributes": {
-    "1313": {
-      "label": "Hugo Server",
+    "4321": {
+      "label": "Astro Dev Server",
       "onAutoForward": "notify"
     }
   },
 
-  "postCreateCommand": "go mod download && hugo mod get -u",
-  
-  "remoteUser": "vscode",
-  
-  "mounts": [
-    "source=${localWorkspaceFolder}/../wowchemy-hugo-themes,target=/workspaces/wowchemy-hugo-themes,type=bind,consistency=cached"
-  ]
+  "postCreateCommand": "pnpm install --frozen-lockfile",
+
+  "remoteUser": "node"
 }
