@@ -77,7 +77,7 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 正文使用 Markdown。
 ```
 
-- **Images:** put them in the entry's folder and refer to them relatively, for example `![alt](images/cover.png)`. A `featured.*` file in the folder is the card cover, and `avatar.*` in an author folder is the avatar.
+- **Images:** put them in the entry's folder and refer to them relatively, for example `![alt](images/cover.avif)`. A `featured.*` file in the folder is the card cover, and `avatar.*` in an author folder is the avatar.
 - **Dates:** use a quoted date (`"2023-06-14"`). Events may include a time with an offset (`"2023-07-23T09:00:00+08:00"`). An event is listed as upcoming until its start time passes, and this is evaluated at build time.
 - **Tags:** each tag gets an archive at `/tag/<tag>/`. Upper-case letters become lower-case and spaces become `-`, as before. Chinese tags stay as they are.
 - **Authors:** an author the entry names must have a profile, or the build fails.

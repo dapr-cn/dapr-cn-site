@@ -50,7 +50,7 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 
 - Real content in the repository: 15 posts, 5 events, 5 publications and 11 author profiles in `src/content/`, plus pages for the community charter, translation, meetings and members.
 - Meeting pages list dated Tencent Meeting links and minutes; the listed dates stop in 2022, so the current cadence is not confirmed.
-- Images in `public/media/` (`welcome.jpg`, `study.jpg`, `books.jpg`, `coders.jpg`, `contact.jpg`).
+- Images in `public/media/` (`welcome.avif`, `study.avif`, `books.avif`, `coders.avif`, `contact.avif`).
 - Not on hand, and not to be invented: testimonials, user counts, adoption statistics, sponsor logos, case-study content (the case pages are served elsewhere).
 
 ## Product Principles

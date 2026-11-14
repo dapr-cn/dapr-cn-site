@@ -124,7 +124,7 @@ A blue-on-white palette with one deep indigo for brand and a lighter cobalt for 
 ### Primary
 - **Brand Indigo** (`brand-indigo`, #0d2192; dark #8fb3ff): the masthead background, the primary button, the 2px rule under each section title, the secondary button's border and label, and the fallback author avatar. In dark mode it flips to a pale periwinkle and the masthead takes the surface color instead.
 - **Link Cobalt** (`link-cobalt`, #1743c7; dark #8fb3ff): inline links and card-title hover. Hover darkens to Brand Indigo in light mode and lightens to #c3d6ff in dark mode.
-- **Focus Azure** (`focus-azure`, #2f6bff; dark #8fb3ff): the 3px focus ring, always.
+- **Focus Azure** (`focus-azure`, #2f6bff; dark #8fb3ff): the 3px focus ring, always, except on the masthead and its menu. Focus Azure is only 2.8:1 against Brand Indigo, so the masthead ring uses the masthead text colour (`--color-header-text`, 12.7:1).
 
 ### Neutral
 - **Paper** (`paper`, #ffffff; dark #0e1320): page background; also the text color on the masthead and primary button in light mode.
@@ -193,6 +193,12 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 
 ## Components
 
+### Page Frame (Starlight)
+- **Style:** every page renders through Starlight's `StarlightPage` (`BaseLayout.astro`), which supplies the document, head, and main region. The site overrides what it shows: the masthead (`Header`), the footer (`Footer`), the head (`starlight/Head.astro`), and the page title (`starlight/PageTitle.astro`, empty because pages render their own `h1`). Search and the theme select are Starlight's own components, placed in the masthead.
+- **Frame:** Starlight's own header bar is made transparent and in flow, so the masthead is the only bar. Starlight's content panel rules are removed; the masthead hairline and the hero hairline are the only separators.
+- **Code blocks:** Expressive Code keeps the Code Wash block of this document (no terminal frame, `--color-code-bg`, 10px radius, `--font-mono`); the copy button and syntax colours are kept.
+- **Theme:** the site's own key (`dapr-cn-theme`) decides the theme; Starlight's default theme provider is replaced so Starlight does not force a theme.
+
 ### Site Header (masthead)
 - **Style:** Brand Indigo bar with white text (Pinboard Mist with light text in dark mode), a hairline bottom border, sticky at the top, 60px minimum height. The brand is a 32px logo on a white rounded chip beside the site name in bold.
 - **Nav links:** 0.95rem, 6px 10px padding, 6px radius. Hover adds a 12% white wash; the current page (`aria-current='page'`) gets a 20% white wash and bold weight.
@@ -220,7 +226,7 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 
 ### Search Dialog
 - **Style:** native `<dialog>`, up to 720px wide, 10px radius, Paper background with a 1px Hairline border and 16px padding. A bordered "close" button (6px radius) sits at the right of the header row. The toggle label hides below 480px, leaving the icon.
-- **Behavior:** Pagefind renders results inside; status text is Ink Slate.
+- **Behavior:** Pagefind renders results inside. Its own palette is mapped to these role tokens (links to Link Cobalt, matches to the Highlighter), so the dialog follows both themes. Status text is Ink Slate.
 
 ### Recent List
 - **Style:** a plain list with a hairline under each row. The title is a link; the date is Ink Slate at 0.9rem and does not wrap internally.
@@ -237,7 +243,7 @@ Borders are always 1px Hairline, except the 2px Brand Indigo section-title under
 - **Do** consume color only through the role variables in `src/styles/tokens.css`, and edit the light, `prefers-color-scheme` and `data-theme='dark'` blocks together.
 - **Do** keep Brand Indigo to the masthead, the primary button, the secondary-button outline and the section-title rule.
 - **Do** separate regions with a 1px Hairline or a Paper-to-Pinboard-Mist step.
-- **Do** keep the 3px Focus Azure outline (2px offset) visible on every interactive element, and keep `aria-current='page'` on the active nav link.
+- **Do** keep the 3px focus ring (2px offset) visible on every interactive element: Focus Azure everywhere, except the masthead ring, which uses the masthead text colour. Keep `aria-current='page'` on the active nav link.
 - **Do** use pill geometry for small standalone controls and 10px for containers.
 - **Do** keep body text at 1.75 line-height and article text inside the 780px column.
 - **Do** honor `prefers-reduced-motion`: the global stylesheet already disables transitions and animations; do not override it.
