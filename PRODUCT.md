@@ -24,7 +24,7 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 
 ## Operating Context
 
-- Content is Markdown in `src/content/` (posts, events, publications, authors, pages). Volunteers add content through pull requests to the repository.
+- Content is Markdown in `src/content/` (posts, events, publications, authors, tag descriptions). Volunteers add content through pull requests to the repository.
 - The site was migrated from Hugo to Astro. Content, URLs and feeds were deliberately kept unchanged.
 - Visitors are assumed to read Chinese; device mix and traffic sources are not measured here (Google Analytics exists but no data was provided).
 - Meetings happen outside the site (Tencent Meeting links, minutes and video replays). Official English community meetings and Dapr docs are on other sites.
@@ -34,7 +34,8 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 
 - Static site built with Astro, with Pagefind search (needs a build to exist), an RSS feed at `/index.xml`, a sitemap, and Google Analytics on production builds only.
 - Site language is Simplified Chinese (`zh-Hans`). Public origin is `https://cn.dapr.io`.
-- Every URL listed in `scripts/hugo-urls.txt` must keep resolving; `pnpm run verify` enforces route parity.
+- Every URL listed in `scripts/hugo-urls.txt` must keep resolving; `pnpm run verify` enforces route parity. Two groups are deliberate exceptions, recorded in `scripts/retired-urls.txt` with their replacements: the standalone pages that became tag archives (/tour/, /people/, /meeting/, /translation/ and sub-pages), and the non-ASCII tag and author URLs.
+- Public URLs are ASCII only, including `#anchor` fragments. `pnpm run verify` fails on a non-ASCII route, `href` or `id`; tags and authors take their URL from an ASCII slug, and headings get ASCII ids.
 - Navigation: 介绍, 活动, 博客, 翻译, 源码, 会议, 案例, 出版, 成员. `/source/` and `/case/` are served by other deployments on the same origin; this build does not produce them.
 - A post must name authors that have a profile, or the build fails. Events are "upcoming" until their start time passes, evaluated at build time.
 - Seven images are hotlinked from `wework.qpic.cn` and are not checked by the build.
@@ -48,7 +49,7 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 
 ## Evidence on Hand
 
-- Real content in the repository: 15 posts, 5 events, 5 publications and 11 author profiles in `src/content/`, plus pages for the community charter, translation, meetings and members.
+- Real content in the repository: 15 posts, 5 events, 5 publications and 11 author profiles in `src/content/`, plus tag descriptions for translation and meetings, and the author list for members.
 - Meeting pages list dated Tencent Meeting links and minutes; the listed dates stop in 2022, so the current cadence is not confirmed.
 - Images in `public/media/` (`welcome.avif`, `study.avif`, `books.avif`, `coders.avif`, `contact.avif`).
 - Not on hand, and not to be invented: testimonials, user counts, adoption statistics, sponsor logos, case-study content (the case pages are served elsewhere).

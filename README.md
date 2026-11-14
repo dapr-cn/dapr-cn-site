@@ -2,7 +2,7 @@
 
 The website of the Dapr Chinese community, built with [Astro](https://astro.build) and [Pagefind](https://pagefind.app).
 
-The site was migrated from Hugo. Its content, URLs and feeds are unchanged; see `scripts/hugo-urls.txt` for the list of URLs it must keep serving.
+The site was migrated from Hugo. Its content, URLs and feeds are unchanged; see `scripts/hugo-urls.txt` for the list of URLs it must keep serving. The standalone pages of the Hugo site (介绍, 会议, 翻译 and their sub-pages, 成员) are now tag archives or existing pages, so their URLs were removed from that list on purpose. Likewise, the Chinese-path URLs of tags and authors were retired: `scripts/retired-urls.txt` maps each one to its ASCII replacement, for redirects on the host.
 
 ## Requirements
 
@@ -57,9 +57,9 @@ Content lives in `src/content/`.
 | `post/<folder>/index.md` | Blog post | `/post/<folder>/` |
 | `event/<folder>/index.md` | Event | `/event/<folder>/` |
 | `publication/<folder>/index.md` | Publication | `/publication/<folder>/` |
-| `authors/<id>/index.md` | Author profile | `/author/<name>/` (the display name) |
-| `pages/<path>.md` | Static page | `/<path>/` |
-| `pages/home/*.md` | Home-page sections | none (headless) |
+| `authors/<id>/index.md` | Author profile | `/author/<id>/` (the folder name) |
+| `tag/<slug>/index.md` | Tag description, shown above the tag's entries | `/tag/<slug>/` |
+| `pages/home/*.md` | Home-page widgets | none (headless) |
 
 A post looks like this:
 
@@ -79,7 +79,8 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 
 - **Images:** put them in the entry's folder and refer to them relatively, for example `![alt](images/cover.avif)`. A `featured.*` file in the folder is the card cover, and `avatar.*` in an author folder is the avatar.
 - **Dates:** use a quoted date (`"2023-06-14"`). Events may include a time with an offset (`"2023-07-23T09:00:00+08:00"`). An event is listed as upcoming until its start time passes, and this is evaluated at build time.
-- **Tags:** each tag gets an archive at `/tag/<tag>/`. Upper-case letters become lower-case and spaces become `-`, as before. Chinese tags stay as they are.
+- **Tags:** each tag gets an archive at `/tag/<slug>/`. Upper-case letters become lower-case and spaces become `-`, as before. Public URLs are ASCII only, so a tag whose name is not ASCII (such as `翻译`) needs a tag description whose folder is its ASCII slug (`tag/translation/`); the build fails without one. `pnpm run verify` fails on any non-ASCII route, `href` or `id`. Heading anchors are ASCII too: a heading with non-ASCII text gets its ASCII words plus a short hash (`scripts/lib/heading-ids.mjs`), so `dapr是什么` becomes `#dapr-<hash>`; ASCII headings keep their id.
+- **Tag descriptions:** a folder `tag/<slug>/` with an `index.md` (`title` is the tag name, the folder name is the URL) adds a text above that tag's entries. A tag with a description and no entries still gets its page. Use it instead of a separate page.
 - **Authors:** an author the entry names must have a profile, or the build fails.
 
 ## Search, feeds and analytics
@@ -99,12 +100,12 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 ```
 src/
   config/       site settings and navigation
-  content/      posts, events, publications, authors and pages
+  content/      posts, events, publications, authors, tag descriptions and home widgets
   content.config.ts   collection schemas
   components/   header, footer, search, cards, home sections
   layouts/      base page and article layout
   lib/          URLs, tags, dates, events
-  pages/        routes
+  pages/        routes (no static pages; the tag archive is `pages/tag/[tag].astro`)
   styles/       theme tokens and base CSS
 public/         logo, images and robots.txt, served as they are
 scripts/        verification and migration scripts, hugo-urls.txt
