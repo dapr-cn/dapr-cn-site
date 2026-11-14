@@ -1,0 +1,63 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { urls } from '../lib/urls';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('site', (entry) => !entry.data.draft);
+  return pages.map((page) => ({ params: { id: page.id }, props: { page } }));
+}
+
+interface Props {
+  page: CollectionEntry<'site'>;
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description} path={urls.site(page.id)}>
+  <article class="container official-page" data-pagefind-body>
+    <header>
+      <h1>{page.data.title}</h1>
+      {page.data.intro && <p class="intro">{page.data.intro}</p>}
+      <p class="source" data-pagefind-ignore>
+        本页由中国社区根据 <a href={page.data.source}>Dapr 官网原文</a>翻译整理。
+        内容基于官网源码 <a href="https://github.com/dapr/website/tree/460d369">460d369</a>，
+        商业服务、案例和产品信息以原文及提供方为准，不代表中国社区的推荐或承诺。
+      </p>
+    </header>
+    <div class="prose"><Content /></div>
+    <p class="back" data-pagefind-ignore><a href="/learn/">学习 Dapr</a> · <a href="/faq/">常见问题</a> · <a href="/">返回首页</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+  .container.official-page {
+    max-width: 828px;
+    padding-block: clamp(2rem, 5vw, 4rem);
+  }
+  h1 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 3rem);
+    text-wrap: balance;
+  }
+  .intro {
+    font-size: 1.15rem;
+    color: var(--color-muted);
+  }
+  .source {
+    border-block: 1px solid var(--color-border);
+    padding-block: 1rem;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+  .prose {
+    margin-top: 2rem;
+  }
+  .back {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+    margin-top: 3rem;
+  }
+</style>

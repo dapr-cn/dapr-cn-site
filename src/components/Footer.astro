@@ -1,5 +1,5 @@
 ---
-import { nav } from '../config/nav';
+import { nav, officialNav } from '../config/nav';
 import { site, copyrightText } from '../config/site';
 
 const year = new Date().getFullYear();
@@ -70,6 +70,12 @@ const resources = [
           }
         </ul>
       </nav>
+      <nav aria-labelledby="footer-dapr">
+        <h2 class="footer-title" id="footer-dapr">了解 Dapr</h2>
+        <ul class="footer-links">
+          {officialNav.map((item) => <li><a href={item.href}>{item.name}</a></li>)}
+        </ul>
+      </nav>
     </div>
   </div>
   <div class="footer-base">
@@ -78,6 +84,12 @@ const resources = [
         {copyrightText(year)}
         <span class="sep" aria-hidden="true">·</span>
         <span class="unofficial">本站由社区志愿者维护,不是 Dapr 官方网站。</span>
+      </p>
+      <p class="project-legal">
+        Dapr 项目法律链接（非本站政策）：
+        <a href="https://www.linuxfoundation.org/legal/terms">条款</a> ·
+        <a href="https://www.linuxfoundation.org/legal/privacy-policy">隐私</a> ·
+        <a href="https://www.linuxfoundation.org/legal/trademark-usage">商标</a>
       </p>
       <a class="to-top" href="#_top">
         <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14">
@@ -230,7 +242,7 @@ const resources = [
 
   @media (min-width: 960px) {
     .footer-grid {
-      grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+      grid-template-columns: 1.6fr 0.8fr 0.8fr 1.2fr 1fr;
       gap: 28px 40px;
     }
 

@@ -1,5 +1,5 @@
 ---
-import { nav, currentNavItem } from '../config/nav';
+import { nav, officialNav, currentNavItem } from '../config/nav';
 import { site } from '../config/site';
 import Search from '@astrojs/starlight/components/Search.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
@@ -11,6 +11,7 @@ interface Props {
 
 const path = Astro.props.path ?? Astro.url.pathname;
 const current = currentNavItem(path);
+const officialCurrent = officialNav.find((item) => path.startsWith(item.section));
 ---
 
 <header class="site-header">
@@ -30,6 +31,16 @@ const current = currentNavItem(path);
             </li>
           ))
         }
+        <li>
+          <details class="official-menu" data-official-menu>
+            <summary class:list={{ 'is-current': !!officialCurrent }}>了解 Dapr</summary>
+            <ul>
+              {officialNav.map((item) => (
+                <li><a href={item.href} aria-current={officialCurrent?.href === item.href ? 'page' : undefined}>{item.name}</a></li>
+              ))}
+            </ul>
+          </details>
+        </li>
       </ul>
       <span class="nav-indicator" aria-hidden="true"></span>
     </nav>
@@ -55,6 +66,10 @@ const current = currentNavItem(path);
                 </li>
               ))
             }
+            <li class="nav-group-label">了解 Dapr</li>
+            {officialNav.map((item) => (
+              <li><a href={item.href} aria-current={officialCurrent?.href === item.href ? 'page' : undefined}>{item.name}</a></li>
+            ))}
           </ul>
         </nav>
       </details>
@@ -120,6 +135,7 @@ const current = currentNavItem(path);
   }
 
   .nav-desktop a,
+  .official-menu summary,
   .nav-mobile a {
     display: inline-block;
     padding: 6px 10px;
@@ -127,6 +143,44 @@ const current = currentNavItem(path);
     color: var(--color-header-text);
     text-decoration: none;
     font-size: 0.95rem;
+  }
+
+  .official-menu summary {
+    cursor: pointer;
+  }
+
+  .official-menu {
+    position: relative;
+    z-index: 2;
+  }
+
+  .official-menu summary:hover,
+  .official-menu summary.is-current {
+    background: var(--wash-strong);
+  }
+
+  .nav-desktop .official-menu ul {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 13rem;
+    display: grid;
+    gap: 2px;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-header-bg);
+  }
+
+  .official-menu li a {
+    display: block;
+  }
+
+  .nav-group-label {
+    border-top: 1px solid var(--line);
+    margin-top: 0.5rem;
+    padding: 1rem 10px 0.25rem;
+    font-weight: 700;
   }
 
   .nav-desktop a {
@@ -154,8 +208,8 @@ const current = currentNavItem(path);
   /* With scripting, one indicator carries both the hover and the current-page wash. It glides to the
      link under the pointer or focus and returns to the current page; without scripting the links
      keep their own backgrounds above. */
-  .nav-desktop.has-indicator a,
-  .nav-desktop.has-indicator a[aria-current='page'] {
+  .nav-desktop.has-indicator > ul > li > a,
+  .nav-desktop.has-indicator > ul > li > a[aria-current='page'] {
     background: transparent;
   }
 
@@ -270,6 +324,23 @@ const current = currentNavItem(path);
     display: none;
   }
 
+  @media (max-width: 359px) {
+    .nav-mobile summary {
+      width: 36px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .nav-mobile summary span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+
   .nav-mobile summary:hover,
   .nav-mobile[open] summary {
     background: var(--wash);
@@ -376,7 +447,7 @@ const current = currentNavItem(path);
     }
   }
 
-  @media (min-width: 960px) {
+  @media (min-width: 1200px) {
     .nav-desktop {
       display: block;
     }
@@ -447,7 +518,7 @@ const current = currentNavItem(path);
   const nav = document.querySelector<HTMLElement>('[data-nav-desktop]');
 
   if (nav) {
-    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>(':scope > ul > li > a'));
     const current = links.find((link) => link.getAttribute('aria-current') === 'page');
 
     const place = (link: HTMLElement | undefined, glide: boolean) => {
@@ -501,8 +572,24 @@ const current = currentNavItem(path);
         menu.querySelector('summary')?.focus();
       }
     });
-    window.matchMedia('(min-width: 960px)').addEventListener('change', (event) => {
+    window.matchMedia('(min-width: 1200px)').addEventListener('change', (event) => {
       if (event.matches) menu.open = false;
+    });
+  }
+
+  const officialMenu = document.querySelector<HTMLDetailsElement>('[data-official-menu]');
+  if (officialMenu) {
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !officialMenu.contains(event.target)) officialMenu.open = false;
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && officialMenu.open) {
+        officialMenu.open = false;
+        officialMenu.querySelector('summary')?.focus();
+      }
+    });
+    officialMenu.addEventListener('focusout', (event) => {
+      if (!(event.relatedTarget instanceof Node) || !officialMenu.contains(event.relatedTarget)) officialMenu.open = false;
     });
   }
 </script>

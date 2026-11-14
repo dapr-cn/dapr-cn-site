@@ -16,6 +16,8 @@
   --color-focus: #2f6bff;
   --color-code-bg: #f1f4fa;
   --color-mark: #fff3c4;
+  /* Imported artwork retains its original white ground in both themes. */
+  --official-artwork-bg: #ffffff;
 
   --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;

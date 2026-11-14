@@ -3,7 +3,7 @@ import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/home.css';
 import Hero from '../components/home/Hero.astro';
-import Story from '../components/home/Story.astro';
+import OfficialOverview from '../components/home/OfficialOverview.astro';
 import Closing from '../components/home/Closing.astro';
 import Activities from '../components/home/Activities.astro';
 import EventList from '../components/home/EventList.astro';
@@ -16,9 +16,7 @@ import { tagTerms } from '../lib/tags';
 import { tagDescriptions } from '../lib/tag-links';
 import { urls } from '../lib/urls';
 
-// Section order: hero (with the newest posts), the Dapr story, community purpose, upcoming events,
-// event reviews, featured posts, earlier posts, tag cloud, closing band. A section with no entries
-// is not rendered.
+// Official Dapr overview first; the existing Chinese community archives follow it.
 const [posts, events, publications] = await Promise.all([
   getCollection('post', (entry) => !entry.data.draft),
   getCollection('event'),
@@ -50,7 +48,7 @@ const tagsTitle = await titleOf('home/tags', '标签云');
 
 <BaseLayout title={undefined} description={site.description} path={urls.home()}>
   <Hero latestTitle={recentTitle} latest={newest} />
-  <Story />
+  <OfficialOverview />
   <div class="home">
   <Activities />
   <EventList id="upcoming-title" title={upcomingTitle} events={upcoming} />

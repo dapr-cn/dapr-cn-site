@@ -19,4 +19,5 @@ export const urls = {
   tag: (slug: string) => path('tag', slug),
   tagList: () => path('tags'),
   categoryList: () => path('categories'),
+  site: (id: string) => path(id),
 };

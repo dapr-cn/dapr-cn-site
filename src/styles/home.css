@@ -20,7 +20,8 @@
 /* Starlight puts a 1rem margin above every sibling inside its content column. Between the full-bleed
    bands that margin shows the white page as a stripe, so the bands butt against each other. */
 .signal-hero ~ .story,
-.story ~ .home {
+.story ~ .home,
+.signal-hero ~ .official-overview {
   margin-top: 0;
 }
 

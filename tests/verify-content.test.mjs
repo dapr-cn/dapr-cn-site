@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import {
@@ -8,6 +8,7 @@ import {
   checkFrontMatter,
   checkInternalLinks,
   externalImages,
+  loadEntries,
 } from '../scripts/verify-content.mjs';
 import { findMissingLocalImages } from '../scripts/lib/local-images.mjs';
 import { compareRoutes, nonAsciiAttributes, nonAsciiRoutes, parseUrlList } from '../scripts/verify-url-parity.mjs';
@@ -59,6 +60,29 @@ test('a relative link that resolves to a built tag page passes', () => {
   const site = { routes: new Set(['/tag/translation/']), publicFiles: new Set() };
   const entry = post('tag-link', 'title: "x"\ndate: "2023-01-01"', 'See [tag](../../tag/translation/).\n');
   assert.deepEqual(checkInternalLinks([entry], site), []);
+});
+
+test('translated site pages resolve relative links from their public route', () => {
+  const entry = {
+    collection: 'site',
+    id: 'community/program',
+    file: 'src/content/site/community/program.md',
+    text: '---\ntitle: "Program"\n---\n[Community](../)\n[Missing](../../missing/)\n',
+  };
+  const findings = checkInternalLinks([entry], { routes: new Set(['/community/']), publicFiles: new Set() });
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /resolves to \/missing\//);
+});
+
+test('the content verifier loads nested translated site pages', async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dapr-cn-site-content-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(path.join(root, 'site', 'community'), { recursive: true });
+  await writeFile(path.join(root, 'site', 'community', 'program.md'), '---\ntitle: "Program"\n---\n');
+  const entries = loadEntries(root);
+  assert.equal(entries.length, 1);
+  assert.equal(entries[0].collection, 'site');
+  assert.equal(entries[0].id, 'community/program');
 });
 
 test('external images are listed, not failed', () => {

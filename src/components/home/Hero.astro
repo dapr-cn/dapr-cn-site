@@ -1,25 +1,18 @@
 ---
-import { getEntry } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import SignalPoster from './SignalPoster.astro';
+import { officialHome } from '../../data/official-home';
 import { formatDate } from '../../lib/format';
-import { tagHrefs } from '../../lib/tag-links';
 import { urls } from '../../lib/urls';
 
-// The home hero: the community name over the "signal field" (a node network that reacts to the
-// pointer), a link to the translation group, and the newest articles so reading starts above the
-// fold. The title falls back to the site name; the subtitle comes from the `home/skills` widget.
+// The translated Dapr introduction over the community's existing signal field.
 interface Props {
   latestTitle: string;
   latest: CollectionEntry<'post'>[];
 }
 
 const { latestTitle, latest } = Astro.props;
-const welcome = await getEntry('pages', 'home/welcome');
-const skills = await getEntry('pages', 'home/skills');
-const title = welcome?.data.title ?? 'Dapr 中国社区';
-const lede = skills?.data.subtitle;
-const tagHref = await tagHrefs();
+const { description } = officialHome.hero;
 ---
 
 <section class="signal-hero" data-signal-hero aria-labelledby="home-title">
@@ -28,12 +21,14 @@ const tagHref = await tagHrefs();
 
   <div class="container signal-inner">
     <div class="signal-copy">
-      <h1 id="home-title">{title}</h1>
-      {lede && <p class="signal-lede">{lede}</p>}
+      <h1 id="home-title">让工作流与 <span class="keep-together">AI 代理</span><br />持久化执行</h1>
+      <p class="signal-lede">{description}</p>
       <p class="signal-actions">
-        <a class="signal-button" href={urls.postList()}>阅读博客</a>
-        <a class="signal-button ghost" href={tagHref('翻译')}>加入翻译小组</a>
+        <a class="signal-button" href="https://docs.dapr.io/getting-started/">开始使用 Dapr</a>
+        <a class="signal-button ghost" href="/workflow/">持久化工作流</a>
+        <a class="signal-button ghost" href="/ai/">Dapr Agents</a>
       </p>
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" hidden>暂停背景动画</button>
     </div>
 
     {
@@ -97,16 +92,20 @@ const tagHref = await tagHrefs();
   }
 
   .signal-copy {
-    max-width: 44rem;
+    max-width: 52rem;
   }
 
   .signal-copy h1 {
     margin: 0;
-    font-size: clamp(2.75rem, 1.4rem + 5.6vw, 5rem);
+    font-size: clamp(2.35rem, 1.4rem + 5.6vw, 5rem);
     line-height: 1.12;
     font-weight: 800;
     color: var(--signal-text);
     text-wrap: balance;
+  }
+
+  .keep-together {
+    white-space: nowrap;
   }
 
   .signal-lede {
@@ -158,6 +157,23 @@ const tagHref = await tagHrefs();
 
   .signal-hero :focus-visible {
     outline-color: var(--signal-focus);
+  }
+
+  .motion-toggle {
+    margin-top: 1.5rem;
+    padding: 0.35em 0.8em;
+    border: 1px solid var(--signal-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--signal-muted);
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+
+  .motion-toggle:hover {
+    color: var(--signal-text);
+    border-color: var(--signal-accent);
   }
 
   .signal-latest {
@@ -504,6 +520,8 @@ const tagHref = await tagHrefs();
     let visible = true;
     let raf = 0;
     let last = 0;
+    let paused = false;
+    const toggle = hero.querySelector<HTMLButtonElement>('[data-motion-toggle]');
 
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick);
@@ -514,7 +532,7 @@ const tagHref = await tagHrefs();
     };
 
     const sync = () => {
-      const should = visible && !document.hidden && !reduced.matches;
+      const should = visible && !document.hidden && !reduced.matches && !paused;
       if (should && !running) {
         running = true;
         last = performance.now();
@@ -528,6 +546,17 @@ const tagHref = await tagHrefs();
         draw();
       }
     };
+
+    if (toggle) {
+      toggle.hidden = reduced.matches;
+      toggle.addEventListener('click', () => {
+        paused = !paused;
+        toggle.setAttribute('aria-pressed', String(paused));
+        toggle.textContent = paused ? '播放背景动画' : '暂停背景动画';
+        sync();
+      });
+      reduced.addEventListener('change', () => { toggle.hidden = reduced.matches; });
+    }
 
     const rebuild = () => {
       build();
@@ -550,6 +579,7 @@ const tagHref = await tagHrefs();
       running = false;
       cancelAnimationFrame(raf);
       hero.classList.remove('is-live');
+      if (toggle) toggle.hidden = true;
     });
     document.addEventListener('visibilitychange', sync);
     reduced.addEventListener('change', sync);

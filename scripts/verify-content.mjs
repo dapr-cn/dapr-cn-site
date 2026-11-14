@@ -86,6 +86,7 @@ export function checkAuthorReferences(entries, authorIds) {
 
 /** Route a body's relative links resolve from. Entries embedded in another page use that page. */
 export function baseRouteOf(entry) {
+  if (entry.collection === 'site') return normalisePath(`/${entry.id}`);
   if (entry.collection === 'pages') {
     if (entry.id.startsWith('home/')) return '/';
     return normalisePath(`/${entry.id}`);
@@ -153,10 +154,12 @@ export function loadEntries(contentDir) {
       entries.push({ collection, id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
     }
   }
-  for (const file of walkFiles(path.join(contentDir, 'pages')).filter((f) => f.endsWith('.md'))) {
-    const relative = path.relative(path.join(contentDir, 'pages'), file).split(path.sep).join('/');
-    const id = relative.replace(/\/index\.md$/, '').replace(/\.md$/, '');
-    entries.push({ collection: 'pages', id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
+  for (const collection of ['pages', 'site']) {
+    for (const file of walkFiles(path.join(contentDir, collection)).filter((f) => f.endsWith('.md'))) {
+      const relative = path.relative(path.join(contentDir, collection), file).split(path.sep).join('/');
+      const id = relative.replace(/\/index\.md$/, '').replace(/\.md$/, '');
+      entries.push({ collection, id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
+    }
   }
   return entries;
 }
