@@ -46,3 +46,26 @@
 /tag/v1.8/
 /tag/workflow/
 /tags/
+# Section pages moved into this site from the former Hugo sites dapr-cn-site-case (/case/) and
+# dapr-cn-site-source (/source/). Built from src/content/case and src/content/source.
+/case/
+/case/china/
+/case/global/
+/case/join/
+/case/join/pr/
+/case/join/manual/
+/case/join/report/
+/source/
+/source/process/
+/source/design/
+/source/detail/
+/source/detail/runtime/
+/source/detail/component/
+/source/detail/control-plane/
+/source/detail/sdk/
+/source/join/
+/source/join/target/
+/source/join/how-to-study/
+/source/join/meetings/
+/source/join/knowledge-graph/
+/source/join/workitems/

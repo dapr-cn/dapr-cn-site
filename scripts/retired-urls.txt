@@ -28,3 +28,6 @@
 /translation/blog/ /tag/blog-translation/
 /translation/docs/ /tag/docs-translation/
 /translation/paper/ /tag/paper-translation/
+# Hugo search pages of the former case and source sites. The header search covers their section pages.
+/case/search/ /case/
+/source/search/ /source/
