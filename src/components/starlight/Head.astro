@@ -1,0 +1,50 @@
+---
+// The page <head>: Starlight's head entries, with the site's own title, Open Graph and Twitter
+// values and the tags the site adds (RSS feed, icon, analytics on production builds).
+import { site } from '../../config/site';
+
+const { head, entry } = Astro.locals.starlightRoute;
+const isProduction = import.meta.env.PROD;
+
+const pageName: string | undefined = entry.data.title;
+const pageTitle = pageName && pageName !== site.title ? `${pageName} | ${site.title}` : site.title;
+const description: string = entry.data.description ?? site.description;
+// Post, event and publication detail pages are articles; the list pages are websites.
+const isArticle = /^\/(post|event|publication)\/[^/]+\/$/.test(Astro.url.pathname);
+const socialImage = new URL('/media/dapr.png', site.baseUrl).href;
+
+// Starlight's values for these are replaced by the site's values below.
+const replacedKeys = ['og:locale', 'og:type', 'og:image', 'twitter:image', 'twitter:title', 'twitter:description'];
+const kept = head.filter(({ tag, attrs }) => {
+  if (tag === 'title') return false;
+  if (attrs?.rel === 'icon' || attrs?.rel === 'shortcut icon') return false;
+  const key = [attrs?.property, attrs?.name].find((value): value is string => typeof value === 'string');
+  return !(key && replacedKeys.includes(key));
+});
+---
+
+{kept.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+<title>{pageTitle}</title>
+<meta property="og:type" content={isArticle ? 'article' : 'website'} />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:image" content={socialImage} />
+<meta name="twitter:image" content={socialImage} />
+<meta name="twitter:title" content={pageName ?? site.title} />
+<meta name="twitter:description" content={description} />
+<link rel="icon" type="image/png" href="/media/icon.png" />
+<link rel="alternate" type="application/rss+xml" title={`${site.title} RSS`} href="/index.xml" />
+{
+  isProduction && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`} />
+      <script is:inline define:vars={{ gaId: site.gaId }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    </>
+  )
+}

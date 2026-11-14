@@ -1,14 +1,15 @@
 ---
 import { nav, currentNavItem } from '../config/nav';
 import { site } from '../config/site';
-import ThemeToggle from './ThemeToggle.astro';
-import Search from './Search.astro';
+import Search from '@astrojs/starlight/components/Search.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 
 interface Props {
-  path: string;
+  /** Path of the current page. Defaults to the request path, which is what Starlight's frame passes. */
+  path?: string;
 }
 
-const { path } = Astro.props;
+const path = Astro.props.path ?? Astro.url.pathname;
 const current = currentNavItem(path);
 ---
 
@@ -33,7 +34,7 @@ const current = currentNavItem(path);
     </nav>
     <div class="header-tools">
       <Search />
-      <ThemeToggle />
+      <ThemeSelect />
       <details class="nav-mobile">
         <summary>菜单</summary>
         <nav aria-label="移动端导航">

@@ -5,13 +5,16 @@ import { urls } from '../lib/urls';
 
 interface Props {
   publication: CollectionEntry<'publication'>;
+  /** Heading level of the card title: 3 under a section heading, 2 on a list page whose only heading is the h1. */
+  level?: 2 | 3;
 }
 
-const { publication } = Astro.props;
+const { publication, level = 3 } = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
 ---
 
 <li class="card publication-card">
-  <h3><a href={urls.publication(publication.id)}>{publication.data.title}</a></h3>
+  <Heading><a href={urls.publication(publication.id)}>{publication.data.title}</a></Heading>
   <ul class="meta">
     <li><time datetime={publication.data.date.toISOString()}>{formatDate(publication.data.date)}</time></li>
     {publication.data.publication && <li>{publication.data.publication}</li>}

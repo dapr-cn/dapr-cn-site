@@ -1,5 +1,7 @@
 import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
+import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 
 /**
  * Page bundles keep their Hugo folder name as the id, so `/post/<id>/` matches the Hugo URL.
@@ -126,4 +128,11 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { post, event, publication, authors, pages };
+/**
+ * Starlight's collections. The site has no docs or UI-string entries of its own; the collections
+ * exist so Starlight's loaders and schemas are satisfied.
+ */
+const docs = defineCollection({ loader: docsLoader(), schema: docsSchema() });
+const i18n = defineCollection({ loader: i18nLoader(), schema: i18nSchema() });
+
+export const collections = { post, event, publication, authors, pages, docs, i18n };

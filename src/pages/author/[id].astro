@@ -29,7 +29,7 @@ const name = author.data.title;
 <BaseLayout title={name} description={author.data.bio ?? `${name} 的文章`} path={urls.author(name)}>
   <section class="container section">
     <header class="author-head">
-      <AuthorBadge author={author} size="lg" />
+      <AuthorBadge author={author} size="lg" nameAs="h1" />
       {author.data.role && <p class="muted">{author.data.role}</p>}
       {author.data.bio && <p>{author.data.bio}</p>}
       {

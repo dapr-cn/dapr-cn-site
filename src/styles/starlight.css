@@ -1,0 +1,28 @@
+/* Starlight's colour roles, read from the site's tokens (styles/tokens.css). Starlight's search,
+   theme select and table of contents then follow DESIGN.md in both themes. Starlight's own light
+   and dark palettes are replaced here, so only the token values decide the colours. */
+:root {
+  --sl-color-bg: var(--color-bg);
+  --sl-color-bg-nav: var(--color-header-bg);
+  --sl-color-bg-sidebar: var(--color-surface);
+  --sl-color-bg-inline-code: var(--color-code-bg);
+  --sl-color-bg-accent: var(--color-brand);
+  --sl-color-text: var(--color-text);
+  --sl-color-text-accent: var(--color-link);
+  --sl-color-text-invert: var(--color-brand-text);
+  --sl-color-accent-low: var(--color-surface);
+  --sl-color-accent: var(--color-brand);
+  --sl-color-accent-high: var(--color-link);
+  --sl-color-white: var(--color-text);
+  --sl-color-black: var(--color-bg);
+  --sl-color-gray-1: var(--color-text);
+  --sl-color-gray-2: var(--color-text);
+  --sl-color-gray-3: var(--color-muted);
+  --sl-color-gray-4: var(--color-muted);
+  --sl-color-gray-5: var(--color-border);
+  --sl-color-gray-6: var(--color-surface);
+  --sl-color-gray-7: var(--color-surface);
+  --sl-color-hairline: var(--color-border);
+  --sl-color-hairline-light: var(--color-border);
+  --sl-color-hairline-shade: var(--color-border);
+}

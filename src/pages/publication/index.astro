@@ -13,7 +13,7 @@ const publications = (await getCollection('publication')).sort(
   <section class="container section">
     <h1>出版</h1>
     <ul class="card-grid three">
-      {publications.map((publication) => <PublicationCard publication={publication} />)}
+      {publications.map((publication) => <PublicationCard publication={publication} level={2} />)}
     </ul>
   </section>
 </BaseLayout>

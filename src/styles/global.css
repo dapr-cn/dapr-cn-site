@@ -52,12 +52,28 @@ a:hover {
   border-radius: 4px;
 }
 
+/* The masthead is Brand Indigo, where Focus Azure is only 2.8:1. Its ring uses the masthead text
+   colour instead. The search dialog sits inside the masthead's DOM, so it keeps Focus Azure. */
+.site-header :focus-visible:not(.search-dialog *) {
+  outline-color: var(--color-header-text);
+}
+
 h1,
 h2,
 h3,
 h4 {
   line-height: 1.35;
   margin: 1.5em 0 0.6em;
+}
+
+/* Starlight sets its own heading colour; headings take the site's text colour. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text);
 }
 
 h1 {
@@ -187,17 +203,17 @@ mark {
   height: 100%;
 }
 
-.card h3 {
+.card :is(h2, h3) {
   font-size: 1.05rem;
   margin: 0 0 0.4em;
 }
 
-.card h3 a {
+.card :is(h2, h3) a {
   color: var(--color-text);
   text-decoration: none;
 }
 
-.card h3 a:hover {
+.card :is(h2, h3) a:hover {
   color: var(--color-link);
   text-decoration: underline;
 }
@@ -295,6 +311,90 @@ mark {
   .card-grid.three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+/* Starlight's page frame wraps the masthead in its own fixed, tinted bar. The masthead carries the
+   site's look, so the wrapper becomes a transparent, in-flow, sticky row. The selector is more
+   specific than Starlight's scoped rules. */
+.page > header.header {
+  position: sticky;
+  inset: auto;
+  top: 0;
+  z-index: 50;
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  background-color: transparent;
+  box-shadow: none;
+  color: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+}
+
+.page > header.header::before,
+.page > header.header::after {
+  content: none;
+  display: none;
+}
+
+/* Starlight's search and theme select sit in the masthead. They take the masthead's text colour,
+   a transparent pill and the 50%-white rule of the masthead controls (the only place that colour is used). */
+.site-header site-search button[data-open-modal],
+.site-header starlight-theme-select select {
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+  color: var(--color-header-text);
+}
+
+.site-header site-search button[data-open-modal]:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.site-header starlight-theme-select label,
+.site-header site-search kbd {
+  color: var(--color-header-text);
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.site-header starlight-theme-select option {
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+.site-header starlight-theme-select select {
+  line-height: 1.25;
+  padding-block: 0;
+}
+
+/* The masthead tools keep their size on a narrow screen; the menu button stays on one line. */
+.site-header .header-tools {
+  flex-shrink: 0;
+}
+
+.site-header .nav-mobile summary {
+  white-space: nowrap;
+}
+
+/* The masthead is in flow, so the frame does not need room for Starlight's fixed header. */
+.page .main-frame {
+  padding-top: 0;
+}
+
+/* Starlight draws a rule above each content panel. The masthead's hairline is the only separator
+   here. The first panel holds only the page title, which the pages render themselves, so it is hidden. */
+.main-frame .content-panel {
+  border-top: 0;
+}
+
+.main-frame main > .content-panel:first-of-type {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

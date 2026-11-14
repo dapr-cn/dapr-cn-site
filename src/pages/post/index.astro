@@ -13,7 +13,7 @@ const posts = (await getCollection('post', (entry) => !entry.data.draft)).sort(
   <section class="container section">
     <h1>博客</h1>
     <ul class="card-grid three">
-      {posts.map((post) => <PostCard post={post} />)}
+      {posts.map((post) => <PostCard post={post} level={2} />)}
     </ul>
   </section>
 </BaseLayout>

@@ -7,16 +7,19 @@ import { urls } from '../lib/urls';
 
 interface Props {
   post: CollectionEntry<'post'>;
+  /** Heading level of the card title: 3 under a section heading, 2 on a list page whose only heading is the h1. */
+  level?: 2 | 3;
 }
 
-const { post } = Astro.props;
+const { post, level = 3 } = Astro.props;
+const Heading = level === 2 ? 'h2' : 'h3';
 const authors = await Promise.all(post.data.authors.map((ref) => getEntry(ref)));
 const cover = post.data.header?.image;
 ---
 
 <li class="card post-card">
   {cover && <Image src={cover} alt="" width={640} class="cover" />}
-  <h3><a href={urls.post(post.id)}>{post.data.title}</a></h3>
+  <Heading><a href={urls.post(post.id)}>{post.data.title}</a></Heading>
   <ul class="meta">
     <li><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></li>
     {authors.filter(Boolean).map((author) => <li><AuthorBadge author={author!} /></li>)}

@@ -2,7 +2,10 @@
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+import { satteri } from '@astrojs/markdown-satteri';
 import { findMissingLocalImages, formatMissing } from './scripts/lib/local-images.mjs';
+import { bodyHeadingsStartAtH2 } from './scripts/lib/body-headings.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 
@@ -35,5 +38,40 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
-  integrations: [failOnMissingImages],
+  markdown: {
+    // The default Sätteri processor, plus the heading rule in scripts/lib/body-headings.mjs.
+    processor: satteri({ hastPlugins: [bodyHeadingsStartAtH2] }),
+  },
+  integrations: [
+    // Starlight supplies the documentation theme and its shared pieces (search, theme switch,
+    // Markdown asides, code blocks). The site keeps its own routes: the 404 page stays in src/pages.
+    starlight({
+      title: 'Dapr 中国社区',
+      defaultLocale: 'root',
+      locales: { root: { label: '简体中文', lang: 'zh-CN' } },
+      disable404Route: true,
+      // The site keeps its own masthead, footer, head tags and theme handling; Starlight supplies
+      // the page frame and its shared behaviour. See src/components/starlight/.
+      components: {
+        Head: './src/components/starlight/Head.astro',
+        PageTitle: './src/components/starlight/PageTitle.astro',
+        Header: './src/components/Header.astro',
+        Footer: './src/components/Footer.astro',
+      },
+      // Starlight's colours come from the site's tokens (see the file for the mapping).
+      customCss: ['./src/styles/starlight.css'],
+      // Code blocks keep the flat Code Wash block of DESIGN.md: no terminal frame, the site's
+      // background, rule, radius and monospace font. The copy button and highlighting stay.
+      expressiveCode: {
+        defaultProps: { frame: 'none' },
+        styleOverrides: {
+          codeBackground: 'var(--color-code-bg)',
+          borderColor: 'var(--color-border)',
+          borderRadius: '10px',
+          codeFontFamily: 'var(--font-mono)',
+        },
+      },
+    }),
+    failOnMissingImages,
+  ],
 });

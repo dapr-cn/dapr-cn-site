@@ -36,17 +36,21 @@ const isWidgetPage = pageId === 'tour' || pageId === 'people';
   {
     slides.length > 0 && (
       <section class="slides" aria-label="社区介绍">
-        {slides.map((slide) => (
-          <div class="slide container">
-            <h2>{slide.title}</h2>
-            {slide.content && <p>{slide.content}</p>}
-            {slide.link && (
-              <a class="button" href={slide.link.url}>
-                {slide.link.text}
-              </a>
-            )}
-          </div>
-        ))}
+        {slides.map((slide, index) => {
+          // The first slide carries the page's only h1; the rest are h2.
+          const Heading = index === 0 ? 'h1' : 'h2';
+          return (
+            <div class="slide container">
+              <Heading>{slide.title}</Heading>
+              {slide.content && <p>{slide.content}</p>}
+              {slide.link && (
+                <a class="button" href={slide.link.url}>
+                  {slide.link.text}
+                </a>
+              )}
+            </div>
+          );
+        })}
       </section>
     )
   }
@@ -88,6 +92,7 @@ const isWidgetPage = pageId === 'tour' || pageId === 'people';
     border-top: 1px dashed var(--color-border);
   }
 
+  .slide h1,
   .slide h2 {
     margin-top: 0;
   }
