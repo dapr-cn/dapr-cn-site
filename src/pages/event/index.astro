@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventCard from '../../components/EventCard.astro';
+import { splitEvents } from '../../lib/events';
+import { urls } from '../../lib/urls';
+
+const events = await getCollection('event');
+const { upcoming, past } = splitEvents(events, new Date());
+---
+
+<BaseLayout title="活动" description="Dapr 中国社区的线上线下活动" path={urls.eventList()}>
+  <section class="container section">
+    <h1>活动</h1>
+    {
+      upcoming.length > 0 && (
+        <>
+          <h2 class="section-title">即将开始</h2>
+          <ul class="card-grid three">
+            {upcoming.map((event) => <EventCard event={event} />)}
+          </ul>
+        </>
+      )
+    }
+    {
+      past.length > 0 && (
+        <>
+          <h2 class="section-title">往期活动</h2>
+          <ul class="card-grid three">
+            {past.map((event) => <EventCard event={event} />)}
+          </ul>
+        </>
+      )
+    }
+  </section>
+</BaseLayout>

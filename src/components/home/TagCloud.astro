@@ -1,0 +1,31 @@
+---
+import type { TagTerm } from '../../lib/tags';
+import { urls } from '../../lib/urls';
+
+// Tag cloud ("标签云"). Renders nothing when there are no tags.
+interface Props {
+  title: string;
+  terms: TagTerm[];
+}
+
+const { title, terms } = Astro.props;
+---
+
+{
+  terms.length > 0 && (
+    <section class="section container" aria-labelledby="tags-title">
+      <h2 id="tags-title" class="section-title">
+        {title}
+      </h2>
+      <ul class="tag-list tag-cloud">
+        {terms.map((term) => (
+          <li>
+            <a href={urls.tag(term.slug)} style={`font-size: ${Math.min(1.1, 0.8 + term.count * 0.08)}rem`}>
+              {term.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

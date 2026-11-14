@@ -1,0 +1,179 @@
+---
+import { nav, currentNavItem } from '../config/nav';
+import { site } from '../config/site';
+import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
+
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+const current = currentNavItem(path);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img src="/media/dapr_logo.svg" alt="" width="32" height="32" />
+      <span>{site.title}</span>
+    </a>
+    <nav class="nav-desktop" aria-label="主导航">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={current?.href === item.href ? 'page' : undefined}>
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="header-tools">
+      <Search />
+      <ThemeToggle />
+      <details class="nav-mobile">
+        <summary>菜单</summary>
+        <nav aria-label="移动端导航">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={current?.href === item.href ? 'page' : undefined}>
+                    {item.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--color-header-bg);
+    color: var(--color-header-text);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-header-text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .brand img {
+    background: #fff;
+    border-radius: 6px;
+    padding: 2px;
+  }
+
+  .nav-desktop {
+    display: none;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nav-desktop ul,
+  .nav-mobile ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  .nav-desktop a,
+  .nav-mobile a {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--color-header-text);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .nav-desktop a:hover,
+  .nav-mobile a:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .nav-desktop a[aria-current='page'],
+  .nav-mobile a[aria-current='page'] {
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+  }
+
+  .header-tools {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-mobile {
+    position: relative;
+  }
+
+  .nav-mobile summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    color: var(--color-header-text);
+    font-size: 0.95rem;
+  }
+
+  .nav-mobile summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-mobile nav {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: var(--color-header-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 8px;
+    width: min(260px, calc(100vw - 32px));
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .nav-mobile ul {
+    flex-direction: column;
+  }
+
+  @media (min-width: 960px) {
+    .nav-desktop {
+      display: block;
+    }
+
+    .nav-mobile {
+      display: none;
+    }
+  }
+</style>

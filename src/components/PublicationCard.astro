@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/format';
+import { urls } from '../lib/urls';
+
+interface Props {
+  publication: CollectionEntry<'publication'>;
+}
+
+const { publication } = Astro.props;
+---
+
+<li class="card publication-card">
+  <h3><a href={urls.publication(publication.id)}>{publication.data.title}</a></h3>
+  <ul class="meta">
+    <li><time datetime={publication.data.date.toISOString()}>{formatDate(publication.data.date)}</time></li>
+    {publication.data.publication && <li>{publication.data.publication}</li>}
+  </ul>
+  {publication.data.abstract && <p class="summary">{publication.data.abstract}</p>}
+</li>
+
+<style>
+  .summary {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    margin: 0.5em 0 0;
+  }
+</style>

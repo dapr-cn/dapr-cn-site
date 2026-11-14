@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry, type CollectionEntry } from 'astro:content';
+import AuthorBadge from './AuthorBadge.astro';
+import { formatDate } from '../lib/format';
+import { urls } from '../lib/urls';
+
+interface Props {
+  post: CollectionEntry<'post'>;
+}
+
+const { post } = Astro.props;
+const authors = await Promise.all(post.data.authors.map((ref) => getEntry(ref)));
+const cover = post.data.header?.image;
+---
+
+<li class="card post-card">
+  {cover && <Image src={cover} alt="" width={640} class="cover" />}
+  <h3><a href={urls.post(post.id)}>{post.data.title}</a></h3>
+  <ul class="meta">
+    <li><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></li>
+    {authors.filter(Boolean).map((author) => <li><AuthorBadge author={author!} /></li>)}
+  </ul>
+  {post.data.summary && <p class="summary">{post.data.summary}</p>}
+  {
+    post.data.tags.length > 0 && (
+      <ul class="tag-list">
+        {post.data.tags.map((tag) => (
+          <li>
+            <a href={urls.tag(tag)}>{tag}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</li>
+
+<style>
+  .post-card .cover {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 0.7rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .summary {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    margin: 0.5em 0 0;
+  }
+</style>

@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { urls } from '../lib/urls';
+
+interface Props {
+  author: CollectionEntry<'authors'>;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { author, size = 'sm' } = Astro.props;
+const name = author.data.title;
+const px = size === 'lg' ? 160 : size === 'md' ? 56 : 28;
+---
+
+<a class:list={['author-badge', size]} href={urls.author(name)}>
+  {
+    author.data.avatar ? (
+      <Image src={author.data.avatar} alt="" width={px} height={px} class="avatar" />
+    ) : (
+      <span class="avatar avatar-fallback" aria-hidden="true">{name.slice(0, 1)}</span>
+    )
+  }
+  <span class="name">{name}</span>
+</a>
+
+<style>
+  .author-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .author-badge:hover .name {
+    text-decoration: underline;
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--color-border);
+  }
+
+  .author-badge.md .avatar {
+    width: 56px;
+    height: 56px;
+  }
+
+  .avatar-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-brand);
+    color: var(--color-brand-text);
+    font-weight: 700;
+  }
+
+  .author-badge.md .name {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .author-badge.lg {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .author-badge.lg .avatar {
+    width: 160px;
+    height: 160px;
+  }
+
+  .author-badge.lg .name {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+</style>

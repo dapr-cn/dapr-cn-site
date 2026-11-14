@@ -1,0 +1,29 @@
+---
+import { site, copyrightText } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>{copyrightText(year)}</p>
+    <p>
+      <a href={site.githubUrl} rel="noopener">GitHub: dapr-cn</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    padding: 1.4rem 0 2rem;
+    margin-top: 3rem;
+  }
+
+  .footer-inner p {
+    margin: 0.3em 0;
+  }
+</style>

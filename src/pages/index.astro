@@ -1,0 +1,45 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Activities from '../components/home/Activities.astro';
+import EventList from '../components/home/EventList.astro';
+import PostGrid from '../components/home/PostGrid.astro';
+import PostList from '../components/home/PostList.astro';
+import TagCloud from '../components/home/TagCloud.astro';
+import { site } from '../config/site';
+import { splitEvents } from '../lib/events';
+import { tagTerms } from '../lib/tags';
+import { urls } from '../lib/urls';
+
+// Section order follows the Hugo home widgets: hero, activities, upcoming events, event reviews,
+// featured posts, recent posts, tag cloud. A section with no entries is not rendered.
+const [posts, events, publications] = await Promise.all([
+  getCollection('post', (entry) => !entry.data.draft),
+  getCollection('event'),
+  getCollection('publication'),
+]);
+const byDate = <T extends { data: { date: Date } }>(a: T, b: T) => b.data.date.getTime() - a.data.date.getTime();
+
+const { upcoming, past } = splitEvents(events, new Date());
+const featured = posts.filter((post) => post.data.featured).sort(byDate).slice(0, 3);
+const recent = [...posts].sort(byDate).slice(0, 6);
+const terms = tagTerms([...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags }))).slice(0, 40);
+
+const titleOf = async (id: string, fallback: string) => (await getEntry('pages', id))?.data.title ?? fallback;
+const upcomingTitle = await titleOf('home/events-incoming', '即将开始的活动');
+const reviewTitle = await titleOf('home/events-review', '精彩活动回顾');
+const featuredTitle = await titleOf('home/featured-posts', '热门文章');
+const recentTitle = await titleOf('home/posts', '最新文章');
+const tagsTitle = await titleOf('home/tags', '标签云');
+---
+
+<BaseLayout title={undefined} description={site.description} path={urls.home()}>
+  <Hero />
+  <Activities />
+  <EventList id="upcoming-title" title={upcomingTitle} events={upcoming} />
+  <EventList id="review-title" title={reviewTitle} events={past.slice(0, 3)} />
+  <PostGrid title={featuredTitle} posts={featured} />
+  <PostList title={recentTitle} posts={recent} />
+  <TagCloud title={tagsTitle} terms={terms} />
+</BaseLayout>

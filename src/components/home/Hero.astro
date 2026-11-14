@@ -1,0 +1,77 @@
+---
+import { getEntry, render } from 'astro:content';
+import { urls } from '../../lib/urls';
+
+// Text comes from the `home/welcome` widget. The title falls back to the site name.
+const welcome = await getEntry('pages', 'home/welcome');
+const rendered = welcome ? await render(welcome) : undefined;
+const title = welcome?.data.title ?? 'Dapr 中国社区';
+---
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>{title}</h1>
+      {rendered && (
+        <div class="prose hero-body">
+          <rendered.Content />
+        </div>
+      )}
+      <p class="hero-actions">
+        <a class="button" href={urls.postList()}>阅读博客</a>
+        <a class="button secondary" href={urls.page('translation')}>加入翻译小组</a>
+      </p>
+    </div>
+    <img class="hero-image" src="/media/dapr.png" alt="" width="220" height="220" />
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 2rem 0 2.4rem;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  .hero-body :global(p) {
+    margin: 0.6em 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1.2rem;
+  }
+
+  .hero-image {
+    width: 160px;
+    height: auto;
+    justify-self: start;
+  }
+
+  @media (min-width: 720px) {
+    .hero-inner {
+      grid-template-columns: 1fr auto;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+    }
+
+    .hero-image {
+      width: 220px;
+    }
+  }
+</style>

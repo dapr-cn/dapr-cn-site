@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import EventCard from '../../components/EventCard.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import { tagSlug, tagTerms } from '../../lib/tags';
+import { urls } from '../../lib/urls';
+
+// One archive per tag term. Tags with no slug (empty values) produce no page.
+export async function getStaticPaths() {
+  const [posts, events, publications] = await Promise.all([
+    getCollection('post', (entry) => !entry.data.draft),
+    getCollection('event'),
+    getCollection('publication'),
+  ]);
+  const all = [...posts, ...events, ...publications];
+  return tagTerms(all.map((entry) => ({ tags: entry.data.tags }))).map((term) => ({
+    params: { tag: term.slug },
+    props: {
+      term,
+      posts: posts.filter((post) => post.data.tags.some((tag) => tagSlug(tag) === term.slug)),
+      events: events.filter((event) => event.data.tags.some((tag) => tagSlug(tag) === term.slug)),
+      publications: publications.filter((pub) => pub.data.tags.some((tag) => tagSlug(tag) === term.slug)),
+    },
+  }));
+}
+
+const { term, posts, events, publications } = Astro.props;
+---
+
+<BaseLayout title={`标签：${term.name}`} description={`标签「${term.name}」下的文章、活动和出版物`} path={urls.tag(term.slug)}>
+  <section class="container section">
+    <h1>标签：{term.name}</h1>
+    <p class="muted">共 {term.count} 条</p>
+    {
+      posts.length > 0 && (
+        <>
+          <h2 class="section-title">文章</h2>
+          <ul class="card-grid three">
+            {posts.map((post) => <PostCard post={post} />)}
+          </ul>
+        </>
+      )
+    }
+    {
+      events.length > 0 && (
+        <>
+          <h2 class="section-title">活动</h2>
+          <ul class="card-grid three">
+            {events.map((event) => <EventCard event={event} />)}
+          </ul>
+        </>
+      )
+    }
+    {
+      publications.length > 0 && (
+        <>
+          <h2 class="section-title">出版</h2>
+          <ul class="card-grid three">
+            {publications.map((publication) => <PublicationCard publication={publication} />)}
+          </ul>
+        </>
+      )
+    }
+  </section>
+</BaseLayout>

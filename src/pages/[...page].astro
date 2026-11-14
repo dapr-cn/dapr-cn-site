@@ -1,0 +1,99 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuthorBadge from '../components/AuthorBadge.astro';
+import { site } from '../config/site';
+import { urls } from '../lib/urls';
+
+// Static pages: /tour/, /people/, /meeting/, /meeting/meeting-minutes/, /translation/ and its sub-pages.
+// Headless entries are widgets read by other pages, so they get no URL.
+export async function getStaticPaths() {
+  const pages = await getCollection('pages', (entry) => !entry.data.headless && !entry.data.draft);
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const pageId = page.id;
+
+// The tour page is built from the slider widget; the people page from the author list.
+const slider = pageId === 'tour' ? await getEntry('pages', 'tour/slider') : undefined;
+const slides = (slider?.data.content?.slides ?? []) as Array<{
+  title: string;
+  content?: string;
+  link?: { text: string; url: string };
+}>;
+const peopleHeading = pageId === 'people' ? (await getEntry('pages', 'people/people'))?.data.title : undefined;
+const authors = pageId === 'people' ? (await getCollection('authors')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh')) : [];
+const isWidgetPage = pageId === 'tour' || pageId === 'people';
+---
+
+<BaseLayout
+  title={page.data.title}
+  description={site.description}
+  path={urls.page(pageId)}
+>
+  {
+    slides.length > 0 && (
+      <section class="slides" aria-label="社区介绍">
+        {slides.map((slide) => (
+          <div class="slide container">
+            <h2>{slide.title}</h2>
+            {slide.content && <p>{slide.content}</p>}
+            {slide.link && (
+              <a class="button" href={slide.link.url}>
+                {slide.link.text}
+              </a>
+            )}
+          </div>
+        ))}
+      </section>
+    )
+  }
+  {
+    pageId === 'people' && (
+      <section class="container section">
+        <h1>{peopleHeading ?? page.data.title}</h1>
+        <ul class="card-grid three">
+          {authors.map((author) => (
+            <li class="card">
+              <AuthorBadge author={author} size="md" />
+              {author.data.role && <p class="muted">{author.data.role}</p>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+  <section class="container section">
+    {!isWidgetPage && page.data.title && <h1>{page.data.title}</h1>}
+    <div class="prose">
+      <Content />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .slides {
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+  }
+
+  .slide {
+    padding: 1.2rem 0;
+  }
+
+  .slide + .slide {
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .slide h2 {
+    margin-top: 0;
+  }
+
+  .people-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+</style>

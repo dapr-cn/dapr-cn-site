@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorBadge from '../../components/AuthorBadge.astro';
+import { urls } from '../../lib/urls';
+
+const authors = (await getCollection('authors')).sort((a, b) => a.data.title.localeCompare(b.data.title, 'zh'));
+---
+
+<BaseLayout title="作者" description="Dapr 中国社区的作者" path={urls.authorList()}>
+  <section class="container section">
+    <h1>作者</h1>
+    <ul class="card-grid three">
+      {
+        authors.map((author) => (
+          <li class="card">
+            <AuthorBadge author={author} size="md" />
+            {author.data.role && <p class="muted">{author.data.role}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

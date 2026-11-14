@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { tagTerms } from '../../lib/tags';
+import { urls } from '../../lib/urls';
+
+const [posts, events, publications] = await Promise.all([
+  getCollection('post', (entry) => !entry.data.draft),
+  getCollection('event'),
+  getCollection('publication'),
+]);
+const terms = tagTerms([...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })));
+---
+
+<BaseLayout title="标签" description="Dapr 中国社区的所有标签" path={urls.tagList()}>
+  <section class="container section">
+    <h1>标签</h1>
+    <ul class="tag-list tag-index">
+      {
+        terms.map((term) => (
+          <li>
+            <a href={urls.tag(term.slug)}>
+              {term.name} <span class="muted">({term.count})</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

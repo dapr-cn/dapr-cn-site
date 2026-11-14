@@ -1,0 +1,66 @@
+/* Colour and layout tokens. Light is the default; dark applies by system preference unless the
+   visitor chose a theme, and by data-theme when they did. Keep the three blocks in step. */
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f5f7fb;
+  --color-text: #1b2033;
+  --color-muted: #545c70;
+  --color-border: #dde3ee;
+  --color-link: #1743c7;
+  --color-link-hover: #0d2192;
+  --color-brand: #0d2192;
+  --color-brand-text: #ffffff;
+  --color-header-bg: #0d2192;
+  --color-header-text: #ffffff;
+  --color-focus: #2f6bff;
+  --color-code-bg: #f1f4fa;
+  --color-mark: #fff3c4;
+
+  --font-body: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --radius: 10px;
+  --max-width: 1080px;
+  --gutter: 16px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #0e1320;
+    --color-surface: #161d2f;
+    --color-text: #e7eaf3;
+    --color-muted: #a7b0c4;
+    --color-border: #2a3450;
+    --color-link: #8fb3ff;
+    --color-link-hover: #c3d6ff;
+    --color-brand: #8fb3ff;
+    --color-brand-text: #0e1320;
+    --color-header-bg: #161d2f;
+    --color-header-text: #e7eaf3;
+    --color-focus: #8fb3ff;
+    --color-code-bg: #1d2640;
+    --color-mark: #4a4120;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0e1320;
+  --color-surface: #161d2f;
+  --color-text: #e7eaf3;
+  --color-muted: #a7b0c4;
+  --color-border: #2a3450;
+  --color-link: #8fb3ff;
+  --color-link-hover: #c3d6ff;
+  --color-brand: #8fb3ff;
+  --color-brand-text: #0e1320;
+  --color-header-bg: #161d2f;
+  --color-header-text: #e7eaf3;
+  --color-focus: #8fb3ff;
+  --color-code-bg: #1d2640;
+  --color-mark: #4a4120;
+  color-scheme: dark;
+}

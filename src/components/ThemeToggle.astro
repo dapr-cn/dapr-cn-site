@@ -1,0 +1,56 @@
+<button type="button" class="theme-toggle" data-theme-toggle aria-label="切换明暗主题" title="切换明暗主题">
+  <span aria-hidden="true" data-theme-icon>◐</span>
+</button>
+
+<script>
+  const KEY = 'dapr-cn-theme';
+  const root = document.documentElement;
+  const button = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const icon = document.querySelector<HTMLElement>('[data-theme-icon]');
+
+  // The effective theme: the stored choice, else the system preference.
+  function effectiveTheme(): 'light' | 'dark' {
+    const explicit = root.getAttribute('data-theme');
+    if (explicit === 'light' || explicit === 'dark') return explicit;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function show(theme: 'light' | 'dark') {
+    if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+    button?.setAttribute('aria-label', theme === 'dark' ? '切换到明亮主题' : '切换到暗色主题');
+  }
+
+  button?.addEventListener('click', () => {
+    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem(KEY, next);
+    } catch {
+      // Storage can be blocked. The choice then lasts for this page only.
+    }
+    show(next);
+  });
+
+  show(effectiveTheme());
+</script>
+
+<style>
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: transparent;
+    color: var(--color-header-text);
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+</style>

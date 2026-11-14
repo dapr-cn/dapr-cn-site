@@ -1,0 +1,77 @@
+---
+import { getEntry, type CollectionEntry } from 'astro:content';
+import AuthorBadge from '../components/AuthorBadge.astro';
+import { formatDate } from '../lib/format';
+import { urls } from '../lib/urls';
+
+interface Props {
+  title: string;
+  date: Date;
+  tags: string[];
+  /** Author references from the entry. Resolved here so a missing author fails the build. */
+  authors?: CollectionEntry<'post'>['data']['authors'];
+}
+
+const { title, date, tags, authors = [] } = Astro.props;
+const resolved = await Promise.all(
+  authors.map(async (ref) => {
+    const author = await getEntry(ref);
+    if (!author) throw new Error(`Unknown author "${ref.id}" in article "${title}"`);
+    return author;
+  }),
+);
+---
+
+<article class="article container">
+  <header class="article-header">
+    <h1>{title}</h1>
+    <ul class="meta">
+      <li><time datetime={date.toISOString()}>{formatDate(date)}</time></li>
+      {
+        resolved.map((author) => (
+          <li>
+            <AuthorBadge author={author} />
+          </li>
+        ))
+      }
+    </ul>
+    {
+      tags.length > 0 && (
+        <ul class="tag-list">
+          {tags.map((tag) => (
+            <li>
+              <a href={urls.tag(tag)}>{tag}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </header>
+  <div class="prose article-body" data-pagefind-body>
+    <slot />
+  </div>
+</article>
+
+<style>
+  .article {
+    max-width: 780px;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .article-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .article-header .meta li + li::before {
+    content: '·';
+    margin-right: 12px;
+    color: var(--color-border);
+  }
+
+  .article-header .meta {
+    align-items: center;
+  }
+</style>

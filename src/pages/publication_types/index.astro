@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publicationTypeName, publicationTypes } from '../../lib/publication-types';
+import { urls } from '../../lib/urls';
+
+const publications = await getCollection('publication');
+const types = publicationTypes(publications);
+---
+
+<BaseLayout title="出版类型" description="Dapr 中国社区的出版物类型" path={urls.publicationTypeList()}>
+  <section class="container section">
+    <h1>出版类型</h1>
+    <ul>
+      {
+        types.map((type) => (
+          <li>
+            <a href={urls.publicationType(type)}>{publicationTypeName(type)}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

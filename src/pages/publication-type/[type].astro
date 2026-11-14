@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import { publicationTypeName, publicationTypes } from '../../lib/publication-types';
+import { urls } from '../../lib/urls';
+
+export async function getStaticPaths() {
+  const publications = await getCollection('publication');
+  return publicationTypes(publications).map((type) => ({
+    params: { type },
+    props: {
+      type,
+      publications: publications
+        .filter((pub) => pub.data.publication_types.includes(type))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { type, publications } = Astro.props;
+const name = publicationTypeName(type);
+---
+
+<BaseLayout title={name} description={`Dapr 中国社区的${name}`} path={urls.publicationType(type)}>
+  <section class="container section">
+    <h1>{name}</h1>
+    <ul class="card-grid three">
+      {publications.map((publication) => <PublicationCard publication={publication} />)}
+    </ul>
+  </section>
+</BaseLayout>

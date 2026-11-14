@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AuthorBadge from '../../components/AuthorBadge.astro';
+import PostCard from '../../components/PostCard.astro';
+import { urls } from '../../lib/urls';
+
+// The author archive is keyed by display name, as in Hugo: /author/俞坤/.
+export async function getStaticPaths() {
+  const [authors, posts] = await Promise.all([
+    getCollection('authors'),
+    getCollection('post', (entry) => !entry.data.draft),
+  ]);
+  return authors.map((author) => ({
+    params: { id: author.data.title },
+    props: {
+      author,
+      posts: posts
+        .filter((post) => post.data.authors.some((ref) => ref.id === author.id))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { author, posts } = Astro.props;
+const name = author.data.title;
+---
+
+<BaseLayout title={name} description={author.data.bio ?? `${name} 的文章`} path={urls.author(name)}>
+  <section class="container section">
+    <header class="author-head">
+      <AuthorBadge author={author} size="lg" />
+      {author.data.role && <p class="muted">{author.data.role}</p>}
+      {author.data.bio && <p>{author.data.bio}</p>}
+      {
+        author.data.organizations.length > 0 && (
+          <p class="muted">{author.data.organizations.map((org) => org.name).join('、')}</p>
+        )
+      }
+    </header>
+    <h2 class="section-title">文章</h2>
+    <ul class="card-grid three">
+      {posts.map((post) => <PostCard post={post} />)}
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .author-head {
+    margin-bottom: 1rem;
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../../lib/format';
+import { urls } from '../../lib/urls';
+
+// Recent posts ("最新文章") as a compact list. Renders nothing when there are none.
+interface Props {
+  title: string;
+  posts: CollectionEntry<'post'>[];
+}
+
+const { title, posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="section container" aria-labelledby="recent-title">
+      <h2 id="recent-title" class="section-title">
+        {title}
+      </h2>
+      <ul class="recent-list">
+        {posts.map((post) => (
+          <li>
+            <a href={urls.post(post.id)}>{post.data.title}</a>
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .recent-list li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 16px;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .recent-list time {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+</style>

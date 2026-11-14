@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { urls } from '../../lib/urls';
+
+// Hugo generated this list page, but no content has categories. The page is kept at its URL
+// so the route parity check holds, and it says so.
+---
+
+<BaseLayout title="分类" description="Dapr 中国社区的分类" path={urls.categoryList()}>
+  <section class="container section">
+    <h1>分类</h1>
+    <p class="muted">目前没有分类。文章通过标签归类，见<a href={urls.tagList()}>标签</a>。</p>
+  </section>
+</BaseLayout>

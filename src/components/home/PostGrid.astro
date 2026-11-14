@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PostCard from '../PostCard.astro';
+
+// Featured posts ("热门文章"). Renders nothing when there are none.
+interface Props {
+  title: string;
+  posts: CollectionEntry<'post'>[];
+}
+
+const { title, posts } = Astro.props;
+---
+
+{
+  posts.length > 0 && (
+    <section class="section container" aria-labelledby="featured-title">
+      <h2 id="featured-title" class="section-title">
+        {title}
+      </h2>
+      <ul class="card-grid three">
+        {posts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </ul>
+    </section>
+  )
+}

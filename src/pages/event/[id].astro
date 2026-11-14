@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { site } from '../../config/site';
+import { formatDate } from '../../lib/format';
+import { urls } from '../../lib/urls';
+
+export async function getStaticPaths() {
+  const events = await getCollection('event');
+  return events.map((event) => ({ params: { id: event.id }, props: { event } }));
+}
+
+const { event } = Astro.props;
+const { Content } = await render(event);
+const start = event.data.date;
+const end = event.data.date_end;
+---
+
+<BaseLayout
+  title={event.data.title}
+  description={event.data.summary ?? event.data.abstract ?? site.description}
+  path={urls.event(event.id)}
+  type="article"
+>
+  <ArticleLayout title={event.data.title} date={start} tags={event.data.tags}>
+    <dl class="event-facts">
+      <dt>时间</dt>
+      <dd>
+        {formatDate(start, true)}
+        {end && ` - ${formatDate(end, true)}`}
+      </dd>
+      {
+        event.data.location && (
+          <>
+            <dt>地点</dt>
+            <dd>{event.data.location}</dd>
+          </>
+        )
+      }
+      {
+        event.data.event_url && (
+          <>
+            <dt>活动页面</dt>
+            <dd>
+              <a href={event.data.event_url} rel="noopener">{event.data.event_url}</a>
+            </dd>
+          </>
+        )
+      }
+    </dl>
+    <Content />
+  </ArticleLayout>
+</BaseLayout>
+
+<style>
+  .event-facts {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 4px 16px;
+    margin: 0 0 1.5rem;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .event-facts dt {
+    color: var(--color-muted);
+  }
+
+  .event-facts dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+</style>

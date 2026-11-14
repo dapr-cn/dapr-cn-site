@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { site } from '../../config/site';
+import { urls } from '../../lib/urls';
+
+export async function getStaticPaths() {
+  const publications = await getCollection('publication');
+  return publications.map((publication) => ({ params: { id: publication.id }, props: { publication } }));
+}
+
+const { publication } = Astro.props;
+const { Content } = await render(publication);
+---
+
+<BaseLayout
+  title={publication.data.title}
+  description={publication.data.abstract ?? publication.data.summary ?? site.description}
+  path={urls.publication(publication.id)}
+  type="article"
+>
+  <ArticleLayout title={publication.data.title} date={publication.data.date} tags={publication.data.tags}>
+    {
+      publication.data.publication && (
+        <p class="muted">出版方：{publication.data.publication}</p>
+      )
+    }
+    {
+      publication.data.links.length > 0 && (
+        <ul>
+          {publication.data.links.map((link) => (
+            <li>
+              <a href={link.url} rel="noopener">{link.name}</a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <Content />
+  </ArticleLayout>
+</BaseLayout>

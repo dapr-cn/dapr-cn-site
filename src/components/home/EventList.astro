@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import EventCard from '../EventCard.astro';
+
+// Used twice on the home page: upcoming events and event reviews. Renders nothing when empty,
+// so no heading is left behind.
+interface Props {
+  id: string;
+  title: string;
+  events: CollectionEntry<'event'>[];
+}
+
+const { id, title, events } = Astro.props;
+---
+
+{
+  events.length > 0 && (
+    <section class="section container" aria-labelledby={id}>
+      <h2 id={id} class="section-title">
+        {title}
+      </h2>
+      <ul class="card-grid three">
+        {events.map((event) => (
+          <EventCard event={event} />
+        ))}
+      </ul>
+    </section>
+  )
+}

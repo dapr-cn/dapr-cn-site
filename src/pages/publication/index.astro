@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationCard from '../../components/PublicationCard.astro';
+import { urls } from '../../lib/urls';
+
+const publications = (await getCollection('publication')).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<BaseLayout title="出版" description="Dapr 相关的书籍和论文出版物" path={urls.publicationList()}>
+  <section class="container section">
+    <h1>出版</h1>
+    <ul class="card-grid three">
+      {publications.map((publication) => <PublicationCard publication={publication} />)}
+    </ul>
+  </section>
+</BaseLayout>

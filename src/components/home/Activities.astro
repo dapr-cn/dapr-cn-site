@@ -1,0 +1,33 @@
+---
+import { getEntry } from 'astro:content';
+
+// The featurette ("社区宗旨") from the `home/skills` widget. Descriptions use <br /> between lines.
+const skills = await getEntry('pages', 'home/skills');
+const features = skills?.data.feature ?? [];
+const lines = (text: string) =>
+  text
+    .split(/<br\s*\/?>/i)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+---
+
+{
+  features.length > 0 && (
+    <section class="section container" aria-labelledby="activities-title">
+      <h2 id="activities-title" class="section-title">
+        {skills?.data.title}
+      </h2>
+      {skills?.data.subtitle && <p class="muted">{skills.data.subtitle}</p>}
+      <ul class="card-grid three">
+        {features.map((feature) => (
+          <li class="card feature">
+            <h3>{feature.name}</h3>
+            {lines(feature.description).map((line) => (
+              <p>{line}</p>
+            ))}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
