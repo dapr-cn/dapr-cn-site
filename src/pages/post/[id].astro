@@ -21,7 +21,13 @@ const { Content, headings } = await render(post);
   type="article"
   headings={headings}
 >
-  <ArticleLayout title={post.data.title} date={post.data.date} tags={post.data.tags} authors={post.data.authors}>
+  <ArticleLayout
+    title={post.data.title}
+    date={post.data.date}
+    tags={post.data.tags}
+    authors={post.data.authors}
+    headings={headings}
+  >
     <Content />
   </ArticleLayout>
 </BaseLayout>

@@ -150,7 +150,7 @@ mark {
 }
 
 .section {
-  margin: 2.2rem 0;
+  margin-block: 2.2rem;
 }
 
 .section-title {
@@ -168,29 +168,6 @@ mark {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: 1rem 1.1rem;
-  height: 100%;
-}
-
-.card :is(h2, h3) {
-  font-size: 1.05rem;
-  margin: 0 0 0.4em;
-}
-
-.card :is(h2, h3) a {
-  color: var(--color-text);
-  text-decoration: none;
-}
-
-.card :is(h2, h3) a:hover {
-  color: var(--color-link);
-  text-decoration: underline;
 }
 
 .meta {

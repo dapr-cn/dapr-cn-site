@@ -1,5 +1,6 @@
 ---
 import { getEntry, type CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import AuthorBadge from '../components/AuthorBadge.astro';
 import { formatDate } from '../lib/format';
 import { tagHrefs } from '../lib/tag-links';
@@ -10,9 +11,11 @@ interface Props {
   tags: string[];
   /** Author references from the entry. Resolved here so a missing author fails the build. */
   authors?: CollectionEntry<'post'>['data']['authors'];
+  /** Headings of the body. From 72rem they become the sticky "on this page" column. */
+  headings?: MarkdownHeading[];
 }
 
-const { title, date, tags, authors = [] } = Astro.props;
+const { title, date, tags, authors = [], headings = [] } = Astro.props;
 const tagHref = await tagHrefs();
 const resolved = await Promise.all(
   authors.map(async (ref) => {
@@ -21,11 +24,15 @@ const resolved = await Promise.all(
     return author;
   }),
 );
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const hasToc = toc.length > 1;
 ---
 
-<article class="article container">
-  <header class="article-header">
+<article class:list={['article', 'container', { 'has-toc': hasToc }]}>
+  <header class="article-head">
     <h1>{title}</h1>
+  </header>
+  <aside class="article-meta" aria-label="文章信息">
     <ul class="meta">
       <li><time datetime={date.toISOString()}>{formatDate(date)}</time></li>
       {
@@ -47,32 +54,220 @@ const resolved = await Promise.all(
         </ul>
       )
     }
-  </header>
+  </aside>
   <div class="prose article-body" data-pagefind-body>
     <slot />
   </div>
+  {
+    hasToc && (
+      <nav class="article-toc" aria-labelledby="article-toc-title" data-article-toc>
+        <h2 id="article-toc-title">本页内容</h2>
+        <ol>
+          {toc.map((heading) => (
+            <li class:list={{ sub: heading.depth === 3 }}>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )
+  }
 </article>
 
 <style>
+  /* Narrow: one 780px reading column, with the article's facts under the title. */
   .article {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'meta'
+      'body';
     max-width: 780px;
     padding-top: 1.5rem;
     padding-bottom: 1rem;
   }
 
-  .article-header {
+  .article-head {
+    grid-area: head;
+  }
+
+  .article-head h1 {
+    text-wrap: balance;
+    /* The partner of the card title in the card <-> page view transition (scripts/card-motion.js). */
+    view-transition-name: card-title;
+  }
+
+  .article-meta {
+    grid-area: meta;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--color-border);
   }
 
-  .article-header .meta li + li::before {
+  .article-meta .meta li + li::before {
     content: '·';
     margin-right: 12px;
     color: var(--color-border);
   }
 
-  .article-header .meta {
+  .article-meta .meta {
     align-items: center;
   }
+
+  .article-body {
+    grid-area: body;
+    min-width: 0;
+  }
+
+  .article-toc {
+    display: none;
+    grid-area: toc;
+  }
+
+  /* From 72rem the shell widens to the chrome width: facts rail, reading column, contents column.
+     Both rails stay in view while the column scrolls. */
+  @media (min-width: 72rem) {
+    .article {
+      max-width: var(--chrome-width);
+      grid-template-columns: 200px minmax(0, 740px);
+      grid-template-areas:
+        'meta head'
+        'meta body';
+      justify-content: center;
+      column-gap: 56px;
+      padding-top: 2.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .article.has-toc {
+      grid-template-columns: 200px minmax(0, 740px) 220px;
+      grid-template-areas:
+        'meta head toc'
+        'meta body toc';
+    }
+
+    .article-head h1 {
+      font-size: 2.2rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .article-meta {
+      position: sticky;
+      top: calc(var(--header-h) + 24px);
+      align-self: start;
+      margin: 0.7rem 0 0;
+      padding: 0;
+      border-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .article-meta .meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .article-meta .meta li + li::before {
+      content: none;
+    }
+
+    .article-meta .tag-list {
+      margin-top: 1.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .article-body {
+      font-size: 1.0625rem;
+    }
+
+    .article-toc {
+      display: block;
+      position: sticky;
+      top: calc(var(--header-h) + 24px);
+      align-self: start;
+      max-height: calc(100vh - var(--header-h) - 48px);
+      overflow-y: auto;
+      margin-top: 0.7rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .article-toc h2 {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+
+  .article-toc ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .article-toc a {
+    display: block;
+    padding: 3px 0 3px 12px;
+    margin-left: -1px;
+    border-left: 1px solid transparent;
+    color: var(--color-muted);
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.2s ease-out;
+  }
+
+  .article-toc .sub a {
+    padding-left: 24px;
+  }
+
+  .article-toc a:hover {
+    color: var(--color-link);
+  }
+
+  .article-toc a[aria-current='location'] {
+    color: var(--color-link);
+    font-weight: 700;
+    border-left-color: var(--color-link);
+  }
 </style>
+
+<script>
+  const toc = document.querySelector<HTMLElement>('[data-article-toc]');
+
+  if (toc) {
+    const links = Array.from(toc.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'));
+    const entries = links
+      .map((link) => ({ link, target: document.getElementById(decodeURIComponent(link.hash.slice(1))) }))
+      .filter((entry): entry is { link: HTMLAnchorElement; target: HTMLElement } => entry.target !== null);
+
+    // The current section is the last heading that has passed the line just under the masthead.
+    const update = () => {
+      let active = entries[0];
+      for (const entry of entries) {
+        if (entry.target.getBoundingClientRect().top <= 120) active = entry;
+      }
+      for (const entry of entries) {
+        if (entry === active) entry.link.setAttribute('aria-current', 'location');
+        else entry.link.removeAttribute('aria-current');
+      }
+      active?.link.scrollIntoView({ block: 'nearest' });
+    };
+
+    let queued = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          update();
+        });
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>

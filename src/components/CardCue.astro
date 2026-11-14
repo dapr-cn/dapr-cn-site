@@ -1,0 +1,32 @@
+---
+// The affordance at the foot of every card: it says what the card does ("阅读全文"), turns into
+// "已读" once the reader has opened it, and into "打开中…" between the click and the next page.
+// The three labels share one grid cell so the cue never changes width. Decorative: the title link
+// carries the card's accessible name. States are switched by data attributes on the card
+// (scripts/card-motion.js) and styled in styles/cards.css.
+interface Props {
+  /** What opening the card does, e.g. "阅读全文". */
+  label?: string;
+  /** Shown once the reader has opened the card. */
+  seen?: string;
+}
+
+const { label = '阅读全文', seen = '已读' } = Astro.props;
+---
+
+<span class="card-cue" aria-hidden="true">
+  <span class="cue-text">
+    <span class="cue-idle">{label}</span>
+    <span class="cue-seen">{seen}</span>
+    <span class="cue-busy">打开中…</span>
+  </span>
+  <svg class="cue-arrow" viewBox="0 0 16 16" width="14" height="14" focusable="false">
+    <path
+      d="M3 8h10M9 4l4 4-4 4"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+</span>

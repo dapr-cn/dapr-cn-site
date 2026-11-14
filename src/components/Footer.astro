@@ -1,29 +1,241 @@
 ---
+import { nav } from '../config/nav';
 import { site, copyrightText } from '../config/site';
 
 const year = new Date().getFullYear();
+
+// The navigation, split in two for the footer. Entries the split does not name land in 社区.
+const reading = new Set(['/post/', '/tag/translation/', '/publication/']);
+const readingLinks = nav.filter((item) => reading.has(item.href));
+const communityLinks = nav.filter((item) => !reading.has(item.href));
+
+const resources = [
+  { name: 'GitHub: dapr-cn', href: site.githubUrl, external: true },
+  { name: 'RSS 订阅', href: '/index.xml', external: false },
+  { name: 'Dapr 官方文档(中文)', href: site.docsUrl, external: true },
+  { name: 'Dapr 官方网站', href: site.officialUrl, external: true },
+];
 ---
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <p>{copyrightText(year)}</p>
-    <p>
-      <a href={site.githubUrl} rel="noopener">GitHub: dapr-cn</a>
-    </p>
+  <div class="footer-inner container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-name">{site.title}</p>
+        <p class="footer-about">一个以 Dapr 为中心的中立而开放的技术社区,由社区爱好者和志愿者发起和维护。</p>
+      </div>
+      <nav aria-labelledby="footer-reading">
+        <h2 class="footer-title" id="footer-reading">阅读</h2>
+        <ul class="footer-links">
+          {
+            readingLinks.map((item) => (
+              <li>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav aria-labelledby="footer-community">
+        <h2 class="footer-title" id="footer-community">社区</h2>
+        <ul class="footer-links">
+          {
+            communityLinks.map((item) => (
+              <li>
+                <a href={item.href}>{item.name}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <nav aria-labelledby="footer-resources">
+        <h2 class="footer-title" id="footer-resources">资源</h2>
+        <ul class="footer-links">
+          {
+            resources.map((item) => (
+              <li>
+                <a href={item.href} rel={item.external ? 'noopener' : undefined}>
+                  {item.name}
+                  {item.external && (
+                    <>
+                      <svg class="external" aria-hidden="true" viewBox="0 0 16 16" width="12" height="12">
+                        <path d="M6 3H3v10h10v-3M9 3h4v4M13 3 7 9" />
+                      </svg>
+                      <span class="sr-only">(外部链接)</span>
+                    </>
+                  )}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="footer-base">
+    <div class="footer-inner container footer-base-inner">
+      <p>
+        {copyrightText(year)}
+        <span class="sep" aria-hidden="true">·</span>
+        <span class="unofficial">本站由社区志愿者维护,不是 Dapr 官方网站。</span>
+      </p>
+      <a class="to-top" href="#_top">
+        <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14">
+          <path d="M8 13V3M3.5 7.5 8 3l4.5 4.5" />
+        </svg>
+        回到顶部
+      </a>
+    </div>
   </div>
 </footer>
 
 <style>
+  /* A band the full width of the page: the surface step and a hairline above, no shadow. The
+     contents sit in the same chrome width as the masthead. */
   .site-footer {
     border-top: 1px solid var(--color-border);
     background: var(--color-surface);
     color: var(--color-muted);
     font-size: 0.9rem;
-    padding: 1.4rem 0 2rem;
     margin-top: 3rem;
   }
 
-  .footer-inner p {
-    margin: 0.3em 0;
+  .site-footer .footer-inner {
+    max-width: var(--chrome-width);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 24px;
+    padding: 2.5rem 0 2rem;
+  }
+
+  .footer-name {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .footer-about {
+    margin: 0.4em 0 0;
+    max-width: 34em;
+  }
+
+  .footer-title {
+    margin: 0 0 0.5rem;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-grid a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .footer-grid a:hover {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+
+  .external,
+  .to-top svg {
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .external {
+    color: var(--color-muted);
+  }
+
+  .footer-base {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-base-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding-top: 1rem;
+    padding-bottom: 1.4rem;
+  }
+
+  .footer-base p {
+    margin: 0;
+  }
+
+  .sep {
+    margin: 0 0.4em;
+    color: var(--color-border);
+  }
+
+  .to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text);
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .to-top:hover {
+    border-color: var(--color-link);
+    color: var(--color-link);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 639px) {
+    .sep {
+      display: none;
+    }
+
+    .unofficial {
+      display: block;
+    }
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 960px) {
+    .footer-grid {
+      grid-template-columns: 1.7fr 1fr 1fr 1.2fr;
+      gap: 28px 40px;
+    }
+
+    .footer-brand {
+      grid-column: auto;
+    }
   }
 </style>

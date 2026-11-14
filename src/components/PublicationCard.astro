@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import CardCue from './CardCue.astro';
 import { formatDate } from '../lib/format';
 import { urls } from '../lib/urls';
 
@@ -13,19 +14,14 @@ const { publication, level = 3 } = Astro.props;
 const Heading = level === 2 ? 'h2' : 'h3';
 ---
 
-<li class="card publication-card">
+<li class="card publication-card" data-card>
   <Heading><a href={urls.publication(publication.id)}>{publication.data.title}</a></Heading>
   <ul class="meta">
     <li><time datetime={publication.data.date.toISOString()}>{formatDate(publication.data.date)}</time></li>
     {publication.data.publication && <li>{publication.data.publication}</li>}
   </ul>
   {publication.data.abstract && <p class="summary">{publication.data.abstract}</p>}
+  <div class="card-foot">
+    <CardCue label="查看出版物" />
+  </div>
 </li>
-
-<style>
-  .summary {
-    font-size: 0.95rem;
-    color: var(--color-muted);
-    margin: 0.5em 0 0;
-  }
-</style>

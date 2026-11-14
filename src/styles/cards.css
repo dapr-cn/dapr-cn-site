@@ -1,0 +1,311 @@
+/* Cards: posts, events and publications share one structure and one set of states, on every page
+   (home, lists, tag and author archives). Colours come from tokens.css. The card itself never
+   moves, lifts or casts a shadow; feedback is carried by border, tone, the cue at the foot and the
+   cover. Behaviour (seen, opening, returned) is set as data attributes by scripts/card-motion.js.
+
+   Structure, top to bottom: optional 16:9 cover (flush to the edge), title (2-3 lines), meta row,
+   summary (3 lines), then .card-foot pinned to the bottom: tags on the left, cue on the right. */
+
+.card-grid > li {
+  margin-top: 0;
+}
+
+.card {
+  --card-hover: color-mix(in srgb, var(--color-surface) 94%, var(--color-link));
+  --card-press: color-mix(in srgb, var(--color-surface) 88%, var(--color-link));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease-out,
+    background-color 160ms ease-out;
+}
+
+/* Cover: runs flush to the card edge; the card clips it while it eases in on hover. */
+.card img.cover {
+  display: block;
+  flex: none;
+  width: calc(100% + 2.2rem);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: -1rem -1.1rem 0.9rem;
+  border-radius: 0;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card :is(h2, h3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  font-size: 1.05rem;
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+
+.card :is(h2, h3) a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Stretched title link: its ::after covers the card, so a click anywhere opens the page. The
+   card shows the focus ring, so the link itself does not draw a second one. */
+.card :is(h2, h3) a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.card :is(h2, h3) a:focus-visible {
+  outline: none;
+}
+
+.card .summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  flex: none;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  margin: 0.5em 0 0;
+}
+
+/* Author and tag links sit above the overlay so they still go to their own pages. */
+.card .author,
+.card .tag-list a {
+  position: relative;
+  z-index: 1;
+}
+
+/* Foot: pinned to the bottom of the card, so every card in a row ends on the same line. */
+.card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding-top: 0.8rem;
+}
+
+/* Doubled class: Starlight's flow margins on the last child of a list item are more specific. */
+.card.card > .card-foot {
+  margin: auto 0 0;
+}
+
+.card-foot .tag-list {
+  flex: 1 1 8rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.card-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  flex: none;
+  font-size: 0.85rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+  white-space: nowrap;
+  transition: color 160ms ease-out;
+}
+
+/* The three labels sit in one cell; only the active one is visible, so the cue keeps its width. */
+.cue-text {
+  display: inline-grid;
+}
+
+.cue-text > * {
+  grid-area: 1 / 1;
+  text-align: right;
+}
+
+.cue-seen,
+.cue-busy {
+  visibility: hidden;
+}
+
+.cue-arrow {
+  flex: none;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Seen: the reader has opened this card before (kept in localStorage). */
+.card[data-seen] .cue-idle {
+  visibility: hidden;
+}
+
+.card[data-seen] .cue-seen {
+  visibility: visible;
+}
+
+/* Opening: between the click and the next page. A thin line fills along the card's lower edge. */
+.card[data-opening] .cue-idle,
+.card[data-opening] .cue-seen {
+  visibility: hidden;
+}
+
+.card[data-opening] .cue-busy {
+  visibility: visible;
+}
+
+.card[data-opening] {
+  border-color: var(--color-link);
+  background-color: var(--card-press);
+  cursor: progress;
+}
+
+.card[data-opening] .card-cue {
+  color: var(--color-link);
+}
+
+.card[data-opening]::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-link);
+  transform-origin: left;
+  transform: scaleX(0.6);
+  animation: card-opening 6s cubic-bezier(0.1, 0.7, 0.2, 1) both;
+}
+
+@keyframes card-opening {
+  from {
+    transform: scaleX(0.04);
+  }
+  to {
+    transform: scaleX(0.92);
+  }
+}
+
+/* Hover: the title link is under the pointer (the overlay counts), not an author or tag link. */
+@media (hover: hover) {
+  .card:has(:is(h2, h3) a:hover) {
+    border-color: var(--color-link);
+    background-color: var(--card-hover);
+  }
+
+  .card:has(:is(h2, h3) a:hover) img.cover {
+    transform: scale(1.03);
+  }
+
+  .card:has(:is(h2, h3) a:hover) :is(h2, h3) a {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .card:has(:is(h2, h3) a:hover) .card-cue {
+    color: var(--color-link);
+  }
+
+  .card:has(:is(h2, h3) a:hover) .cue-arrow {
+    transform: translateX(3px);
+  }
+}
+
+/* Keyboard focus: the card carries the ring, with the same cue as hover. */
+.card:has(:is(h2, h3) a:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-color: var(--color-link);
+  background-color: var(--card-hover);
+}
+
+.card:has(:is(h2, h3) a:focus-visible) :is(h2, h3) a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.card:has(:is(h2, h3) a:focus-visible) .card-cue {
+  color: var(--color-link);
+}
+
+.card:has(:is(h2, h3) a:focus-visible) .cue-arrow {
+  transform: translateX(3px);
+}
+
+/* Press: an instant, deeper tone, so the click is acknowledged before the page changes. */
+.card:has(:is(h2, h3) a:active) {
+  border-color: var(--color-link-hover);
+  background-color: var(--card-press);
+  transition-duration: 0ms;
+}
+
+.card:has(:is(h2, h3) a:active) .cue-arrow {
+  transform: translateX(1px);
+}
+
+/* Returned: the card the reader left from, marked once when they come back to the list. */
+.card[data-returned] {
+  animation: card-returned 1800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes card-returned {
+  from {
+    border-color: var(--color-link);
+    background-color: var(--card-press);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[data-returned],
+  .card[data-opening] {
+    border-color: var(--color-link);
+  }
+}
+
+/* Featured card on the home page: the first one is set large and has the room to say more. */
+.featured-grid > li:first-child .summary {
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+}
+
+.featured-grid > li:first-child :is(h2, h3) {
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+
+/* Cross-document view transitions, used only for the card <-> page round trip: the card's title
+   flies into the page's heading and back (names are set in scripts/card-motion.js and on the page
+   heading). Every other navigation is skipped there, so the rest of the site keeps plain page
+   loads. Browsers without support, and visitors who prefer reduced motion, get a normal load. */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+::view-transition-group(card-title) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 180ms;
+}

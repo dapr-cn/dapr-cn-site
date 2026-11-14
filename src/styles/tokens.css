@@ -22,7 +22,20 @@
 
   --radius: 10px;
   --max-width: 1080px;
+  /* The masthead, the footer and the wide article shell share this width; page content stays at
+     --max-width. */
+  --chrome-width: 1240px;
   --gutter: 16px;
+
+  /* The home hero, the story band and the closing band are always dark, in both themes, so these
+     roles do not change with the theme. Only home components read them. */
+  --signal-bg: #0a1236;
+  --signal-surface: #111b4d;
+  --signal-line: #2b3b82;
+  --signal-text: #eef1fb;
+  --signal-muted: #b6bfe0;
+  --signal-accent: #8fb3ff;
+  --signal-focus: #8fb3ff;
 
   color-scheme: light;
 }

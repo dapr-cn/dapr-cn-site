@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import CardCue from './CardCue.astro';
 import { formatDate } from '../lib/format';
 import { urls } from '../lib/urls';
 
@@ -12,7 +13,7 @@ const { event } = Astro.props;
 const cover = event.data.image?.filename;
 ---
 
-<li class="card event-card">
+<li class="card event-card" data-card>
   {cover && <Image src={cover} alt="" width={640} class="cover" />}
   <h3><a href={urls.event(event.id)}>{event.data.title}</a></h3>
   <ul class="meta">
@@ -20,22 +21,7 @@ const cover = event.data.image?.filename;
     {event.data.location && <li>{event.data.location}</li>}
   </ul>
   {event.data.summary && <p class="summary">{event.data.summary}</p>}
+  <div class="card-foot">
+    <CardCue label="查看活动" />
+  </div>
 </li>
-
-<style>
-  .event-card .cover {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
-    margin-bottom: 0.7rem;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-
-  .summary {
-    font-size: 0.95rem;
-    color: var(--color-muted);
-    margin: 0.5em 0 0;
-  }
-</style>

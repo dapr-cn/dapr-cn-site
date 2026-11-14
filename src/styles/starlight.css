@@ -1,6 +1,62 @@
 /* Starlight's colour roles, read from the site's tokens (styles/tokens.css). Starlight's search,
    theme select and table of contents then follow DESIGN.md in both themes. Starlight's own light
    and dark palettes are replaced here, so only the token values decide the colours. */
+/* The masthead (components/Header.astro) is the only bar. Starlight's fixed header frame becomes a
+   transparent, padding-free carrier of the same height, so Starlight's content offsets still match
+   and the masthead fills the width. The carrier ignores the pointer outside the masthead itself. */
+:root {
+  --sl-nav-height: 60px;
+}
+
+.page > .header {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.page > .header > * {
+  pointer-events: auto;
+}
+
+/* Pages render their own h1, so Starlight's title panel is empty. Drop it and the rule between the
+   two panels, which left a blank 48px band and a stray line under the masthead. */
+.content-panel + .content-panel {
+  border-top: 0;
+}
+
+.content-panel:has(> .sl-container:empty) {
+  display: none;
+}
+
+/* Every page wraps itself in .container, so Starlight's content padding and 1080px cap only stand in
+   the way: they kept the footer inside a narrow, padded column. Lifting them lets the footer, and any
+   band a page draws, run the full width. */
+.content-panel {
+  padding: 0;
+}
+
+.sl-container {
+  max-width: none;
+}
+
+/* Starlight's collapsible contents bar (below 72rem) hangs from the masthead's current height and
+   sits on the page surface instead of a second indigo bar. */
+mobile-starlight-toc nav {
+  top: calc(var(--header-h) - 1px);
+  background: var(--color-surface);
+  border-top: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* The wide article shell draws its own contents column (ArticleLayout), so Starlight's fixed one is
+   dropped from 72rem. Below that, Starlight's collapsible "on this page" bar stays. */
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    display: none;
+  }
+}
+
 :root {
   --sl-color-bg: var(--color-bg);
   --sl-color-bg-nav: var(--color-header-bg);

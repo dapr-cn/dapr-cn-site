@@ -2,6 +2,7 @@
 // The page <head>: Starlight's head entries, with the site's own title, Open Graph and Twitter
 // values and the tags the site adds (RSS feed, icon, analytics on production builds).
 import { site } from '../../config/site';
+import cardMotion from '../../scripts/card-motion.js?raw';
 
 const { head, entry } = Astro.locals.starlightRoute;
 const isProduction = import.meta.env.PROD;
@@ -32,6 +33,8 @@ const kept = head.filter(({ tag, attrs }) => {
 <meta name="twitter:title" content={pageName ?? site.title} />
 <meta name="twitter:description" content={description} />
 <link rel="icon" type="image/png" href="/media/icon.png" />
+<!-- Card states and the card <-> page title transition. Inline and early so the page events are caught. -->
+<script is:inline set:html={cardMotion} />
 <link rel="alternate" type="application/rss+xml" title={`${site.title} RSS`} href="/index.xml" />
 {
   isProduction && (
