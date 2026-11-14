@@ -2,22 +2,25 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { nav, currentNavItem } from '../src/config/nav.ts';
 
-test('navigation has the seven remaining menu entries in order', () => {
+test('navigation has the nine community entries in order', () => {
   assert.deepEqual(
     nav.map((item) => item.name),
-    ['介绍', '活动', '博客', '翻译', '会议', '出版', '成员'],
+    ['介绍', '活动', '博客', '翻译', '源码', '会议', '案例', '出版', '成员'],
   );
 });
 
 test('navigation links point at pages this build produces', () => {
   assert.deepEqual(
     nav.map((item) => item.href),
-    ['/', '/event/', '/post/', '/tag/translation/', '/tag/meeting/', '/publication/', '/authors/'],
+    ['/', '/event/', '/post/', '/tag/translation/', '/source/', '/tag/meeting/', '/case/', '/publication/', '/authors/'],
   );
 });
 
-test('navigation does not link to /source/ or /case/', () => {
-  assert.equal(nav.some((item) => item.href === '/source/' || item.href === '/case/'), false);
+test('源码 and 案例 are highlighted on their section pages', () => {
+  assert.equal(currentNavItem('/source/join/target/')?.name, '源码');
+  assert.equal(currentNavItem('/case/join/pr/')?.name, '案例');
+  assert.equal(currentNavItem('/source/')?.name, '源码');
+  assert.equal(currentNavItem('/case/china/')?.name, '案例');
 });
 
 test('a post page is highlighted as 博客', () => {

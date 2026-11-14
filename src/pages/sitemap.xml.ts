@@ -2,17 +2,20 @@ import { getCollection } from 'astro:content';
 import { site } from '../config/site';
 import { tagTerms } from '../lib/tags';
 import { urls } from '../lib/urls';
+import { routeParam } from '../lib/sections';
 import { publicationTypes } from '../lib/publication-types';
 
 // Sitemap at /sitemap.xml (the Hugo path). Lists every public page with its absolute URL.
 export async function GET() {
-  const [posts, events, publications, authors, descriptions, sitePages] = await Promise.all([
+  const [posts, events, publications, authors, descriptions, sitePages, caseSections, sourceSections] = await Promise.all([
     getCollection('post', (entry) => !entry.data.draft),
     getCollection('event'),
     getCollection('publication'),
     getCollection('authors'),
     getCollection('tag'),
     getCollection('site', (entry) => !entry.data.draft),
+    getCollection('case', (entry) => !entry.data.draft),
+    getCollection('source', (entry) => !entry.data.draft),
   ]);
 
   const paths = new Set<string>([
@@ -25,6 +28,8 @@ export async function GET() {
     urls.categoryList(),
     urls.publicationTypeList(),
     ...sitePages.map((page) => urls.site(page.id)),
+    ...caseSections.map((entry) => urls.caseSection(routeParam(entry.id))),
+    ...sourceSections.map((entry) => urls.sourceSection(routeParam(entry.id))),
     ...posts.map((post) => urls.post(post.id)),
     ...events.map((event) => urls.event(event.id)),
     ...publications.map((publication) => urls.publication(publication.id)),

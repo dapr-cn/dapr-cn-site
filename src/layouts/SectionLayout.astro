@@ -1,0 +1,310 @@
+---
+// Layout for the section pages of `case` and `source`. The breadcrumb, the section list and the
+// previous and next links sit outside the Pagefind body; only the Markdown body is indexed.
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import { urls } from '../lib/urls';
+import { breadcrumb, previousAndNext, ROOT_ID, routeParam, sectionList, type SectionItem } from '../lib/sections';
+
+interface Props {
+  collection: 'case' | 'source';
+  /** The entry id: `join/pr`, or `index` for the section landing. */
+  id: string;
+  title: string;
+  summary?: string;
+  lead?: string;
+  groups: CollectionEntry<'case'>['data']['groups'];
+  /** Every published page of the section, for the section list and the neighbours. */
+  items: SectionItem[];
+}
+
+const { collection, id, title, summary, lead, groups, items } = Astro.props;
+
+const sectionUrl = collection === 'case' ? urls.caseSection : urls.sourceSection;
+const path = sectionUrl(routeParam(id));
+const sectionName = items.find((item) => item.id === ROOT_ID)?.title ?? '';
+const trail = breadcrumb(items, id, sectionUrl);
+const list = sectionList(items, id);
+const { previous, next } = previousAndNext(items, id);
+---
+
+<BaseLayout title={title} description={summary} path={path}>
+  <div class="section-shell container">
+    <nav class="crumbs" aria-label="面包屑" data-pagefind-ignore>
+      <ol>
+        <li><a href="/">首页</a></li>
+        {
+          trail.map((crumb, index) => (
+            <li>
+              {index === trail.length - 1 ? (
+                <span aria-current="page">{crumb.title}</span>
+              ) : (
+                <a href={crumb.href}>{crumb.title}</a>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="section-grid">
+      <aside class="section-list" aria-label={`${sectionName}的页面`} data-pagefind-ignore>
+        <p class="section-name" aria-current={id === ROOT_ID ? 'page' : undefined}>{sectionName}</p>
+        <ul>
+          {
+            list.map((item) => (
+              <li>
+                <a href={sectionUrl(routeParam(item.id))} aria-current={item.id === id ? 'page' : undefined}>
+                  {item.title}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
+
+      <article class="section-article">
+        <header>
+          <h1>{title}</h1>
+          {summary && <p class="summary" data-pagefind-ignore>{summary}</p>}
+        </header>
+
+        {lead && <p class="lead" data-pagefind-ignore>{lead}</p>}
+
+        {
+          groups.length > 0 && (
+            <div class="landing-groups" data-pagefind-ignore>
+              {groups.map((group) => (
+                <section class="landing-group">
+                  {group.title && <h2>{group.title}</h2>}
+                  <ul class="cards">
+                    {group.cards.map((card) => (
+                      <li>
+                        {card.href ? (
+                          <a class="card" href={card.href}>
+                            <span class="card-title">{card.title}</span>
+                            {card.description && <span class="card-text">{card.description}</span>}
+                          </a>
+                        ) : (
+                          <div class="card">
+                            <span class="card-title">{card.title}</span>
+                            {card.description && <span class="card-text">{card.description}</span>}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          )
+        }
+
+        <div class="prose" data-pagefind-body>
+          <slot />
+        </div>
+
+        {
+          (previous || next) && (
+            <nav class="prev-next" aria-label="上一页和下一页" data-pagefind-ignore>
+              {previous ? (
+                <a class="prev" href={sectionUrl(routeParam(previous.id))}>
+                  <span class="prev-next-label">上一页</span>
+                  <span>{previous.title}</span>
+                </a>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <a class="next" href={sectionUrl(routeParam(next.id))}>
+                  <span class="prev-next-label">下一页</span>
+                  <span>{next.title}</span>
+                </a>
+              ) : (
+                <span />
+              )}
+            </nav>
+          )
+        }
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .section-shell {
+    max-width: var(--max-width);
+    padding-block: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .crumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+  .crumbs li + li::before {
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--color-border);
+  }
+  .crumbs a {
+    color: var(--color-link);
+  }
+
+  .section-grid {
+    display: grid;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  .section-list {
+    border-top: 1px solid var(--color-border);
+    padding-top: 1rem;
+  }
+  .section-name {
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+  }
+  .section-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+  .section-list a {
+    color: var(--color-link);
+    text-decoration: none;
+  }
+  .section-list a:hover {
+    text-decoration: underline;
+  }
+  .section-list a[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .section-article {
+    min-width: 0;
+    max-width: 780px;
+  }
+  .section-article h1 {
+    font-size: clamp(2rem, 1.4rem + 2vw, 2.75rem);
+    text-wrap: balance;
+    margin-bottom: 0.5rem;
+  }
+  .summary {
+    color: var(--color-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .lead {
+    font-size: 1.15rem;
+    color: var(--color-muted);
+    margin-top: 1.5rem;
+  }
+
+  .landing-groups {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .landing-group h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+  }
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 1.1rem 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  a.card:hover {
+    border-color: var(--color-link);
+  }
+  .card-title {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  a.card .card-title {
+    color: var(--color-link);
+  }
+  .card-text {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+  }
+
+  .prose {
+    margin-top: 2rem;
+  }
+
+  .prev-next {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .prev-next a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    color: var(--color-link);
+    text-decoration: none;
+  }
+  .prev-next a.next {
+    text-align: right;
+  }
+  .prev-next a:hover {
+    border-color: var(--color-link);
+  }
+  .prev-next-label {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 960px) {
+    .section-grid {
+      grid-template-columns: 220px minmax(0, 780px);
+      align-items: start;
+      gap: 3rem;
+    }
+    .section-list {
+      position: sticky;
+      top: 6rem;
+      border-top: 0;
+      padding-top: 0;
+    }
+    .section-list ul {
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+</style>

@@ -20,4 +20,7 @@ export const urls = {
   tagList: () => path('tags'),
   categoryList: () => path('categories'),
   site: (id: string) => path(id),
+  /** Section pages. `id` is the path inside the section (`join/pr`); omitted for the section landing. */
+  caseSection: (id?: string) => (id ? path('case', id) : path('case')),
+  sourceSection: (id?: string) => (id ? path('source', id) : path('source')),
 };

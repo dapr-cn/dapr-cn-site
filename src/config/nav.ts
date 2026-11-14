@@ -11,13 +11,15 @@ export interface NavItem {
 }
 
 // The pages that were standalone are now tag archives (see src/content/tag). 介绍 is the home page,
-// and 成员 is the author list.
+// and 成员 is the author list. 源码 and 案例 are the section pages (src/content/source, src/content/case).
 export const nav: readonly NavItem[] = [
   { name: '介绍', href: '/', section: '/' },
   { name: '活动', href: '/event/', section: '/event/' },
   { name: '博客', href: '/post/', section: '/post/' },
   { name: '翻译', href: '/tag/translation/', section: '/tag/translation/' },
+  { name: '源码', href: '/source/', section: '/source/' },
   { name: '会议', href: '/tag/meeting/', section: '/tag/meeting/' },
+  { name: '案例', href: '/case/', section: '/case/' },
   { name: '出版', href: '/publication/', section: '/publication/' },
   { name: '成员', href: '/authors/', section: '/author' },
 ];
