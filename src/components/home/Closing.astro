@@ -1,0 +1,107 @@
+---
+import SignalPoster from './SignalPoster.astro';
+import { site } from '../../config/site';
+import { urls } from '../../lib/urls';
+
+// The last band of the home page: the three ways in that the community actually offers (the
+// translation group, the meeting archive, the GitHub organisation). Same dark world as the hero,
+// with the still signal field behind it.
+---
+
+<section class="closing" aria-labelledby="closing-title">
+  <SignalPoster seed={29} count={40} />
+  <div class="container closing-inner">
+    <h2 id="closing-title">加入社区</h2>
+    <p>社区由爱好者和志愿者发起和维护。读文章、参与翻译、来开会，或者直接到 GitHub 提交改动。</p>
+    <p class="closing-actions">
+      <a class="closing-button" href={urls.tag('translation')}>加入翻译小组</a>
+      <a class="closing-button ghost" href={urls.tag('meeting')}>查看会议</a>
+      <a class="closing-button ghost" href={site.githubUrl} rel="noopener">GitHub</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .closing {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--signal-bg);
+    color: var(--signal-text);
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+
+  /* Keep the still field off the copy: it fades in toward the right. */
+  .closing :global(.signal-poster) {
+    mask-image: linear-gradient(to right, transparent 25%, #000 75%);
+  }
+
+  .closing :focus-visible {
+    outline-color: var(--signal-focus);
+  }
+
+  .closing .closing-inner {
+    position: relative;
+    padding-top: clamp(3.5rem, 8vw, 6rem);
+    padding-bottom: clamp(3.5rem, 8vw, 6rem);
+  }
+
+  .closing h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem);
+    line-height: 1.25;
+    font-weight: 800;
+    color: var(--signal-text);
+  }
+
+  .closing p {
+    margin: 0.8rem 0 0;
+    max-width: 34rem;
+    color: var(--signal-muted);
+  }
+
+  .closing-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 1.8rem !important;
+  }
+
+  .closing-button {
+    display: inline-block;
+    padding: 0.7em 1.4em;
+    border-radius: 999px;
+    border: 2px solid var(--signal-accent);
+    background: var(--signal-accent);
+    color: var(--signal-bg);
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background-color 180ms ease-out,
+      color 180ms ease-out,
+      border-color 180ms ease-out;
+  }
+
+  .closing-button:hover {
+    background: var(--signal-text);
+    border-color: var(--signal-text);
+    color: var(--signal-bg);
+  }
+
+  .closing-button.ghost {
+    background: transparent;
+    color: var(--signal-text);
+    border-color: var(--signal-line);
+  }
+
+  .closing-button.ghost:hover {
+    background: transparent;
+    border-color: var(--signal-accent);
+    color: var(--signal-accent);
+  }
+
+  .closing ::selection {
+    background: var(--signal-accent);
+    color: var(--signal-bg);
+  }
+</style>

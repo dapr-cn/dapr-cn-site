@@ -1,6 +1,8 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import EventCard from '../EventCard.astro';
+import SectionHead from './SectionHead.astro';
+import { urls } from '../../lib/urls';
 
 // Used twice on the home page: upcoming events and event reviews. Renders nothing when empty,
 // so no heading is left behind.
@@ -15,10 +17,8 @@ const { id, title, events } = Astro.props;
 
 {
   events.length > 0 && (
-    <section class="section container" aria-labelledby={id}>
-      <h2 id={id} class="section-title">
-        {title}
-      </h2>
+    <section class="home-section container" aria-labelledby={id}>
+      <SectionHead id={id} title={title} href={urls.eventList()} linkLabel="全部活动" />
       <ul class="card-grid three">
         {events.map((event) => (
           <EventCard event={event} />

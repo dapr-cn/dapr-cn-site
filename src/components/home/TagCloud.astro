@@ -1,5 +1,6 @@
 ---
 import type { TagTerm } from '../../lib/tags';
+import SectionHead from './SectionHead.astro';
 import { urls } from '../../lib/urls';
 
 // Tag cloud ("标签云"). Renders nothing when there are no tags.
@@ -13,10 +14,8 @@ const { title, terms } = Astro.props;
 
 {
   terms.length > 0 && (
-    <section class="section container" aria-labelledby="tags-title">
-      <h2 id="tags-title" class="section-title">
-        {title}
-      </h2>
+    <section class="home-section container" aria-labelledby="tags-title">
+      <SectionHead id="tags-title" title={title} href={urls.tagList()} linkLabel="全部标签" />
       <ul class="tag-list tag-cloud">
         {terms.map((term) => (
           <li>

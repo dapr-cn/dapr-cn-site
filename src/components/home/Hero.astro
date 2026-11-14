@@ -1,79 +1,576 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import SignalPoster from './SignalPoster.astro';
+import { formatDate } from '../../lib/format';
 import { tagHrefs } from '../../lib/tag-links';
 import { urls } from '../../lib/urls';
 
-// Text comes from the `home/welcome` widget. The title falls back to the site name.
+// The home hero: the community name over the "signal field" (a node network that reacts to the
+// pointer), a link to the translation group, and the newest articles so reading starts above the
+// fold. The title falls back to the site name; the subtitle comes from the `home/skills` widget.
+interface Props {
+  latestTitle: string;
+  latest: CollectionEntry<'post'>[];
+}
+
+const { latestTitle, latest } = Astro.props;
 const welcome = await getEntry('pages', 'home/welcome');
-const rendered = welcome ? await render(welcome) : undefined;
+const skills = await getEntry('pages', 'home/skills');
 const title = welcome?.data.title ?? 'Dapr 中国社区';
+const lede = skills?.data.subtitle;
 const tagHref = await tagHrefs();
 ---
 
-<section class="hero">
-  <div class="container hero-inner">
-    <div class="hero-text">
-      <h1>{title}</h1>
-      {rendered && (
-        <div class="prose hero-body">
-          <rendered.Content />
-        </div>
-      )}
-      <p class="hero-actions">
-        <a class="button" href={urls.postList()}>阅读博客</a>
-        <a class="button secondary" href={tagHref('翻译')}>加入翻译小组</a>
+<section class="signal-hero" data-signal-hero aria-labelledby="home-title">
+  <SignalPoster />
+  <canvas class="signal-canvas" aria-hidden="true"></canvas>
+
+  <div class="container signal-inner">
+    <div class="signal-copy">
+      <h1 id="home-title">{title}</h1>
+      {lede && <p class="signal-lede">{lede}</p>}
+      <p class="signal-actions">
+        <a class="signal-button" href={urls.postList()}>阅读博客</a>
+        <a class="signal-button ghost" href={tagHref('翻译')}>加入翻译小组</a>
       </p>
     </div>
-    <img class="hero-image" src="/media/dapr.png" alt="" width="220" height="220" />
+
+    {
+      latest.length > 0 && (
+        <div class="signal-latest">
+          <h2>{latestTitle}</h2>
+          <ul>
+            {latest.map((post) => (
+              <li>
+                <a href={urls.post(post.id)}>{post.data.title}</a>
+                <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
   </div>
 </section>
 
 <style>
-  .hero {
-    background: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    padding: 2rem 0 2.4rem;
+  .signal-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--signal-bg);
+    color: var(--signal-text);
+    min-height: clamp(34rem, calc(100svh - 60px), 52rem);
+    display: flex;
+    flex-direction: column;
   }
 
-  .hero-inner {
-    display: grid;
-    gap: 1.5rem;
-    align-items: center;
+  .signal-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    opacity: 0;
+    transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
   }
 
-  .hero h1 {
-    font-size: 2rem;
-    margin-top: 0;
+  .signal-hero.is-live .signal-canvas {
+    opacity: 1;
   }
 
-  .hero-body :global(p) {
-    margin: 0.6em 0;
+  .signal-hero.is-live :global(.signal-poster) {
+    opacity: 0;
   }
 
-  .hero-actions {
+  .signal-hero .signal-inner {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    padding-top: clamp(3rem, 9vh, 6rem);
+    padding-bottom: 1.6rem;
+  }
+
+  .signal-copy {
+    max-width: 44rem;
+  }
+
+  .signal-copy h1 {
+    margin: 0;
+    font-size: clamp(2.75rem, 1.4rem + 5.6vw, 5rem);
+    line-height: 1.12;
+    font-weight: 800;
+    color: var(--signal-text);
+    text-wrap: balance;
+  }
+
+  .signal-lede {
+    margin: 1rem 0 0;
+    font-size: clamp(1.1rem, 1rem + 0.5vw, 1.4rem);
+    color: var(--signal-muted);
+    max-width: 30em;
+  }
+
+  .signal-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 1.2rem;
+    gap: 12px;
+    margin: 2rem 0 0;
   }
 
-  .hero-image {
-    width: 160px;
-    height: auto;
-    justify-self: start;
+  .signal-button {
+    display: inline-block;
+    padding: 0.7em 1.4em;
+    border-radius: 999px;
+    border: 2px solid var(--signal-accent);
+    background: var(--signal-accent);
+    color: var(--signal-bg);
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      background-color 180ms ease-out,
+      color 180ms ease-out,
+      border-color 180ms ease-out;
   }
 
-  @media (min-width: 720px) {
-    .hero-inner {
-      grid-template-columns: 1fr auto;
-    }
+  .signal-button:hover {
+    background: var(--signal-text);
+    border-color: var(--signal-text);
+    color: var(--signal-bg);
+  }
 
-    .hero h1 {
-      font-size: 2.4rem;
-    }
+  .signal-button.ghost {
+    background: transparent;
+    color: var(--signal-text);
+    border-color: var(--signal-line);
+  }
 
-    .hero-image {
-      width: 220px;
+  .signal-button.ghost:hover {
+    background: transparent;
+    border-color: var(--signal-accent);
+    color: var(--signal-accent);
+  }
+
+  .signal-hero :focus-visible {
+    outline-color: var(--signal-focus);
+  }
+
+  .signal-latest {
+    border-top: 1px solid var(--signal-line);
+    padding-top: 1rem;
+  }
+
+  .signal-latest h2 {
+    margin: 0 0 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--signal-muted);
+  }
+
+  .signal-latest ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.9rem 2rem;
+  }
+
+  .signal-latest li {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .signal-latest a {
+    color: var(--signal-text);
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-wrap: pretty;
+  }
+
+  .signal-latest a:hover {
+    color: var(--signal-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+
+  .signal-latest time {
+    color: var(--signal-muted);
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .signal-hero ::selection {
+    background: var(--signal-accent);
+    color: var(--signal-bg);
+  }
+
+  @media (min-width: 800px) {
+    .signal-latest ul {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+  }
+
+  @keyframes signal-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  .signal-copy h1,
+  .signal-lede,
+  .signal-actions,
+  .signal-latest {
+    animation: signal-rise 800ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  .signal-lede {
+    animation-delay: 90ms;
+  }
+
+  .signal-actions {
+    animation-delay: 180ms;
+  }
+
+  .signal-latest {
+    animation-delay: 320ms;
   }
 </style>
+
+<script>
+  import { signalLayout } from '../../lib/signal-field';
+
+  // WebGL signal field. Nodes drift on slow sine paths, short signals travel along the links and
+  // hop from node to node, and the pointer pulls nearby nodes toward it and links to them. The
+  // loop runs only while the hero is on screen, the tab is visible and motion is allowed. Without
+  // WebGL or JavaScript the server-drawn poster stays in place.
+  const hero = document.querySelector<HTMLElement>('[data-signal-hero]');
+  const canvas = hero?.querySelector<HTMLCanvasElement>('.signal-canvas');
+  const gl = canvas?.getContext('webgl', {
+    alpha: true,
+    antialias: false,
+    premultipliedAlpha: true,
+    powerPreference: 'low-power',
+  });
+
+  if (hero && canvas && gl) startField(hero, canvas, gl);
+
+  function startField(hero: HTMLElement, canvas: HTMLCanvasElement, gl: WebGLRenderingContext) {
+    const FLOATS = 7;
+    const POINTER_REACH = 24;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const hex = getComputedStyle(hero).getPropertyValue('--signal-accent').trim() || '#8fb3ff';
+    const accent = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    const pale = accent.map((v) => v + (1 - v) * 0.55);
+
+    const compile = (type: number, source: string): WebGLShader | null => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
+    };
+    const vertex = compile(
+      gl.VERTEX_SHADER,
+      `attribute vec2 a_pos; attribute vec4 a_col; attribute float a_size;
+       uniform vec2 u_res; varying vec4 v_col;
+       void main() {
+         vec2 c = a_pos / u_res * 2.0 - 1.0;
+         gl_Position = vec4(c.x, -c.y, 0.0, 1.0);
+         gl_PointSize = a_size;
+         v_col = a_col;
+       }`,
+    );
+    const fragment = compile(
+      gl.FRAGMENT_SHADER,
+      `precision mediump float; varying vec4 v_col; uniform float u_round;
+       void main() {
+         float a = v_col.a;
+         if (u_round > 0.5) {
+           float d = length(gl_PointCoord - 0.5) * 2.0;
+           a *= 1.0 - smoothstep(0.7, 1.0, d);
+         }
+         gl_FragColor = vec4(v_col.rgb * a, a);
+       }`,
+    );
+    const program = gl.createProgram();
+    if (!vertex || !fragment || !program) return;
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    const stride = FLOATS * 4;
+    const attribute = (name: string, size: number, offset: number) => {
+      const at = gl.getAttribLocation(program, name);
+      gl.enableVertexAttribArray(at);
+      gl.vertexAttribPointer(at, size, gl.FLOAT, false, stride, offset * 4);
+    };
+    attribute('a_pos', 2, 0);
+    attribute('a_col', 4, 2);
+    attribute('a_size', 1, 6);
+    const resolution = gl.getUniformLocation(program, 'u_res');
+    const round = gl.getUniformLocation(program, 'u_round');
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.clearColor(0, 0, 0, 0);
+
+    type Layout = ReturnType<typeof signalLayout>;
+    interface Pulse {
+      edge: number;
+      forward: boolean;
+      t: number;
+      speed: number;
+    }
+
+    let layout: Layout;
+    let phase: number[] = [];
+    let freq: number[] = [];
+    let amp: number[] = [];
+    let flash: number[] = [];
+    let adjacent: number[][] = [];
+    let pos: number[] = [];
+    let pulses: Pulse[] = [];
+    let lines = new Float32Array(0);
+    let dots = new Float32Array(0);
+    let unit = 1;
+    let dpr = 1;
+    let time = 0;
+    let spawnIn = 0.3;
+    let pointer: { x: number; y: number } | null = null;
+    let pointerAct = 0;
+    let seed = 0;
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+
+    const build = () => {
+      const rect = hero.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, rect.width < 700 ? 1.5 : 2);
+      canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      canvas.height = Math.max(1, Math.round(rect.height * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(resolution, canvas.width, canvas.height);
+      const aspect = canvas.width / canvas.height;
+      const count = Math.min(90, Math.max(28, Math.round((rect.width * rect.height) / 17000)));
+      layout = signalLayout(count, 11 + seed, aspect);
+      unit = canvas.height / layout.height;
+      const n = layout.nodes.length;
+      phase = Array.from({ length: n }, () => rand(0, Math.PI * 2));
+      freq = Array.from({ length: n }, () => rand(0.15, 0.4));
+      amp = Array.from({ length: n }, () => rand(0.8, 1.7));
+      flash = new Array(n).fill(0);
+      adjacent = Array.from({ length: n }, () => []);
+      layout.edges.forEach(({ a, b }, i) => {
+        adjacent[a].push(i);
+        adjacent[b].push(i);
+      });
+      pos = new Array(n * 2).fill(0);
+      pulses = [];
+      lines = new Float32Array((layout.edges.length + 6) * 2 * FLOATS);
+      dots = new Float32Array((n + 24 * 4) * FLOATS);
+    };
+
+    const spawn = (from?: number) => {
+      const choices = from === undefined ? layout.edges.map((_, i) => i) : adjacent[from];
+      if (choices.length === 0) return;
+      const edge = choices[Math.floor(Math.random() * choices.length)];
+      const { a, b } = layout.edges[edge];
+      if (from === undefined && Math.min(layout.nodes[a].weight, layout.nodes[b].weight) < 0.45) return;
+      pulses.push({ edge, forward: from === undefined ? Math.random() < 0.5 : layout.edges[edge].a === from, t: 0, speed: rand(0.28, 0.5) });
+    };
+
+    const update = (dt: number, animate: boolean) => {
+      time += animate ? dt : 0;
+      pointerAct += ((pointer && animate ? 1 : 0) - pointerAct) * Math.min(1, dt * 6);
+      const reach = POINTER_REACH;
+      layout.nodes.forEach((node, i) => {
+        let x = node.x + Math.sin(time * freq[i] + phase[i]) * amp[i];
+        let y = node.y + Math.cos(time * freq[i] * 0.8 + phase[i] * 1.3) * amp[i];
+        if (pointer && pointerAct > 0.01) {
+          const dx = pointer.x - x;
+          const dy = pointer.y - y;
+          const d = Math.hypot(dx, dy);
+          if (d < reach && d > 0.001) {
+            const pull = (1 - d / reach) ** 2 * 4 * pointerAct;
+            x += (dx / d) * pull;
+            y += (dy / d) * pull;
+          }
+        }
+        pos[i * 2] = x * unit;
+        pos[i * 2 + 1] = y * unit;
+        flash[i] = Math.max(0, flash[i] - dt * 1.6);
+      });
+      if (!animate) return;
+      spawnIn -= dt;
+      if (spawnIn <= 0 && pulses.length < 7) {
+        spawn();
+        spawnIn = rand(0.35, 0.9);
+      }
+      pulses = pulses.filter((pulse) => {
+        pulse.t += dt * pulse.speed;
+        if (pulse.t < 1) return true;
+        const { a, b } = layout.edges[pulse.edge];
+        const arrived = pulse.forward ? b : a;
+        flash[arrived] = 1;
+        if (Math.random() < 0.6 && pulses.length < 12) spawn(arrived);
+        return false;
+      });
+    };
+
+    const put = (data: Float32Array, at: number, x: number, y: number, c: number[], alpha: number, size: number) => {
+      const o = at * FLOATS;
+      data[o] = x;
+      data[o + 1] = y;
+      data[o + 2] = c[0];
+      data[o + 3] = c[1];
+      data[o + 4] = c[2];
+      data[o + 5] = alpha;
+      data[o + 6] = size;
+    };
+
+    const draw = () => {
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      const nodes = layout.nodes;
+      let l = 0;
+      layout.edges.forEach(({ a, b }) => {
+        const alpha = 0.3 * Math.min(nodes[a].weight, nodes[b].weight) + Math.max(flash[a], flash[b]) * 0.25;
+        put(lines, l++, pos[a * 2], pos[a * 2 + 1], accent, alpha, 1);
+        put(lines, l++, pos[b * 2], pos[b * 2 + 1], accent, alpha, 1);
+      });
+      if (pointer && pointerAct > 0.02) {
+        const px = pointer.x * unit;
+        const py = pointer.y * unit;
+        const near = nodes
+          .map((_, i) => ({ i, d: Math.hypot(pos[i * 2] - px, pos[i * 2 + 1] - py) / unit }))
+          .filter(({ d }) => d < POINTER_REACH)
+          .sort((p, q) => p.d - q.d)
+          .slice(0, 6);
+        near.forEach(({ i, d }) => {
+          const alpha = (1 - d / POINTER_REACH) * 0.7 * pointerAct;
+          put(lines, l++, px, py, pale, alpha, 1);
+          put(lines, l++, pos[i * 2], pos[i * 2 + 1], pale, alpha, 1);
+        });
+      }
+      gl.bufferData(gl.ARRAY_BUFFER, lines.subarray(0, l * FLOATS), gl.DYNAMIC_DRAW);
+      gl.uniform1f(round, 0);
+      gl.drawArrays(gl.LINES, 0, l);
+
+      let d = 0;
+      nodes.forEach((node, i) => {
+        let boost = flash[i];
+        if (pointer && pointerAct > 0.02) {
+          const dist = Math.hypot(pos[i * 2] - pointer.x * unit, pos[i * 2 + 1] - pointer.y * unit) / unit;
+          if (dist < POINTER_REACH) boost = Math.max(boost, (1 - dist / POINTER_REACH) * pointerAct);
+        }
+        const alpha = Math.min(1, 0.22 + node.weight * 0.6 + boost * 0.5);
+        const size = (2.2 + node.weight * 2 + boost * 3) * dpr;
+        put(dots, d++, pos[i * 2], pos[i * 2 + 1], boost > 0.2 ? pale : accent, alpha, size);
+      });
+      pulses.forEach((pulse) => {
+        const { a, b } = layout.edges[pulse.edge];
+        const from = pulse.forward ? a : b;
+        const to = pulse.forward ? b : a;
+        for (let k = 0; k < 4; k++) {
+          const t = Math.max(0, pulse.t - k * 0.045);
+          const x = pos[from * 2] + (pos[to * 2] - pos[from * 2]) * t;
+          const y = pos[from * 2 + 1] + (pos[to * 2 + 1] - pos[from * 2 + 1]) * t;
+          put(dots, d++, x, y, pale, (1 - k * 0.26) * Math.min(1, pulse.t * 6), (5.5 - k * 1.1) * dpr);
+        }
+      });
+      gl.bufferData(gl.ARRAY_BUFFER, dots.subarray(0, d * FLOATS), gl.DYNAMIC_DRAW);
+      gl.uniform1f(round, 1);
+      gl.drawArrays(gl.POINTS, 0, d);
+    };
+
+    let running = false;
+    let visible = true;
+    let raf = 0;
+    let last = 0;
+
+    const tick = (now: number) => {
+      raf = requestAnimationFrame(tick);
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      update(dt, true);
+      draw();
+    };
+
+    const sync = () => {
+      const should = visible && !document.hidden && !reduced.matches;
+      if (should && !running) {
+        running = true;
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      } else if (!should && running) {
+        running = false;
+        cancelAnimationFrame(raf);
+      }
+      if (!should) {
+        update(0, false);
+        draw();
+      }
+    };
+
+    const rebuild = () => {
+      build();
+      update(0, false);
+      draw();
+    };
+
+    const toUnits = (event: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      pointer = {
+        x: ((event.clientX - rect.left) * dpr) / unit,
+        y: ((event.clientY - rect.top) * dpr) / unit,
+      };
+    };
+
+    hero.addEventListener('pointermove', toUnits, { passive: true });
+    hero.addEventListener('pointerleave', () => (pointer = null));
+    canvas.addEventListener('webglcontextlost', (event) => {
+      event.preventDefault();
+      running = false;
+      cancelAnimationFrame(raf);
+      hero.classList.remove('is-live');
+    });
+    document.addEventListener('visibilitychange', sync);
+    reduced.addEventListener('change', sync);
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    }).observe(hero);
+
+    let resizeTimer = 0;
+    let first = true;
+    new ResizeObserver(() => {
+      if (first) return void (first = false);
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        rebuild();
+        sync();
+      }, 120);
+    }).observe(hero);
+
+    rebuild();
+    sync();
+    hero.classList.add('is-live');
+  }
+</script>

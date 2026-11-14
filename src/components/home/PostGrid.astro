@@ -1,8 +1,11 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import PostCard from '../PostCard.astro';
+import SectionHead from './SectionHead.astro';
+import { urls } from '../../lib/urls';
 
-// Featured posts ("热门文章"). Renders nothing when there are none.
+// Featured posts ("热门文章"): the first is set large beside the others. Renders nothing when
+// there are none.
 interface Props {
   title: string;
   posts: CollectionEntry<'post'>[];
@@ -13,11 +16,9 @@ const { title, posts } = Astro.props;
 
 {
   posts.length > 0 && (
-    <section class="section container" aria-labelledby="featured-title">
-      <h2 id="featured-title" class="section-title">
-        {title}
-      </h2>
-      <ul class="card-grid three">
+    <section class="home-section container" aria-labelledby="featured-title">
+      <SectionHead id="featured-title" title={title} href={urls.postList()} linkLabel="全部文章" />
+      <ul class="card-grid featured-grid">
         {posts.map((post) => (
           <PostCard post={post} />
         ))}

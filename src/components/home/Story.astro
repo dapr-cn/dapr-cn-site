@@ -1,0 +1,400 @@
+---
+import { getEntry, render } from 'astro:content';
+import { tagHrefs } from '../../lib/tag-links';
+
+// "What is Dapr" as a pinned scroll story: the application, the sidecar, the building blocks. The
+// intro text comes from the `home/welcome` widget. Without JavaScript, on small screens and with
+// reduced motion the three steps are plain stacked text beside a fully lit diagram.
+const welcome = await getEntry('pages', 'home/welcome');
+const rendered = welcome ? await render(welcome) : undefined;
+const tagHref = await tagHrefs();
+
+const steps = [
+  { id: 'app', title: '你的应用', text: '应用只写业务逻辑，用任何语言，通过 HTTP 或 gRPC 调用本机上的 Dapr。' },
+  {
+    id: 'sidecar',
+    title: 'Dapr Sidecar',
+    text: 'Dapr 以 Sidecar 的形式与应用一起运行，把服务调用、状态、消息等能力统一成一组标准 API。',
+  },
+  {
+    id: 'blocks',
+    title: '构建块',
+    text: '每个构建块背后的组件都可以替换。从本机到 Kubernetes，再到边缘，换组件通常不需要改应用代码。',
+  },
+];
+const blocks = ['服务调用', '发布订阅', '状态管理', '绑定', 'Actor', '工作流'];
+---
+
+<section class="story" aria-labelledby="story-title" data-story>
+  <div class="container story-intro">
+    <h2 id="story-title">一个运行时，<br />把分布式能力放到应用旁边</h2>
+    {rendered && (
+      <div class="prose story-body">
+        <rendered.Content />
+      </div>
+    )}
+  </div>
+
+  <div class="story-track">
+    <div class="story-stage">
+      <div class="container story-grid">
+        <ol class="story-steps">
+          {
+            steps.map((step) => (
+              <li class="story-step" data-step-id={step.id}>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))
+          }
+          <li class="story-more">
+            <a href="https://docs.dapr.io/zh-hans/" rel="noopener">阅读 Dapr 中文文档</a>
+            <a href={tagHref('翻译')}>查看社区翻译</a>
+          </li>
+        </ol>
+
+        <div class="flow" aria-hidden="true">
+          <div class="flow-node flow-app">
+            <strong>你的应用</strong>
+            <span>任意语言</span>
+          </div>
+          <div class="flow-link flow-link-a"></div>
+          <div class="flow-node flow-sidecar">
+            <strong>Dapr Sidecar</strong>
+            <span>HTTP / gRPC API</span>
+          </div>
+          <div class="flow-link flow-link-b"></div>
+          <ul class="flow-blocks">
+            {blocks.map((name) => <li>{name}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .story {
+    background: var(--signal-bg);
+    color: var(--signal-text);
+  }
+
+  .story :focus-visible {
+    outline-color: var(--signal-focus);
+  }
+
+  .story .story-intro {
+    padding-top: clamp(3.5rem, 8vw, 6rem);
+    padding-bottom: 2.5rem;
+    display: grid;
+    gap: 1.4rem 4rem;
+    align-items: start;
+  }
+
+  .story-intro h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 1.2rem + 2.1vw, 2.6rem);
+    line-height: 1.3;
+    font-weight: 800;
+    color: var(--signal-text);
+  }
+
+  .story-body {
+    color: var(--signal-muted);
+    max-width: 38rem;
+  }
+
+  .story-body :global(p) {
+    margin: 0 0 0.9em;
+  }
+
+  .story-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .story-body :global(br) {
+    display: none;
+  }
+
+  .story-body :global(strong) {
+    color: var(--signal-text);
+  }
+
+  .story .story-grid {
+    display: grid;
+    gap: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .story-steps li {
+    margin: 0;
+  }
+
+  .story-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.6rem;
+    align-content: start;
+  }
+
+  .story-step h3 {
+    margin: 0 0 0.3em;
+    font-size: 1.7rem;
+    color: var(--signal-text);
+  }
+
+  .story-step p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--signal-muted);
+    max-width: 30rem;
+  }
+
+  .story-more {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+  }
+
+  .story-more a {
+    color: var(--signal-accent);
+    font-weight: 600;
+    text-underline-offset: 0.25em;
+  }
+
+  .story-more a:hover {
+    color: var(--signal-text);
+  }
+
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-content: center;
+  }
+
+  .flow-node,
+  .flow-blocks li {
+    border: 1px solid var(--signal-line);
+    background: var(--signal-surface);
+    border-radius: 14px;
+    transition:
+      border-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 400ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .flow-node {
+    width: min(100%, 20rem);
+    padding: 1.3rem 1.4rem;
+    display: grid;
+    gap: 2px;
+  }
+
+  .flow-node strong {
+    font-size: 1.3rem;
+    color: var(--signal-text);
+    white-space: nowrap;
+  }
+
+  .flow-node span {
+    color: var(--signal-muted);
+    font-size: 0.9rem;
+  }
+
+  .flow-sidecar {
+    border-color: var(--signal-accent);
+  }
+
+  .flow-link {
+    width: 2px;
+    height: 3rem;
+    background: var(--signal-line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .flow-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, var(--signal-accent) 50%, transparent 100%);
+    background-size: 100% 200%;
+    background-position: 0 200%;
+    animation: flow-pulse 2.4s linear infinite;
+  }
+
+  .flow-blocks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: min(100%, 20rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .flow-blocks li {
+    margin: 0;
+    padding: 0.8rem 0.8rem;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  @keyframes flow-pulse {
+    to {
+      background-position: 0 -200%;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .story .story-intro {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .story .story-grid {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      align-items: center;
+    }
+
+    .flow {
+      grid-template-columns: auto 2.5rem auto 2.5rem minmax(12rem, 1fr);
+      justify-items: stretch;
+      align-items: center;
+    }
+
+    .flow-node {
+      width: auto;
+    }
+
+    .flow-link {
+      width: auto;
+      height: 2px;
+    }
+
+    .flow-link::after {
+      background-image: linear-gradient(to right, transparent 0%, var(--signal-accent) 50%, transparent 100%);
+      background-size: 200% 100%;
+      background-position: 200% 0;
+      animation-name: flow-pulse-x;
+    }
+
+    .flow-blocks {
+      width: auto;
+    }
+  }
+
+  @keyframes flow-pulse-x {
+    to {
+      background-position: -200% 0;
+    }
+  }
+
+  /* Pinned mode: set by the script when the viewport can hold the stage. The track is tall, the
+     stage sticks below the masthead, and the active step decides what is lit. */
+  .story.is-pinned .story-track {
+    height: 260vh;
+  }
+
+  .story.is-pinned .story-stage {
+    position: sticky;
+    top: 48px;
+    height: calc(100svh - 48px);
+    display: flex;
+    align-items: center;
+  }
+
+  .story.is-pinned .story-grid {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .story.is-pinned .story-step {
+    opacity: 0.32;
+    transition: opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .story.is-pinned[data-step='app'] [data-step-id='app'],
+  .story.is-pinned[data-step='sidecar'] [data-step-id='sidecar'],
+  .story.is-pinned[data-step='blocks'] [data-step-id='blocks'] {
+    opacity: 1;
+  }
+
+  .story.is-pinned .flow-node,
+  .story.is-pinned .flow-blocks li {
+    opacity: 0.32;
+    border-color: var(--signal-line);
+  }
+
+  .story.is-pinned .flow-link::after {
+    opacity: 0;
+  }
+
+  .story.is-pinned[data-step='app'] .flow-app,
+  .story.is-pinned[data-step='sidecar'] .flow-sidecar,
+  .story.is-pinned[data-step='blocks'] .flow-blocks li {
+    opacity: 1;
+    border-color: var(--signal-accent);
+  }
+
+  .story.is-pinned[data-step='sidecar'] .flow-app,
+  .story.is-pinned[data-step='blocks'] .flow-app,
+  .story.is-pinned[data-step='blocks'] .flow-sidecar {
+    opacity: 0.6;
+  }
+
+  .story.is-pinned[data-step='sidecar'] .flow-link-a::after,
+  .story.is-pinned[data-step='blocks'] .flow-link-a::after,
+  .story.is-pinned[data-step='blocks'] .flow-link-b::after {
+    opacity: 1;
+  }
+
+  .story.is-pinned[data-step='app'] .flow-link-a::after {
+    opacity: 1;
+  }
+
+  .story ::selection {
+    background: var(--signal-accent);
+    color: var(--signal-bg);
+  }
+</style>
+
+<script>
+  // Pins the story only where the stage fits (wide, tall, motion allowed) and maps scroll progress
+  // through the track to the active step. Everywhere else the markup stays in its stacked form.
+  const story = document.querySelector<HTMLElement>('[data-story]');
+  const track = story?.querySelector<HTMLElement>('.story-track');
+
+  if (story && track) {
+    const fits = window.matchMedia('(min-width: 900px) and (min-height: 560px) and (prefers-reduced-motion: no-preference)');
+    const order = ['app', 'sidecar', 'blocks'];
+    let frame = 0;
+
+    const measure = () => {
+      frame = 0;
+      const rect = track.getBoundingClientRect();
+      const span = rect.height - window.innerHeight;
+      const progress = span > 0 ? Math.min(1, Math.max(0, (48 - rect.top) / span)) : 0;
+      story.dataset.step = order[Math.min(order.length - 1, Math.floor(progress * order.length))];
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(measure);
+    };
+    const apply = () => {
+      story.classList.toggle('is-pinned', fits.matches);
+      if (fits.matches) {
+        measure();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      } else {
+        delete story.dataset.step;
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    };
+    fits.addEventListener('change', apply);
+    apply();
+  }
+</script>

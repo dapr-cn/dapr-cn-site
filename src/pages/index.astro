@@ -1,7 +1,10 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/home.css';
 import Hero from '../components/home/Hero.astro';
+import Story from '../components/home/Story.astro';
+import Closing from '../components/home/Closing.astro';
 import Activities from '../components/home/Activities.astro';
 import EventList from '../components/home/EventList.astro';
 import PostGrid from '../components/home/PostGrid.astro';
@@ -13,8 +16,9 @@ import { tagTerms } from '../lib/tags';
 import { tagDescriptions } from '../lib/tag-links';
 import { urls } from '../lib/urls';
 
-// Section order follows the Hugo home widgets: hero, activities, upcoming events, event reviews,
-// featured posts, recent posts, tag cloud. A section with no entries is not rendered.
+// Section order: hero (with the newest posts), the Dapr story, community purpose, upcoming events,
+// event reviews, featured posts, earlier posts, tag cloud, closing band. A section with no entries
+// is not rendered.
 const [posts, events, publications] = await Promise.all([
   getCollection('post', (entry) => !entry.data.draft),
   getCollection('event'),
@@ -24,7 +28,10 @@ const byDate = <T extends { data: { date: Date } }>(a: T, b: T) => b.data.date.g
 
 const { upcoming, past } = splitEvents(events, new Date());
 const featured = posts.filter((post) => post.data.featured).sort(byDate).slice(0, 3);
-const recent = [...posts].sort(byDate).slice(0, 6);
+// The hero shows the newest three; the list further down continues from there.
+const sorted = [...posts].sort(byDate);
+const newest = sorted.slice(0, 3);
+const earlier = sorted.slice(3, 9);
 // Tags with no entries (description only) stay out of the cloud.
 const terms = tagTerms(
   [...posts, ...events, ...publications].map((entry) => ({ tags: entry.data.tags })),
@@ -42,11 +49,15 @@ const tagsTitle = await titleOf('home/tags', '标签云');
 ---
 
 <BaseLayout title={undefined} description={site.description} path={urls.home()}>
-  <Hero />
+  <Hero latestTitle={recentTitle} latest={newest} />
+  <Story />
+  <div class="home">
   <Activities />
   <EventList id="upcoming-title" title={upcomingTitle} events={upcoming} />
   <EventList id="review-title" title={reviewTitle} events={past.slice(0, 3)} />
   <PostGrid title={featuredTitle} posts={featured} />
-  <PostList title={recentTitle} posts={recent} />
+  <PostList title="往期文章" posts={earlier} />
   <TagCloud title={tagsTitle} terms={terms} />
+  </div>
+  <Closing />
 </BaseLayout>

@@ -1,7 +1,8 @@
 ---
 import { getEntry } from 'astro:content';
 
-// The featurette ("社区宗旨") from the `home/skills` widget. Descriptions use <br /> between lines.
+// The featurette ("社区宗旨") from the `home/skills` widget, set as one statement and three rows
+// of plain words. Descriptions use <br /> between lines. Renders nothing without features.
 const skills = await getEntry('pages', 'home/skills');
 const features = skills?.data.feature ?? [];
 const lines = (text: string) =>
@@ -13,21 +14,83 @@ const lines = (text: string) =>
 
 {
   features.length > 0 && (
-    <section class="section container" aria-labelledby="activities-title">
-      <h2 id="activities-title" class="section-title">
-        {skills?.data.title}
-      </h2>
-      {skills?.data.subtitle && <p class="muted">{skills.data.subtitle}</p>}
-      <ul class="card-grid three">
+    <section class="home-section container purpose" aria-labelledby="activities-title">
+      <div class="purpose-lead">
+        <h2 id="activities-title">{skills?.data.title}</h2>
+        {skills?.data.subtitle && <p>{skills.data.subtitle}</p>}
+      </div>
+      <ul class="purpose-rows">
         {features.map((feature) => (
-          <li class="card feature">
+          <li>
             <h3>{feature.name}</h3>
-            {lines(feature.description).map((line) => (
-              <p>{line}</p>
-            ))}
+            <p>
+              {lines(feature.description).map((line) => (
+                <span>{line}</span>
+              ))}
+            </p>
           </li>
         ))}
       </ul>
     </section>
   )
 }
+
+<style>
+  .purpose {
+    display: grid;
+    gap: 2rem 4rem;
+    align-items: start;
+  }
+
+  .purpose-lead h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+    line-height: 1.3;
+  }
+
+  .purpose-lead p {
+    margin: 0.6rem 0 0;
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    color: var(--color-muted);
+    max-width: 22em;
+    text-wrap: balance;
+  }
+
+  .purpose-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .purpose-rows li {
+    display: grid;
+    gap: 0.2rem 2rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .purpose-rows h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .purpose-rows p {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1.2rem;
+    color: var(--color-muted);
+  }
+
+  @media (min-width: 800px) {
+    .purpose {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    .purpose-rows li {
+      grid-template-columns: 7rem 1fr;
+      align-items: baseline;
+    }
+  }
+</style>

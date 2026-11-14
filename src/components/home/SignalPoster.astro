@@ -1,0 +1,59 @@
+---
+import { signalLayout } from '../../lib/signal-field';
+
+// The still version of the signal field: drawn on the server from the same seeded layout as the
+// WebGL field, so it is what visitors see without JavaScript, without WebGL, or before the canvas
+// is ready. Decorative, so it is hidden from assistive technology.
+interface Props {
+  seed?: number;
+  count?: number;
+  class?: string;
+}
+
+const { seed = 11, count = 54, class: className } = Astro.props;
+const { width, height, nodes, edges } = signalLayout(count, seed, 1.6);
+---
+
+<svg
+  class:list={['signal-poster', className]}
+  viewBox={`0 0 ${width} ${height}`}
+  preserveAspectRatio="xMaxYMid slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    edges.map(({ a, b }) => (
+      <line
+        x1={nodes[a].x.toFixed(2)}
+        y1={nodes[a].y.toFixed(2)}
+        x2={nodes[b].x.toFixed(2)}
+        y2={nodes[b].y.toFixed(2)}
+        stroke-opacity={(0.16 * Math.min(nodes[a].weight, nodes[b].weight)).toFixed(3)}
+      />
+    ))
+  }
+  {
+    nodes.map((node) => (
+      <circle
+        cx={node.x.toFixed(2)}
+        cy={node.y.toFixed(2)}
+        r={(0.55 + node.weight * 0.45).toFixed(2)}
+        fill-opacity={(0.2 + node.weight * 0.6).toFixed(3)}
+      />
+    ))
+  }
+</svg>
+
+<style>
+  .signal-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    stroke: var(--signal-accent);
+    stroke-width: 0.18;
+    fill: var(--signal-accent);
+    transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>
