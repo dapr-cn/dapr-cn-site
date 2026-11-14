@@ -60,6 +60,7 @@ Content lives in `src/content/`.
 | `authors/<id>/index.md` | Author profile | `/author/<id>/` (the folder name) |
 | `tag/<slug>/index.md` | Tag description, shown above the tag's entries | `/tag/<slug>/` |
 | `pages/home/*.md` | Home-page widgets | none (headless) |
+| `site/**/*.md` | Chinese adaptations of official Dapr pages | `/<id>/` (including nested paths) |
 
 A post looks like this:
 
@@ -83,9 +84,42 @@ summary: "一句话摘要，用作搜索结果和页面描述。"
 - **Tag descriptions:** a folder `tag/<slug>/` with an `index.md` (`title` is the tag name, the folder name is the URL) adds a text above that tag's entries. A tag with a description and no entries still gets its page. Use it instead of a separate page.
 - **Authors:** an author the entry names must have a profile, or the build fails.
 
+## Official Dapr content
+
+The homepage overview and the twelve pages in `src/content/site/` are Chinese
+adaptations of [dapr/website](https://github.com/dapr/website/tree/460d369), pinned
+to commit `460d369` (2026-11-06). This is a source snapshot, not an automatic sync
+or a Chinese mirror of docs.dapr.io. Existing Chinese posts and archives remain
+at their original URLs; `/events/` is the global events overview, while `/event/`
+is the Chinese community archive.
+
+Each adapted page requires `title`, `description` and an official `source` URL.
+`intro` is optional and `draft: true` excludes a page from routes and the sitemap.
+The Markdown body is searchable. The homepage data lives in
+`src/data/official-home.ts`; its sections retain the source's active use cases,
+APIs (including alpha labels), value propositions, cases, adopter list and
+commercial resource links. Commented-out upstream entries are not published.
+Video and playlist URLs remain external links rather than automatically loaded
+third-party players. No registration forms, tracking IDs or vendor scripts
+were imported.
+
+Copied artwork is in `public/media/official/`. The source's Apache-2.0 license is
+preserved there as `LICENSE`; Fluent icons are MIT-licensed (see `icons/README.md`).
+Third-party marks retain their owners' rights and original appearance.
+The upstream diagram attribution is retained in `icons/README.md`. Missing
+upstream `bot`, `lock-shield` and `shield-checkmark` icons are represented by
+the supplied `chat` and `shield-lock` icons.
+The copied `diagrams/apis.svg` restores missing XML namespace declarations in
+the embedded PHP metadata and Rust logo so browsers can render the standalone SVG.
+
+Statements such as the productivity figure, case-study quotations and service
+prices are attributed translations, not independent community measurements,
+endorsements or service commitments. Legal links in the footer belong to the
+Dapr project and are explicitly not this site's policies.
+
 ## Search, feeds and analytics
 
-- Search is Pagefind. It indexes the body of posts, events and publications, and needs a build (`pnpm run build`) to exist.
+- Search is Pagefind. It indexes the body of posts, events, publications and adapted official pages, and needs a build (`pnpm run build`) to exist.
 - RSS is at `/index.xml`, the sitemap at `/sitemap.xml`, and `robots.txt` points to the sitemap.
 - Google Analytics (`G-J4DYYVC8KL`) loads on production builds only.
 
@@ -105,7 +139,8 @@ src/
   components/   header, footer, search, cards, home sections
   layouts/      base page and article layout
   lib/          URLs, tags, dates, events
-  pages/        routes (no static pages; the tag archive is `pages/tag/[tag].astro`)
+  data/         translated official homepage data
+  pages/        routes (adapted official pages use `[...id].astro`)
   styles/       theme tokens and base CSS
 public/         logo, images and robots.txt, served as they are
 scripts/        verification and migration scripts, hugo-urls.txt

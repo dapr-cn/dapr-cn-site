@@ -291,3 +291,52 @@ The home page is the one surface that leaves the flat bulletin board. It opens w
 - **Story.** On screens at least 900px wide and 560px tall, with motion allowed, the story pins and scroll progress lights the application, the sidecar, then the building blocks. Otherwise the three steps stack beside a fully lit diagram. The one gradient in the system is the moving pulse on the diagram's links; it carries meaning and is not decoration.
 - **Light sections on the home page** use the same cards as every other page, with a large first featured card and plain ruled lists.
 - **Still true here:** no webfonts, no invented numbers or logos, URLs unchanged, Dapr logo as supplied.
+
+## Reference Study: dapr.io
+
+Source: `dapr/website` at commit `460d369` (2026-11-06), Apache-2.0. The site is studied for structure, rhythm and interaction, not copied. Its colour roles, copy and third-party marks are not ours to reuse as they are. The inventory of reusable material for the homepage, header and footer is in `docs/redesign/homepage-header-footer-materials.md`.
+
+### What the reference does well
+- **One hero, one promise.** A large H1 with two keywords set on colour chips, one paragraph, then a primary and two secondary calls to action in a row.
+- **A diagram carries the explanation.** The hero and the value rows pair text with a drawn architecture diagram. Each diagram has a `<title>`, a `<desc>`, a still fallback and a pause control.
+- **Groups of four.** The use-case block is four cards, each with an icon, a title, two sentences and one link. The API block is a grid of icon cards.
+- **A navigation split by intent.** Top-level items are grouped; a dropdown opens on hover or focus, closes on Escape and on focus leaving it, and sets `aria-expanded`.
+- **Footer as an index.** Four link columns, a legal row, and a plain statement of who publishes the site.
+
+### Mapping to this system
+
+| Reference value | This system | Decision |
+| --- | --- | --- |
+| Brand blue `#0D2192` | `brand-indigo` `#0d2192` | Same colour; keep our role names |
+| Link blue `#202192`, hover at 29% alpha | `link-cobalt` `#1743c7` | Keep ours |
+| Accents `#3EA9F5`, `#73CDF3`, `#489FB5`, `#FF4E00`, `#EFCA08` | none | Reject: One Voice Rule |
+| Page `#fff`, surface `#f8fbff`, border `#ECECEC` | `paper`, `pinboard-mist`, `hairline` | Keep ours |
+| Buttons 7px radius, 120×50 | pill buttons | Keep pills |
+| Cards 10px with a soft shadow | 12px cards, no shadow | Keep flat rule |
+| Open Sans, Noto Sans, Work Sans, Lato | CJK system stack, no webfonts | Keep ours |
+| Sticky white nav with logo left and links | sticky indigo masthead | Keep ours; the structure matches |
+| Orange "Join Discord" chip | none | Reject the colour; a pill outline button is the equivalent if a join action is needed |
+| Keyword chips in the hero H1 | none | Adapt: a brand-indigo chip or bold text, never a second colour |
+| Carousel banner with autoplay | none | Adapt only as a static notice; if it moves, it pauses on hover and respects reduced motion |
+| Architecture hero diagram (D3) | Signal Field (WebGL, dark hero) | Keep the Signal Field; take the still-fallback and pause pattern |
+| Four-card use-case row | none on the home page | Adopt for the three to five entry points |
+| Adopter logo wall | none | Reject: third-party marks and claims we cannot verify |
+
+### Named Rules
+**The Translation Is Attributed Rule.** The user subsequently chose to integrate the official content in Chinese, including third-party content. `dapr/website` at `460d369` is now a pinned content source as well as a visual reference. Every adapted page links its original and names the source revision. Homepage claims, commercial offers and adopter marks remain attributed to the source, never to the Chinese community. Marks belong to their owners.
+
+**The Single Accent Rule Holds.** The reference uses five accents. This system keeps one, so every chip and button in this study is translated into the indigo, Paper and Ink roles above.
+
+**The Motion Pause Rule.** Any moving diagram or banner has a visible pause control, a static fallback for no-script and reduced-motion visitors, and no autoplay that cannot be stopped.
+
+### Implemented content integration
+
+The official overview replaces the old pinned Story on the homepage. Its order follows the reference: hero, four use cases, six case studies, four illustrated value rows, fifteen API entries, four cross-cutting concerns, twenty-two adopter logos, video link, ecosystem resources and CNCF status. Existing Chinese community purpose, events, articles, tags and closing band follow. The commercial banner's four messages are a static resource list, not an autoplay carousel. Videos link out instead of loading third-party players automatically.
+
+The Signal Field remains the hero's visual world, with the translated Dapr promise and three source-backed actions. Its background has a pause control; static diagrams need none. The new overview keeps the existing single-accent palette, native CJK typography and flat borders. Imported artwork stays on a white ground in both themes (`--official-artwork-bg`) so logos and diagram labels retain their original appearance.
+
+The nine-entry 了解 Dapr disclosure joins the existing seven community links. Desktop navigation starts at 1200px to fit the additional menu; below that, both groups live in the existing mobile disclosure. The footer adds the same official-content index and identifies Linux Foundation legal links as project links, not this site's policies. Copyright and the non-official-site statement remain unchanged.
+
+Below 360px, the mobile menu uses an icon-only pill to keep the brand, search, theme and menu controls inside the viewport. Its Chinese label remains available to screen readers.
+
+Adapted pages use the existing BaseLayout and a narrow reading column. Their source note separates official statements from community authorship. Their bodies are indexed by Pagefind and their routes are in the sitemap. Global events use `/events/`; the Chinese event archive keeps `/event/`.

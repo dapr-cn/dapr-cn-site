@@ -36,7 +36,7 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 - Site language is Simplified Chinese (`zh-Hans`). Public origin is `https://cn.dapr.io`.
 - Every URL listed in `scripts/hugo-urls.txt` must keep resolving; `pnpm run verify` enforces route parity. Two groups are deliberate exceptions, recorded in `scripts/retired-urls.txt` with their replacements: the standalone pages that became tag archives (/tour/, /people/, /meeting/, /translation/ and sub-pages), and the non-ASCII tag and author URLs.
 - Public URLs are ASCII only, including `#anchor` fragments. `pnpm run verify` fails on a non-ASCII route, `href` or `id`; tags and authors take their URL from an ASCII slug, and headings get ASCII ids.
-- Navigation: 介绍, 活动, 博客, 翻译, 会议, 出版, 成员. The navigation does not link to `/source/` or `/case/`.
+- Community navigation: 介绍, 活动, 博客, 翻译, 会议, 出版, 成员. A separate 了解 Dapr menu exposes the Chinese adaptations of the official learning, workflow, AI, platform engineering, global community, events, enterprise, case-study and FAQ pages. The navigation does not link to `/source/` or `/case/`.
 - A post must name authors that have a profile, or the build fails. Events are "upcoming" until their start time passes, evaluated at build time.
 - Seven images are hotlinked from `wework.qpic.cn` and are not checked by the build.
 - Undecided: whether contributors or evaluating companies should become co-primary audiences; no accessibility standard has been set.
@@ -52,7 +52,8 @@ A neutral, open, volunteer-run Chinese hub centered on Dapr. It is not the offic
 - Real content in the repository: 15 posts, 5 events, 5 publications and 11 author profiles in `src/content/`, plus tag descriptions for translation and meetings, and the author list for members.
 - Meeting pages list dated Tencent Meeting links and minutes; the listed dates stop in 2022, so the current cadence is not confirmed.
 - Images in `public/media/` (`welcome.avif`, `study.avif`, `books.avif`, `coders.avif`, `contact.avif`).
-- Not on hand, and not to be invented: testimonials, user counts, adoption statistics, sponsor logos, case-study content (the case pages are served elsewhere).
+- Official content is now available from `dapr/website` at `460d369` (2026-11-06): twelve adapted pages, homepage API descriptions, case studies, adopter logos and commercial resource links. Attribute these to the official source; they are not the Chinese community's own customers, measurements or endorsements. The separate legacy `/case/` deployment is unchanged.
+- Still not on hand, and not to be invented: the Chinese community's user counts, adoption statistics or independently verified customer claims.
 
 ## Product Principles
 
