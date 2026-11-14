@@ -4,6 +4,7 @@ import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import {
+  baseRouteOf,
   checkAuthorReferences,
   checkFrontMatter,
   checkInternalLinks,
@@ -49,7 +50,8 @@ test('a known author passes the author reference check', () => {
 });
 
 test('a broken internal link fails and names the link', () => {
-  const site = { routes: new Set(['/tag/translation/']), publicFiles: new Set() };
+  // /source/ is built here, so the link to it passes; only the missing page fails.
+  const site = { routes: new Set(['/tag/translation/', '/source/']), publicFiles: new Set() };
   const entry = post('links', 'title: "x"\ndate: "2023-01-01"', 'See [译](../../tag/translation/), [missing](../../nope/) and [source](/source/).\n');
   const findings = checkInternalLinks([entry], site);
   assert.equal(findings.length, 1);
@@ -123,5 +125,63 @@ test('a route with a non-ASCII character is reported, an ASCII route is not', ()
 test('an href or id with a non-ASCII character, raw or percent-encoded, is reported', () => {
   const html = '<a href="/tag/translation/">a</a><a href="#s-1ca93277">b</a><a href="#概述">c</a><a href="/tag/%E7%BF%BB%E8%AF%91/">d</a><h2 id="概述-1">e</h2>';
   assert.deepEqual(nonAsciiAttributes(html), ['#概述', '/tag/%E7%BF%BB%E8%AF%91/', '概述-1']);
+});
+
+const sectionEntry = (collection, id, body, front = 'title: "x"') => ({
+  collection,
+  id,
+  file: `src/content/${collection}/${id}.md`,
+  text: `---\n${front}\n---\n${body}`,
+});
+
+test('a link from a section page into a built section page passes', () => {
+  const site = { routes: new Set(['/source/join/workitems/']), publicFiles: new Set() };
+  const entry = sectionEntry('source', 'join/meetings', '见 [分工合作](../workitems/)。\n');
+  assert.deepEqual(checkInternalLinks([entry], site), []);
+});
+
+test('a link from a section page into a section page that is not built fails', () => {
+  const site = { routes: new Set(['/source/join/workitems/']), publicFiles: new Set() };
+  const entry = sectionEntry('source', 'join/meetings', '见 [缺失](../missing-page/)。\n');
+  const findings = checkInternalLinks([entry], site);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /\/source\/join\/missing-page\//);
+});
+
+test('a relative link on a section landing resolves from the section root', () => {
+  const site = { routes: new Set(['/case/', '/case/join/', '/case/join/pr/']), publicFiles: new Set() };
+  assert.equal(baseRouteOf({ collection: 'case', id: 'index' }), '/case/');
+  assert.equal(baseRouteOf({ collection: 'source', id: 'join' }), '/source/join/');
+  const good = sectionEntry('case', 'index', '[参与](join/) 和 [PR](join/pr/)\n');
+  assert.deepEqual(checkInternalLinks([good], site), []);
+  const broken = sectionEntry('case', 'index', '[缺失](join/nope/)\n');
+  assert.match(checkInternalLinks([broken], site)[0].message, /\/case\/join\/nope\//);
+});
+
+test('a landing card href is checked like a body link', () => {
+  const site = { routes: new Set(['/case/china/']), publicFiles: new Set() };
+  const front = [
+    'title: "Dapr用户案例"',
+    'groups:',
+    '  - cards:',
+    '      - title: "国内"',
+    '        href: "/case/china/"',
+    '      - title: "国外"',
+    '        href: "/case/global/"',
+    '      - title: "纯文字"',
+  ].join('\n');
+  const findings = checkInternalLinks([sectionEntry('case', 'index', '', front)], site);
+  assert.equal(findings.length, 1);
+  assert.match(findings[0].message, /\/case\/global\//);
+});
+
+test('the content verifier loads case and source entries with path ids', async (t) => {
+  const root = await mkdtemp(path.join(tmpdir(), 'dapr-cn-sections-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  await mkdir(path.join(root, 'source', 'join'), { recursive: true });
+  await writeFile(path.join(root, 'source', 'index.md'), '---\ntitle: "源码"\n---\n');
+  await writeFile(path.join(root, 'source', 'join', 'target.md'), '---\ntitle: "目标"\n---\n');
+  const entries = loadEntries(root);
+  assert.deepEqual(entries.map((entry) => `${entry.collection}:${entry.id}`).sort(), ['source:index', 'source:join/target']);
 });
 

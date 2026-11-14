@@ -19,9 +19,6 @@ import { normalisePath, routesFromDist } from './verify-url-parity.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Sections another deployment serves. Links to them are not checked against this build. */
-export const EXTERNAL_SECTIONS = ['/source/', '/case/'];
-
 const DATED = new Set(['post', 'event', 'publication']);
 const LINK = /(?<!!)\[[^\]]*\]\(\s*<?([^)\s>]+)[^)]*\)/g;
 const IMAGE_SRC = /!\[[^\]]*\]\(\s*<?(https?:\/\/[^)\s>]+)[^)]*\)|<img\b[^>]*?\ssrc\s*=\s*["'](https?:\/\/[^"']+)["']/gi;
@@ -92,11 +89,27 @@ export function baseRouteOf(entry) {
     return normalisePath(`/${entry.id}`);
   }
   if (entry.collection === 'authors') return normalisePath(`/author/${entry.id}`);
+  // A section landing (`case/index`, `source/index`) is served at the section root.
+  if (entry.id === 'index' && (entry.collection === 'case' || entry.collection === 'source')) return `/${entry.collection}/`;
   return normalisePath(`/${entry.collection}/${entry.id}`);
 }
 
 /**
- * Checks internal links in each body.
+ * The link targets of an entry: every Markdown link in the body, and the `href` of each landing
+ * card in the front matter (`groups[].cards[].href`). Both are checked like any other link.
+ */
+function linkTargets(body, data) {
+  const targets = [...body.matchAll(LINK)].map((match) => match[1]);
+  for (const group of data?.groups ?? []) {
+    for (const card of group.cards ?? []) {
+      if (card.href) targets.push(card.href);
+    }
+  }
+  return targets;
+}
+
+/**
+ * Checks internal links in each body and on each landing card.
  * @param {{ collection: string, id: string, file: string, text: string, title?: string }[]} entries
  * @param {{ routes: Set<string>, publicFiles: Set<string> }} site built routes and public file paths
  */
@@ -104,18 +117,17 @@ export function checkInternalLinks(entries, site) {
   const findings = [];
   for (const entry of entries) {
     let body;
+    let data;
     try {
-      ({ body } = parseEntry(entry.text));
+      ({ body, data } = parseEntry(entry.text));
     } catch {
       continue; // reported by checkFrontMatter
     }
     const base = baseRouteOf(entry);
-    for (const match of body.matchAll(LINK)) {
-      const href = match[1];
+    for (const href of linkTargets(body, data)) {
       if (!isLocalReference(href)) continue; // external, mailto:, or in-page anchor
       const resolved = new URL(href, `https://site.invalid${base}`).pathname;
       const decoded = decodeURI(resolved);
-      if (EXTERNAL_SECTIONS.some((prefix) => decoded.startsWith(prefix))) continue;
       const asRoute = normalisePath(decoded);
       if (site.routes.has(asRoute) || site.publicFiles.has(decoded)) continue;
       findings.push({ file: entry.file, field: 'link', message: `link "${href}" resolves to ${decoded}, which is not built` });
@@ -154,7 +166,7 @@ export function loadEntries(contentDir) {
       entries.push({ collection, id, file: path.relative(ROOT, file), text: readFileSync(file, 'utf8') });
     }
   }
-  for (const collection of ['pages', 'site']) {
+  for (const collection of ['pages', 'site', 'case', 'source']) {
     for (const file of walkFiles(path.join(contentDir, collection)).filter((f) => f.endsWith('.md'))) {
       const relative = path.relative(path.join(contentDir, collection), file).split(path.sep).join('/');
       const id = relative.replace(/\/index\.md$/, '').replace(/\.md$/, '');
