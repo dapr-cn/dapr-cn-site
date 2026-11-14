@@ -37,7 +37,7 @@ ISBN-10: 1484269977
 - Covers interfacing with external systems (self-hosted, PaaS, or SaaS offerings) without bloating the code with any third-party SDKs or incorporating any external paradigms
 - Presents a comprehensive view on important, yet often neglected, concepts such as observability and security
 
-![9781484269978](images/9781484269978.jpg)
+![9781484269978](images/9781484269978.avif)
 
 ## 配套的源码
 

@@ -17,7 +17,7 @@ content:
         position: "right"
         color: "#666"
         brightness: 0.7
-        media: "coders.jpg"
+        media: "coders.avif"
     - title: "学习 & 分享 ☕️"
       content: "向社区分享你的知识，交流落地经验，和朋友们一起成长!"
       align: "left"
@@ -25,7 +25,7 @@ content:
         position: "center"
         color: "#555"
         brightness: 0.7
-        media: "contact.jpg"
+        media: "contact.avif"
       link:
         icon: "book"
         icon_pack: "fa"
@@ -38,7 +38,7 @@ content:
         position: "center"
         color: "#333"
         brightness: 0.5
-        media: "books.jpg"
+        media: "books.avif"
       link:
         icon: "fighter-jet"
         icon_pack: "fa"
@@ -51,7 +51,7 @@ content:
         position: "center"
         color: "#333"
         brightness: 0.5
-        media: "study.jpg"
+        media: "study.avif"
       link:
         icon: "code"
         icon_pack: "fa"

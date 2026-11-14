@@ -17,7 +17,7 @@ tags:
 featured: false
 image:
   focal_point: "Right"
-  filename: "./featured.png"
+  filename: "./featured.avif"
 ---
 
 
@@ -28,7 +28,7 @@ image:
 
 ## 大会背景
 
-![](images/daprcon.png)
+![](images/daprcon.avif)
 
 
 
@@ -42,13 +42,13 @@ DaprCon 2022大会的演讲内容，请访问 youtube 上 Dapr 官方频道：
 
 https://www.youtube.com/playlist?list=PLcip_LgkYwztXoiR51DNYOfALMKQbclWN
 
-![youtube](images/youtube.png)
+![youtube](images/youtube.avif)
 
 我们也会将内容同步到哔哩哔哩的Dapr中文频道：
 
 https://space.bilibili.com/1898921833/channel/seriesdetail?sid=2730894
 
-![bilibili](images/bilibili.png)
+![bilibili](images/bilibili.avif)
 
 
 

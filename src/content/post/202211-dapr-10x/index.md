@@ -9,7 +9,7 @@ tags: []
 summary: "伟大的技术在时机成熟时才会变得有用。Dapr 是多语言的微服务，是 API 驱动和声明式的，与云原生原则和操作实践一致。Dapr的好处与云原生生态系统的其他部分一起成倍增加。Dapr 是一个10倍好的技术，它的时代已经到来。"
 abstract: "伟大的技术在时机成熟时才会变得有用。Dapr 是多语言的微服务，是 API 驱动和声明式的，与云原生原则和操作实践一致。Dapr的好处与云原生生态系统的其他部分一起成倍增加。Dapr 是一个10倍好的技术，它的时代已经到来。"
 header:
-  image: "./featured.png"
+  image: "./featured.avif"
 ---
 
 > 文章转载自: https://mp.weixin.qq.com/s/yoQcCm6cSv36VOz2VT3npA ，译者 罗广明。英文原文为 [Dapr as a 10x Platform](https://www.diagrid.io/blog/dapr-as-a-10x-platform)，作者 Bilgin Ibryam。
@@ -29,14 +29,14 @@ header:
 
 ## 正文
 
-![dapr10x-main.d6ac4438](images/dapr10x-main.d6ac4438.webp)
+![dapr10x-main.d6ac4438](images/dapr10x-main.d6ac4438.avif)
 
 ### 01 概述
 
 **一个新想法要传播，一个项目要被广泛采用并成为主流，它必须至少比现状好 10 倍，以证明为改变所付出的努力是合理的**。微服务架构改进了大多数组织的发布周期，从每季度（12周）或更长到每周甚至更短。Docker 使得在一台主机上运行数十个服务而没有资源冲突成为可能，而不只是 10 个。Kubernetes 使运维人员能够维护 10 倍以上的服务。这些都是 10 倍改进的例子。但是，实施新想法和采用新技术也会带来成本和新的缺点。识别领域边界、实现网络弹性、定位问题、测试和运行微服务的成本是在单体架构中不存在的。学习 Kubernetes、习惯异步协调行为和调试问题都需要全新的技能和工具，这些都是成本。然而，这些新架构和工具对组织的整体价值的重要性证明了变革的痛苦都是有意义的。在这篇文章中，我们将探讨为什么 Dapr 是一个在正确的时间出现的 10 倍好的运行时，它为组织中的不同角色提供了什么好处，以及它的缺点是什么。
 
 
-![dapr10x](images/dapr10x-info.png)
+![dapr10x](images/dapr10x-info.avif)
 
 Dapr 给整个组织都带来了好处：
 

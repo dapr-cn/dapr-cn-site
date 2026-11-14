@@ -22,11 +22,11 @@ Dapr 中国社区文档翻译小组在本周将发布 Dapr 官方文档中文翻
 
 在3月20号发布的 v1.5 版本中，"operations" 章节完成了翻译和审校，第一座大山被推翻。另外 "developing-applications" 章节翻译接近完成只待审校， "reference" 翻译过半。下图是当时 v1.5 发布的进展情况：
 
-![](images/v1.5-overview.png)
+![](images/v1.5-overview.avif)
 
 在最新发布的 v1.6 版本中，"developing-applications" 章节完成了翻译和审校，第二座大山被推翻。另外 "reference" 翻译完成只待审校。这是目前 crowdin 网站上显示的 v1.6 发布时的进展情况：
 
-![](images/v1.6-overview.png)
+![](images/v1.6-overview.avif)
 
 在接下来的 v1.7 版本的翻译过程中，翻译小组除了继续进行常规更新的翻译，也将集中力量完成 "reference" 部分的翻译和审校，将这最后一座大山推翻。
 
@@ -38,7 +38,7 @@ Dapr 中国社区在去年底重组了中文文档翻译小组，重启了 Dapr 
 
 以下是参与 Dapr 官方文档中文翻译 v1.6 版本翻译和审校的贡献者名单：
 
-![](images/contributors.png)
+![](images/contributors.avif)
 
 谢谢各位小伙伴的辛苦努力和无私奉献！
 
@@ -62,23 +62,23 @@ Dapr v1.7 版本的翻译工作即将启动，新的征程，期待您的加入�
 
 以下是 Dapr 文档中 concepts 部分，在 v1.6 发布之际，翻译和审校的完成情况如下图所示，翻译完成度都是100%：
 
-![](images/v1.6-concepts.png)
+![](images/v1.6-concepts.avif)
 
 在 v1.7 版本中，我们更新了英文文档的内容，由于英文内容有了更新，因此 concepts 部分的翻译完成情况变成了这样：
 
-![](images/v1.7-concepts.png)
+![](images/v1.7-concepts.avif)
 
 可以看到有一部分文档的翻译完成情况依然是100%，表示这个文档在 v1.7 版本中没有变更，也即无须再次翻译。另外部分文档的翻译完成情况变成了69%/87%/36%，这表明这些文档的内容在 v1.7 版本中有了更新（包括新增和修改），因此完成度下降，需要继续补充这部分内容的翻译。
 
 我们在 crowdin 中打开其中一个内容有更新显示完成度为69%的文件：
 
-![](images/content-updated.png)
+![](images/content-updated.avif)
 
 图中绿色部分表明这些内容没有更新，继续自动沿用上一个版本中的翻译。而粉色内容则表示这些内容是有更新，需要翻译人员介入进行翻译。
 
 继续在 crowdin 中打开其中一个内容有更新显示完成度为87%的文件：
 
-![](images/contend-added.png)
+![](images/contend-added.avif)
 
 可以看到整个文档的内容都没有修改，只是增加了一小段文字和一段代码。
 
@@ -90,10 +90,10 @@ Dapr v1.7 版本的翻译工作即将启动，新的征程，期待您的加入�
 
 相对工作量：这是目前准备开工的 v1.7 的翻译情况，注意在 v1.6 中所有章节内容都是翻译完成度100%，而现在都有了不同程度的下降，体现为英文文档内容有了比较大的变更。比如三座大山中的 "developing-applications" 下降为 72%, "operations" 下降为87%，"reference" 下降为75%，差不多半座大山又回来了 ^0^
 
-![](images/v1.7-workload.png)
+![](images/v1.7-workload.avif)
 
 绝对工作量：这是过去一年中 crowdin 上面的统计情况。28位活跃成员累计完成了 37.8 万字数的翻译和 21.6 万字的审校。
 
-![](images/project-status.png)
+![](images/project-status.avif)
 
 文章最后再次感谢翻译小组可爱的小伙伴们！

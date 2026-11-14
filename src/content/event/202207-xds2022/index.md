@@ -14,7 +14,7 @@ tags: []
 featured: false
 image:
   focal_point: "Right"
-  filename: "./featured.jpg"
+  filename: "./featured.avif"
 ---
 
 ## 活动介绍：稀土开发者大会

@@ -12,7 +12,7 @@ tags:
 summary: "如果你想了解更多关于分布式应用程序或 virtual actor 的想法，我建议你从 Dapr 开始。 Orleans 是最初的先驱，而 Dapr 是一次重新开始，它将提升到一个新的水平。"
 abstract: "如果你想了解更多关于分布式应用程序或 virtual actor 的想法，我建议你从 Dapr 开始。 Orleans 是最初的先驱，而 Dapr 是一次重新开始，它将提升到一个新的水平。"
 header:
-  image: "./featured.webp"
+  image: "./featured.avif"
 ---
 
 > 译者注：作者为了研究 virtual actor，实际使用并对比了 Orleans 和 Dapr 项目，得出的一些可供大家参考的结论。
@@ -144,7 +144,7 @@ await actor.performTask();
 
 我注意到的一件事是，提醒的存储方式可能存在可扩展性问题。 Dapr 将特定 actor 类型的所有提醒存储在单个 JSON 数组中。 如果有人有大量的提醒，将会怎样？
 
-![1](images/1.png)
+![1](images/1.avif)
 
 ### 其他 Dapr 陷阱/提示
 

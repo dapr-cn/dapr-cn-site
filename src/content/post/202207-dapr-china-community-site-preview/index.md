@@ -9,7 +9,7 @@ tags:
 summary: "Dapr 中国社区 是一个以 Dapr 为中心的中立而开放的技术社区，为 Dapr 用户和开发者提供知识分享和经验交流的平台，由社区爱好者和志愿者发起和维护。"
 abstract: "Dapr 中国社区 是一个以 Dapr 为中心的中立而开放的技术社区，为 Dapr 用户和开发者提供知识分享和经验交流的平台，由社区爱好者和志愿者发起和维护。"
 header:
-  image: "./featured.svg.png"
+  image: "./featured.svg.avif"
 ---
 
 ## 社区介绍
@@ -18,7 +18,7 @@ Dapr 是一个可移植的、事件驱动的运行时，它使任何开发人员
 
 Dapr 中国社区是一个以 Dapr 为中心的中立而开放的技术社区，为 Dapr 用户和开发者提供知识分享和经验交流的平台，由社区爱好者和志愿者发起和维护。
 
-![](images/community-principle.png)
+![](images/community-principle.avif)
 
 秉承"让 Dapr 用户和开发者更好的相互交流"的宗旨，两年前来自多个技术社区的 Dapr 爱好者共同组建了 Dapr 中国社区，并逐步发展成为被 Dapr 官方认可的社区组织。
 
@@ -26,15 +26,15 @@ Dapr 中国社区是一个以 Dapr 为中心的中立而开放的技术社区，
 
 分析数据显示，Dapr 26.2% 的 star 来自中国：
 
-![](images/starters.png)
+![](images/starters.avif)
 
 另外中国开发者贡献了 18% 的 issue ：
 
-![](images/issues.png)
+![](images/issues.avif)
 
  和 22.1% 的 PR ：
 
- ![](images/prs.png)
+ ![](images/prs.avif)
 
 > 数据来源：https://ossinsight.io/analyze/dapr/dapr
 
@@ -44,7 +44,7 @@ Dapr 中国社区是一个以 Dapr 为中心的中立而开放的技术社区，
 
 https://cn.dapr.io
 
-![](images/website-home.png)
+![](images/website-home.avif)
 
 网站内容密切围绕目前 dapr 中国社区最热门的内容，包括：
 
@@ -56,13 +56,13 @@ https://cn.dapr.io
 
 也可以回顾之前的活动内容，获取相关的演讲PPT和视频回放，例如今年6月份备受瞩目访问量过百万的开源云原生开发者日活动：
 
-![](images/cloud-native-day.webp)
+![](images/cloud-native-day.avif)
 
 ### 博客分享
 
 收集并整理来自 Dapr 社区的各种技术文档，包括原创文章和翻译文档，帮助大家快速获取最新的 Dapr 技术信息。
 
-![](images/posts.png)
+![](images/posts.avif)
 
 欢迎大家积极投稿，向社区分享你的知识，交流落地经验，和社区一起成长!
 
@@ -72,7 +72,7 @@ https://cn.dapr.io
 
 仅以此图，致敬过去两年中持续不断无私贡献的志愿者们：
 
-![](images/translation.png)
+![](images/translation.avif)
 
 在2022年，翻译小组翻译并发布了 Dapr 官方文档 v1.5版本，v1.6 版本目前接近完成预计下周发布。之后翻译小组将启动 v1.7 版本的翻译。值得一提的是，在 v1.7 版本中我们将攻克最后一个大关：reference 部分，从而在进度上完全追平 dapr 英文文档，覆盖所有内容。
 
@@ -84,7 +84,7 @@ https://docs.dapr.io/zh-hans/
 
 为了对 Dapr 有更深刻的了解和掌握，Dapr 中国社区组织了 Dapr 源码解析活动，并于本周正式启动：
 
-![](images/source-code-study.png)
+![](images/source-code-study.avif)
 
 稍后源码解析小组将陆续将产出的内容以文章和视频会议的形式进行分享，欢迎关注，更欢迎一起参加！更多详细请访问如下地址：
 
@@ -94,7 +94,7 @@ https://cn.dapr.io/source/join/
 
 2020年10月，Dapr 社区会议第一次举行，当时还是 Dapr SIG 的会议，每周举行，后来来自其他技术社区的 Dapr 爱好者也都陆续参加，进而发展成为 Dapr 中国社区的交流会议。
 
-![](images/meetings.png)
+![](images/meetings.avif)
 
 在这里鸣谢并致敬 Dapr 社区会议的发起者和长期维护者兼会议主持人 杨鼎睿 同学！
 
@@ -108,7 +108,7 @@ https://cn.dapr.io/meeting/
 
 在 Dapr 的官方网站上，有一个专栏介绍使用 Dapr 公司和落地场景：
 
-![](images/cases.png)
+![](images/cases.avif)
 
 随着 Dapr 在中国影响力的增加，Dapr 的用户也在增加，而社区对 Dapr 用户案例的分享需求更是持续增加。因此，应社区强烈要求，Dapr 中国社区网站开设了用户案例专栏，准备收集并整理 Dapr 的用户案例，并进行深度分享。
 
@@ -120,7 +120,7 @@ https://cn.dapr.io/case/join/
 
 这个栏目收集了 Dapr 相关的出版物，截止2022年7月，Dapr 总共有三本实体书和一本电子书：
 
-![](images/publication.png)
+![](images/publication.avif)
 
 - Introducing Distributed Application Runtime(Dapr)
 - Practical Microservices with Dapr and .NET：中文翻译版本即将上市
@@ -131,7 +131,7 @@ https://cn.dapr.io/case/join/
 
 由于网站刚刚推出，暂时还是预览版本，因此目前只上线了少量的社区成员，后续将陆续补充：
 
-![](images/members.png)
+![](images/members.avif)
 
 ## 总结和展望
 

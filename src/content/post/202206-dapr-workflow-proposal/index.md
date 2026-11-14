@@ -12,7 +12,7 @@ tags:
 summary: "Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎"
 abstract: "Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎"
 header:
-  image: "./featured.webp"
+  image: "./featured.avif"
 ---
 
 > 译者注：Dapr 最近提出了一个新的提案，计划在 Dapr Runtime 中构建工作流引擎，社区反映非常积极。由于提案内容比较长，因此翻译过来以帮助阅读。原文和社区讨论请见： https://github.com/dapr/dapr/issues/4576 
@@ -92,13 +92,13 @@ Dapr 已经包含许多为工作流的执行提供可靠性、可伸缩性和持
 
 在内部，Dapr 工作流实例将作为 **actor**实现。 Actor 通过 gRPC 流与工作流 SDK 通信来驱动工作流执行。 通过使用 actor，我们已经解决了放置和可扩展性的问题。
 
-![placement](images/placement.png)
+![placement](images/placement.avif)
 
 单个工作流的执行将使用 **actor reminder** 触发，因为它们既是 _persistent_ 又是 _durable_ （工作流的两个关键功能）。 如果容器或节点在工作流执行期间崩溃，则 actor 的 reminder 将确保它再次激活并从中断处恢复（使用状态存储来提供持久性，见下文）。
 
 为了防止工作流（无意中）阻塞，每个工作流将由两个单独的 actor 组成，一个充当调度（scheduler）/协调器（coordinator），另一个执行实际工作（调用API服务，执行计算等）。
 
-![workflow-instance](images/workflow-instance.png)
+![workflow-instance](images/workflow-instance.avif)
 
 ### 状态和持久性的存储
 

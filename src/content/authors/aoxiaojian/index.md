@@ -28,7 +28,7 @@ highlight_name: false
 user_groups:
   - "社区管理员"
   - "Dapr维护者"
-avatar: "./avatar.png"
+avatar: "./avatar.avif"
 ---
 
 敖小剑，资深码农，二十年软件开发经验，微服务专家，Service Mesh布道师，云原生布道师，Dapr Approver。专注于基础架构，Cloud Native 爱好者和实践者，坚守开发一线打磨匠艺的架构师。曾在亚信、爱立信、唯品会、数人云、蚂蚁集团/阿里云等任职，对基础架构和微服务有过深入研究和实践，矢志不渝探索云原生新方向。

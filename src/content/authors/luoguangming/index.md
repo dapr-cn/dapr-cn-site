@@ -19,7 +19,7 @@ social:
 highlight_name: false
 user_groups:
   - "撰稿人"
-avatar: "./avatar.jpg"
+avatar: "./avatar.avif"
 ---
 
 罗广明，微服务技术专家、致力于微服务构架&治理以及云原生相关的研究、开源与商业化落地，开源项目爱好者。曾在爱立信、百度任职，2022 年获中国信通院评选的 OSCAR 尖峰开源人物。

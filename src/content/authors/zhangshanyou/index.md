@@ -15,7 +15,7 @@ social:
 highlight_name: false
 user_groups:
   - "撰稿人"
-avatar: "./avatar.jpg"
+avatar: "./avatar.avif"
 ---
 
 张善友，个人介绍待补充

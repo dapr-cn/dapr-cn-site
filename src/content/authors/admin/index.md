@@ -18,7 +18,7 @@ social:
 highlight_name: false
 user_groups:
   - "Researchers"
-avatar: "./avatar.png"
+avatar: "./avatar.avif"
 ---
 
 Dapr 中国社区介绍

@@ -15,7 +15,7 @@ social:
 highlight_name: false
 user_groups:
   - "Dapr维护者"
-avatar: "./avatar.jpg"
+avatar: "./avatar.avif"
 ---
 
 戴翔，个人介绍待补充

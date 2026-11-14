@@ -16,7 +16,7 @@ tags:
 featured: false
 image:
   focal_point: "Right"
-  filename: "./featured.jpg"
+  filename: "./featured.avif"
 ---
 
 ## 活动介绍
@@ -39,29 +39,29 @@ image:
 
 技术的发展总是在来自微软、英特尔、阿里云、腾讯等知名技术企业的13位国内开发者大牛齐聚一堂，分享自己对Dapr开发的心得体会。还有更多海内外神秘大咖，带来全球视野分享。
 
-![](images/p1.png)
+![](images/p1.avif)
 
 ### 联合主办
 
-![](images/azure.jpg)
+![](images/azure.avif)
 
-![](images/intel.jpg)
+![](images/intel.avif)
 
-![](images/daprcn.jpg)
+![](images/daprcn.avif)
 
 ### 协办社区
 
-![](images/alibaba.png)
+![](images/alibaba.avif)
 
-![](images/reactor.jpg)
+![](images/reactor.avif)
 
-![](images/vscode.png)
+![](images/vscode.avif)
 
-![](images/dotnet.jpg)
+![](images/dotnet.avif)
 
-![](images/kubesphere.png)
+![](images/kubesphere.avif)
 
-![](images/ilab.png)
+![](images/ilab.avif)
 
 ## 视频回放地址
 
@@ -69,5 +69,5 @@ image:
 
 https://space.bilibili.com/483888821/channel/seriesdetail?sid=2611655
 
-![](images/video-reply-bilibili.png)
+![](images/video-reply-bilibili.avif)
 

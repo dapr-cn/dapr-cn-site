@@ -19,7 +19,7 @@ Dapr（**D**istributed **Ap**plication **R**untime），是微软Azure内部创�
 
 Dapr的核心由Go语言写成，开发团队一开始有计划使用.NET Core/C#来写，但是考虑到社区的接受程度，遂最终选定Go作为开发语言。当然，还是可以使用任何语言和框架来编写Dapr的扩展功能。由于Dapr要解决的问题确实是大家面临的一些痛点，并且Dapr的设计也独树一帜，所以一经开源，就成为GitHub上Star增长最快的开源项目之一，甚至达到5K Star的速率超过了Kubernetes。
 
-![图片](images/1.png)
+![图片](images/1.avif)
 
 ## Dapr包含什么
 
@@ -27,7 +27,7 @@ Dapr做的事情很简单，就是利用Sidecar的模式，把代码中的一些
 
 这种独立的途径就是使用开放协议（HTTP和gRPC）来代替依赖特定协议。如下图所示：
 
-![图片](images/2.png)
+![图片](images/2.avif)
 
 从上图我们可以看到，使用Dapr开发的微服务应用理论上可以部署到任意的云提供商、边缘设备、虚拟机、[Service Fabric](http://mp.weixin.qq.com/s?__biz=MzAwNDM5ODM3Mg==&mid=2657496111&idx=1&sn=11d7bf22f3a9b1853209fcc354dda00f&chksm=80be0064b7c989729e9143d5819d6568629ba3661a72de6c40d6c79281abd79dfc4479122663&scene=21#wechat_redirect)集群、Kubernetes集群里面。
 
@@ -43,9 +43,9 @@ Dapr做的事情很简单，就是利用Sidecar的模式，把代码中的一些
 
 下图很好的展示了以上独立抽象的能力是如何通过Sidecar模式实现的：
 
-（Sidecar进程模式）![图片](images/3.png)
+（Sidecar进程模式）![图片](images/3.avif)
 
-（Sidecar容器模式）![图片](images/4.png)
+（Sidecar容器模式）![图片](images/4.avif)
 
 虽然Dapr暴露的所有能力都是基于开放协议HTTP和gRPC的，但是为了方便大家快速开发，目前还是提供了如下语言平台的SDK：
 

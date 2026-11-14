@@ -14,7 +14,7 @@ tags: []
 featured: true
 image:
   focal_point: "Right"
-  filename: "./featured.png"
+  filename: "./featured.avif"
 ---
 
 ## 活动介绍：全球互联网架构大会

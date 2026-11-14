@@ -9,7 +9,7 @@ tags: []
 summary: "在SDLC(Software Development Lifecycle软件开发生命周期中)，绝大多数CNCF项目都是专注于软件开发的中后期阶段，特别是运维和可观测性方面。而很少有CNCF项目专注于早期阶段。而Dapr就是在软件开发的早期阶段，帮助开发者提高生产力。"
 abstract: "在SDLC(Software Development Lifecycle软件开发生命周期中)，绝大多数CNCF项目都是专注于软件开发的中后期阶段，特别是运维和可观测性方面。而很少有CNCF项目专注于早期阶段。而Dapr就是在软件开发的早期阶段，帮助开发者提高生产力。"
 header:
-  image: "./featured.png"
+  image: "./featured.avif"
 ---
 
 > 本文翻译自 [Bilgin Ibryam](https://twitter.com/bibryam) 发表于 2022.12.20 的博客文章 [Top Three Use Cases for Dapr and Kubernetes](https://www.diagrid.io/blog/k8s-dapr-top3) 。译者：[陈东海(seachen)](https://github.com/1046102779)，目前就职于腾讯，同时 Dapr Member 和 Dapr 中国社区成员。

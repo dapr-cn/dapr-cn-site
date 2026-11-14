@@ -146,7 +146,7 @@ public class ResolveRequest
 
 由于Dapr并不支持组件的动态注册，所以我们得将其源代码拉下来，修改后进行重新编译。这里涉及到两个git操作，[dapr](https://github.com/dapr/dapr)和[components-contrib](https://github.com/dapr/components-contrib)，前者为核心运行时，后者为社区驱动贡献得组件。我们将克隆下来的源代码放在同一个目录下。
 
-![image](images/1.png)
+![image](images/1.avif)
 
 我们将自定义的NameResolution组件命名为“svcreg”（服务注册之意），所我们在components-contrib/nameresolution目录（该目录下我们会看到上面提到的几种NameResolution组件的定义）下创建一个同名的目录，并组件代码定义在该目录下的svcreg.go文件中。如下所示的就是该NameResolution组件的完整定义。
 
@@ -300,7 +300,7 @@ replace (
 
 在将当前目录切换到“dapr/cmd/daprd/”后，以命令行的方式执行“go build”后会在当前目录下生成一个daprd.exe可执行文件。现在我们需要使用这个新的daprd.exe将当前使用使用的替换掉，该文件所在的目录在“**%userprofile%.dapr\bin**”。
 
-![2](images/2.png)
+![2](images/2.avif)
 
 ## 配置svcreg
 
@@ -383,19 +383,19 @@ public class Output
 
 在启动ServiceRegistry之后，我们启动App2，控制台上会阐述如下的输出。从输出的NameResolution组件名称可以看出，我们自定义的svcreg正在被使用。
 
-![3](images/3.png)
+![3](images/3.avif)
 
 由于应用启动的时候会调用Resolver的Init方法进行注册，这一点也反映在ServiceRegistry如下所示的输出上。可以看出注册实例的AppID为”app2”，对应的终结点为“10.181.22.4:60840”。
 
-![4](images/4.png)
+![4](images/4.avif)
 
 然后我们再启动App1，如下所示的输出表明四次服务调用均成功完成。
 
-![5](images/5.png)
+![5](images/5.avif)
 
 启动的App1的应用实例同样会在ServiceRegistry中注册。而四次服务调用会导致四次针对Resolver的ResolveID方法的调用，这也体现在ServiceRegistry的输出上。
 
-![6](images/6.png)
+![6](images/6.avif)
 
 
 

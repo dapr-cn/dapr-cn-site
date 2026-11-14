@@ -13,7 +13,7 @@ tags: []
 featured: false
 image:
   focal_point: "Right"
-  filename: "./featured.jpg"
+  filename: "./featured.avif"
 ---
 
 ## 活动介绍
@@ -22,7 +22,7 @@ image:
 
 CNCF、微软、英特尔联合发起首个开源云原生开发者日，在 JFrog、Dapr 中国社区、.NET 中文社区、KubeSphere、云赛空间的鼎力协助之下，新时代的云原生开发者们将共同见证、书写「新开发」时代的历史篇章。
 
-![](images/720133156.jpg)
+![](images/720133156.avif)
 
 ## 视频回放
 
@@ -30,8 +30,8 @@ CNCF、微软、英特尔联合发起首个开源云原生开发者日，在 JFr
 
 请在微信中搜索 "Azure云科技" 小程序：
 
-![azure-cloud-tech](images/azure-cloud-tech.jpg)
+![azure-cloud-tech](images/azure-cloud-tech.avif)
 
 进入"Azure云科技" 小程序后，在下方选择"精彩视频" -> "开源云原生开发者日"，即可看到本次活动的全部视频：
 
-![vidoe-list](images/vidoe-list.jpg)
+![vidoe-list](images/vidoe-list.avif)

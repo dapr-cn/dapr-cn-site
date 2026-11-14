@@ -133,7 +133,7 @@ Dapr 中国社区翻译小组是服务于 https://docs.dapr.io/ 的文档简体�
 2. [点击链接 https://crowdin.com/project/cndocsdapr/zh-CN#](https://crowdin.com/project/cndocsdapr/zh-CN#) 查看并选择您感兴趣的未翻译内容。
 3. 如下图所示，提交一段您的翻译建议。我们将会定时审阅您的翻译内容。并发布到站点中。
 
-  ![crowdin基础使用](images/001_basic_crowdin.png)
+  ![crowdin基础使用](images/001_basic_crowdin.avif)
 
 ## 翻译须知
 
@@ -151,7 +151,7 @@ Dapr 中国社区翻译小组是服务于 https://docs.dapr.io/ 的文档简体�
 
 随意选择一篇需要翻译的文章，按照下图所示，进行设置：
 
-![](images/005_tags_displaying.png)
+![](images/005_tags_displaying.avif)
 
 这样可以将 HTML 标记完整的展现出来，从而避免有时 crowdin 识别标记不完整而导致的问题。
 
@@ -159,7 +159,7 @@ Dapr 中国社区翻译小组是服务于 https://docs.dapr.io/ 的文档简体�
 
 使用 Copy Source 的方式复制原文内容到译文区域
 
-![](images/002_copy_source.png)
+![](images/002_copy_source.avif)
 
 ### 无需翻译的内容
 
@@ -243,7 +243,7 @@ Invoke an actor method through Dapr.
 
 在 Crowdin 当中，术语在翻译时为被特殊地以点状下划线进行标注。因此翻译时需要特别注意该提示。如下图所示：
 
-![术语标记](images/003_glossary_mark.png)
+![术语标记](images/003_glossary_mark.avif)
 
 值得注意的是，术语并非一成不变。术语表也需要在翻译的过程中进行更新，这同样离不开译者的参与。译者至少有两种方式修改术语表。
 
@@ -251,7 +251,7 @@ Invoke an actor method through Dapr.
 
 第二，在翻译过程中如下图所示，选中条目并直接创建。
 
-![Create Glossary](images/004_create_glossary.png)
+![Create Glossary](images/004_create_glossary.avif)
 
 ## 确认成果
 
@@ -267,7 +267,7 @@ Invoke an actor method through Dapr.
 
 例如，在如下图所示的位置，可以查看到对应的构建状态。
 
-![pull request status](images/007_pull-request_status.png)
+![pull request status](images/007_pull-request_status.avif)
 
 如果是成功的，那么就可以了。
 
@@ -275,7 +275,7 @@ Invoke an actor method through Dapr.
 
 你可以通过下图所示的地址来查看构建失败的具体原因：
 
-![pull request fail logging](images/008_pull-request_fail_log.png)
+![pull request fail logging](images/008_pull-request_fail_log.avif)
 
 一般来说，构建失败的原因是因为最新翻译的内容导致了一些标记的破损，而导致失败，按照错误提示，对对应的翻译内容进行修正即可。
 

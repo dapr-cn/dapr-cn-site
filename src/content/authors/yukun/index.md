@@ -15,7 +15,7 @@ social:
 highlight_name: false
 user_groups:
   - "文档翻译小组"
-avatar: "./avatar.jpg"
+avatar: "./avatar.avif"
 ---
 
 俞坤，个人介绍待补充

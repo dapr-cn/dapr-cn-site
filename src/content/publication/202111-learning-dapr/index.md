@@ -75,19 +75,19 @@ links:
 - Dapr 示例仓库 (https://oreil.ly/7JBHH)。
 - Dapr 组件贡献仓库 (https://oreil.ly/lVk5V)。
 
-![](images/info-1.jpg)
+![](images/info-1.avif)
 
-![](images/info-2.jpg)
+![](images/info-2.avif)
 
-![](images/info-3.jpg)
+![](images/info-3.avif)
 
-![](images/info-4.jpg)
+![](images/info-4.avif)
 
-![](images/info-5.jpg)
+![](images/info-5.avif)
 
 ## 内容预览
 
-![cover](images/cover.jpg)
+![cover](images/cover.avif)
 
 
 ```yaml
